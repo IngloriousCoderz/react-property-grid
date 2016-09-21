@@ -13,7 +13,9 @@ const Types = {
     required: 'boolean',
     defaultValue: [],
     editor: 'list',
-    of: 'any'
+    of: 'any',
+    // min: 'number',
+    // max: 'number'
   }
 }
 
@@ -28,12 +30,16 @@ Types.SpreadsheetViewer = {
   }
 }
 
-const schema = {
-  fields: {
+Types.Root = {
+  properties: {
     hello: {
       type: Types.string,
       required: true,
       defaultValue: 'world'
+    },
+    viewers: {
+      type: Types.array,
+      of: [Types.SpreadsheetViewer]
     }
   }
 }
@@ -52,4 +58,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
