@@ -1,50 +1,14 @@
 import React, { Component } from 'react';
-import PropertyEditor from './PropertyEditor'
+import Form from 'react-json-editor'
 import logo from './logo.svg';
 import './App.css';
-
-const Types = {
-  string: {
-    required: 'boolean',
-    defaultValue: 'string',
-    editor: 'text'
-  },
-  array: {
-    required: 'boolean',
-    defaultValue: [],
-    editor: 'list',
-    of: 'any',
-    // min: 'number',
-    // max: 'number'
-  }
-}
-
-Types.Binding = {
-  name: { type: Types.string }
-}
-
-Types.SpreadsheetViewer = {
-  properties: {
-    name: { type: Types.string, required: true },
-    bindings: { type: 'array', of: Types.Binding, required: false }
-  }
-}
-
-Types.Root = {
-  properties: {
-    hello: {
-      type: Types.string,
-      required: true,
-      defaultValue: 'world'
-    },
-    viewers: {
-      type: Types.array,
-      of: [Types.SpreadsheetViewer]
-    }
-  }
-}
+import schema from './layout-schema.json'
 
 class App extends Component {
+  onSubmit() {
+    alert('hi!')
+  }
+
   render() {
     return (
       <div className="App">
@@ -52,9 +16,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <PropertyEditor schema={schema} />
+        <Form schema={schema} onSubmit={this.onSubmit} />
       </div>
-    );
+    )
   }
 }
 

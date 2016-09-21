@@ -1,0 +1,2039 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "object",
+      "properties": {
+        "rootPath": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rootPath",
+        "pageSize"
+      ]
+    },
+    "styles": {
+      "type": "object",
+      "properties": {
+        "fullscreen": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "string"
+            },
+            "overflow": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "height",
+            "overflow"
+          ]
+        },
+        "halfHeight": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "height"
+          ]
+        },
+        "row": {
+          "type": "object",
+          "properties": {
+            "marginBottom": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "marginBottom"
+          ]
+        },
+        "column": {
+          "type": "object",
+          "properties": {
+            "display": {
+              "type": "string"
+            },
+            "verticalAlign": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "display",
+            "verticalAlign"
+          ]
+        },
+        "table": {
+          "type": "object",
+          "properties": {
+            "display": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "display"
+          ]
+        },
+        "full": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "width"
+          ]
+        },
+        "large": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "width"
+          ]
+        },
+        "medium": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "width"
+          ]
+        },
+        "small": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "width"
+          ]
+        },
+        "xsmall": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "width"
+          ]
+        },
+        "tall": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "height"
+          ]
+        },
+        "short": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "height"
+          ]
+        },
+        "xshort": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "height"
+          ]
+        }
+      },
+      "required": [
+        "fullscreen",
+        "halfHeight",
+        "row",
+        "column",
+        "table",
+        "full",
+        "large",
+        "medium",
+        "small",
+        "xsmall",
+        "tall",
+        "short",
+        "xshort"
+      ]
+    },
+    "viewers": {
+      "type": "object",
+      "properties": {
+        "SchedaDiTipoGruppo": {
+          "type": "object",
+          "properties": {
+            "bindings": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "sheet": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cells": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "template": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "bindings",
+            "template"
+          ]
+        },
+        "SchedaDiTipoSingolo": {
+          "type": "object",
+          "properties": {
+            "bindings": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "sheet": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cells": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "sheet": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cells": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "sheet": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cells": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "sheet": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cells": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "path": {
+                              "type": "string"
+                            },
+                            "reference": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "query": {
+                      "type": "object",
+                      "properties": {
+                        "dataMember": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "object",
+                          "properties": {
+                            "select": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "filter": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "template": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "bindings",
+            "template"
+          ]
+        }
+      },
+      "required": [
+        "SchedaDiTipoGruppo",
+        "SchedaDiTipoSingolo"
+      ]
+    },
+    "placing": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "properties": {
+            "style": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "style"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "children": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "children": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "children": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "props": {
+                  "type": "object",
+                  "properties": {
+                    "style": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "height": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "props": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "style": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "props": {
+                  "type": "object",
+                  "properties": {
+                    "style": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "height": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "children": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "props": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "style": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "props",
+        "children"
+      ]
+    }
+  },
+  "required": [
+    "server",
+    "styles",
+    "viewers",
+    "placing"
+  ]
+}
