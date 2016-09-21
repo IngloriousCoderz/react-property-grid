@@ -12,7 +12,9 @@ form * {
 
 .form-section {
   margin: .2em;
-  border: 1px solid #999;
+  margin-left: .5em;
+  border: 0;
+  border-top: 1px solid #ddd;
 }
 
 .form-section-title {
@@ -34,14 +36,14 @@ form * {
 
 .form-element label {
   width: 15%;
-  margin-right: .5em;
+  padding-right: .5em;
   text-align: right;
   white-space: normal;
   overflow: hidden;
 }
 
 .form-element>input[type="text"], .form-element>textarea, .form-element>select {
-  width: 80%;
+  width: 85%;
   border: 1px solid #666;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;

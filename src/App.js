@@ -3,9 +3,9 @@ import Form from 'react-json-editor'
 import './form.css'
 // import logo from './logo.svg';
 // import './App.css';
-// import schema from './layout-schema.json'
+import schema from './spreadsheet-schema.json'
 
-const schema = {
+const schema2 = {
   title: "Contact",
   description: "General contact info",
   type      : "object",
