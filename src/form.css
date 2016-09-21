@@ -1,0 +1,58 @@
+form * {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+.form-section {
+  margin: .2em;
+  border: 1px solid #999;
+}
+
+.form-section-title {
+  font-weight: bold;
+  margin: .2em;
+  padding: .2em;
+}
+
+.form-element {
+  margin-bottom: .2em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.form-element>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.form-element label {
+  width: 15%;
+  margin-right: .5em;
+  text-align: right;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.form-element>input[type="text"], .form-element>textarea, .form-element>select {
+  width: 80%;
+  border: 1px solid #666;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: .2em;
+}
+
+form>p {
+  margin: .2em;
+}
+
+form>p>input[type="submit"], form>p>button {
+  margin-right: 1em;
+  padding: .2em .6em;
+}
