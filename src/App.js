@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import kendo from 'kendo'
 import $ from 'jquery'
-import k from 'kendo-ui-react'
+import 'kendo'
+import 'kendo/css/web/kendo.common.css'
+import 'kendo/css/web/kendo.fiori.css'
+import {Splitter, TreeView} from 'kendo-ui-react'
+import './index.css'
 // import './form.css'
 // import schema from './spreadsheet-schema.json'
 
@@ -71,21 +74,36 @@ import k from 'kendo-ui-react'
 
 window.$ = $
 
-class App extends Component {
-  render() {
-    return (<div>
-      <div>Hello!</div>
-      <k.Splitter options={{
-        orientation: 'horizontal',
-        panes: [
-          { collapsible: false, size: '300px' },
-          { resizable: true }
-        ]}}>
-          <div>Div1</div>
-          <div>Div2</div>
-        </k.Splitter>
-    </div>)
-  }
+const splitterOptions = {
+  orientation: 'vertical',
+  panes: [
+    { collapsible: true, size: '50%' },
+    { collapsible: true, resizable: true }
+  ]
 }
 
-export default App
+const treeViewOptions = {
+  dragAndDrop: true,
+  dataSource: [
+    {
+      text: "Item 1",
+      items: [
+        { text: "Item 1.1" },
+        { text: "Item 1.2" }
+      ]
+    },
+    { text: "Item 2" }
+  ]
+}
+
+class App extends Component {
+  render() {
+    return (
+      <Splitter id='property-editor' options={splitterOptions}>
+        <TreeView options={treeViewOptions}></TreeView>
+        <div>Div2</div>
+      </Splitter>)
+    }
+  }
+
+  export default App
