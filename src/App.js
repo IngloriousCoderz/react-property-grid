@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Form from 'react-json-editor'
-import './form.css'
-// import logo from './logo.svg';
-// import './App.css';
-import schema from './spreadsheet-schema.json'
+import kendo from 'kendo'
+import $ from 'jquery'
+import k from 'kendo-ui-react'
+// import './form.css'
+// import schema from './spreadsheet-schema.json'
 
-const schema2 = {
+/*const schema2 = {
   title: "Contact",
   description: "General contact info",
   type      : "object",
@@ -67,15 +67,24 @@ const schema2 = {
       "x-hints": { form: { selector: "contactType" } }
     }
   }
-}
+}*/
+
+window.$ = $
 
 class App extends Component {
-  onSubmit(data) {
-    console.log(data)
-  }
-
   render() {
-    return <Form schema={ schema } onSubmit={ this.onSubmit } />
+    return (<div>
+      <div>Hello!</div>
+      <k.Splitter options={{
+        orientation: 'horizontal',
+        panes: [
+          { collapsible: false, size: '300px' },
+          { resizable: true }
+        ]}}>
+          <div>Div1</div>
+          <div>Div2</div>
+        </k.Splitter>
+    </div>)
   }
 }
 

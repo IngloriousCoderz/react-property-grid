@@ -6,9 +6,11 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
+    "kendo": "git+https://antony.mistretta%40irion.it:D3usExM4ch1n4@bower.telerik.com/npm-kendo-ui.git",
+    "kendo-ui-react": "^0.14.2",
+    "lodash": "^4.16.2",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-json-editor": "^0.2.0"
+    "react-dom": "^15.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
