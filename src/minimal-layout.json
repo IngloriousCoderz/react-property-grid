@@ -1,0 +1,39 @@
+{
+  "server": {
+    "rootPath": "MarketData/Equity/",
+    "pageSize": 25000
+  },
+  "styles": {
+    "small": {
+      "width": "23.6064912503%"
+    },
+    "xshort": {
+      "height": 122
+    }
+  },
+  "viewers": [{
+    "id": "MarketsGrid",
+    "bindings": [{
+      "query": "SELECT * FROM Markets ORDER BY Market",
+      "columns": [{
+        "name": "Market",
+        "key": true,
+        "variable": "MarketsGrid.0.Market"
+      }, {
+        "name": "Description"
+      }],
+      "defaultCurrentRow": 0
+    }],
+    "style": {
+      "backgroundColor": "{{'lightyellow'}}"
+    }
+  }],
+  "placing": {
+    "type": "Grid",
+    "props": {
+      "id": "MarketsGrid",
+      "style": ["small", "xshort"]
+    }
+  },
+  "defaults": {}
+}

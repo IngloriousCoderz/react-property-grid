@@ -5,72 +5,8 @@ import 'kendo/css/web/kendo.common.css'
 import 'kendo/css/web/kendo.fiori.css'
 import {Splitter, TreeView} from 'kendo-ui-react'
 import './index.css'
-// import './form.css'
 // import schema from './spreadsheet-schema.json'
-
-/*const schema2 = {
-  title: "Contact",
-  description: "General contact info",
-  type      : "object",
-  properties: {
-    name: {
-      type: "string",
-      title: "Name"
-    },
-    age: {
-      type: "number",
-      title: "Age",
-      minimum: 0,
-      maximum: 100
-    },
-    gender: {
-      title: 'Gender',
-      description: "Your sex",
-      enum: [ "", "Male", "Female", "Apache Helicopter" ]
-    },
-    happy: {
-      title: 'Happy',
-      type: 'boolean'
-    },
-    contact: {
-      title      : "Contact details",
-      description: "How would you like to be contacted?",
-      type       : "object",
-      properties : {
-        contactType: {
-          title      : "Contact medium",
-          description: "Please pick your preferred medium",
-          enum: [ "", "Email", "Telephone", "Physical mail" ]
-        }
-      },
-      oneOf: [
-        {},
-        {
-          properties: {
-            contactType: { enum: [ "Email" ] },
-            email      : { type: "string", title: "Email address" }
-          }
-        },
-        {
-          properties: {
-            contactType: { enum: [ "Telephone" ] },
-            phoneNumber: { title: "Telephone number" }
-          }
-        },
-        {
-          properties: {
-            contactType: { enum: [ "Physical mail" ] },
-            address    : { title: "Street address" },
-            postcode   : { title: "Post or area code" },
-            state      : { title: "State or province" },
-            country    : { title: "Country" }
-          }
-        }
-      ],
-      "x-hints": { form: { selector: "contactType" } }
-    }
-  }
-}*/
+import layout from './minimal-layout.json'
 
 window.$ = $
 
@@ -82,18 +18,73 @@ const splitterOptions = {
   ]
 }
 
+const adaptLayout = layout => {
+  return [{
+    "id": "server",
+    "text": "Server properties"
+  }, {
+    "id": "styles",
+    "text": "Default styles"
+  }, {
+    "id": "viewers",
+    "text": "Viewers",
+    "items": [{
+      "id": "MarketsGrid",
+      "text": "MarketsGrid",
+      "items": [{
+        "id": "bindings",
+        "text": "Bindings",
+        "items": [{
+          "id": "Binding1",
+          "text": "Binding1",
+          "items": [{
+            "id": "columns",
+            "text": "Column definitions",
+            "items": []
+          }]
+        }]
+      }]
+    }]
+  }]
+}
+
+const onSelect = event => console.log(event.sender.dataItem(event.node))
+
 const treeViewOptions = {
   dragAndDrop: true,
-  dataSource: [
-    {
-      text: "Item 1",
-      items: [
-        { text: "Item 1.1" },
-        { text: "Item 1.2" }
-      ]
+  dataSource: adaptLayout(layout),
+  // [{
+  //     id: 'viewers',
+  //     text: "Viewers",
+  //     expanded: true,
+  //     items: [{
+  //       id: 'viewer1',
+  //       text: "Viewer1",
+  //       expanded: true,
+  //       items: [{
+  //         text: "Binding1.1"
+  //       }]
+  //     }, {
+  //       text: "Viewer2",
+  //       expanded: true,
+  //       items: [{
+  //         text: "Binding2.1"
+  //       }, {
+  //         text: "Binding2.2"
+  //       }]
+  //     }]
+  //   }, {
+  //     text: "Styles"
+  // }],
+  schema: {
+    model: {
+      id: '',
+      hasChildren: function(item) { return },
+      children: function() { return }
     },
-    { text: "Item 2" }
-  ]
+    parse: {}
+  },
+  select: onSelect
 }
 
 class App extends Component {
