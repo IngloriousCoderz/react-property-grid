@@ -5,7 +5,7 @@ import 'kendo/css/web/kendo.common.css'
 import 'kendo/css/web/kendo.fiori.css'
 import {Splitter, TreeView} from 'kendo-ui-react'
 import './index.css'
-// import schema from './spreadsheet-schema.json'
+import schema from './spreadsheet-schema.json'
 import layout from './minimal-layout.json'
 
 window.$ = $
@@ -28,23 +28,24 @@ const adaptLayout = layout => {
   }, {
     "id": "viewers",
     "text": "Viewers",
-    "items": [{
-      "id": "MarketsGrid",
-      "text": "MarketsGrid",
-      "items": [{
-        "id": "bindings",
-        "text": "Bindings",
-        "items": [{
-          "id": "Binding1",
-          "text": "Binding1",
-          "items": [{
-            "id": "columns",
-            "text": "Column definitions",
-            "items": []
-          }]
-        }]
-      }]
-    }]
+    "items": []
+    // "items": [{
+    //   "id": "MarketsGrid",
+    //   "text": "MarketsGrid",
+    //   "items": [{
+    //     "id": "bindings",
+    //     "text": "Bindings",
+    //     "items": [{
+    //       "id": "Binding1",
+    //       "text": "Binding1",
+    //       "items": [{
+    //         "id": "columns",
+    //         "text": "Column definitions",
+    //         "items": []
+    //       }]
+    //     }]
+    //   }]
+    // }]
   }]
 }
 
@@ -76,14 +77,14 @@ const treeViewOptions = {
   //   }, {
   //     text: "Styles"
   // }],
-  schema: {
-    model: {
-      id: '',
-      hasChildren: function(item) { return },
-      children: function() { return }
-    },
-    parse: {}
-  },
+  // schema: {
+  //   model: {
+  //     id: '',
+  //     hasChildren: function(item) { return },
+  //     children: function() { return }
+  //   },
+  //   parse: {}
+  // },
   select: onSelect
 }
 

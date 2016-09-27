@@ -10,115 +10,131 @@
       "type": "array",
       "items": {
         "title": "Binding",
-        "description": "Binding.",
+        "description": "Connection to a data source.",
         "type": "object",
-        "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of binding.",
-            "type": "string",
-            "enum": ["range", "form"]
-          },
-          "query": {
-            "title": "Query",
-            "description": "How to retrieve data.",
-            "type": "object",
-            "properties": {
-              "dataMember": {
-                "title": "Data Member",
-                "description": "Source table.",
-                "type": "string"
-              },
-              "params": {
-                "title": "Parameters",
-                "description": "Query parameters.",
-                "type": "object",
-                "properties": {
-                  "select": {
-                    "title": "Select",
-                    "description": "Columns to retrieve.",
-                    "type": "string"
-                  },
-                  "filter": {
-                    "title": "Filter",
-                    "description": "Filter condition.",
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "oneOf": [{}, {
-          "properties": {
-            "type": {
-              "enum": ["range"]
-            },
-            "reference": {
-              "title": "Reference",
-              "description": "Range reference or named range.",
-              "type": "string"
-            },
-            "columns": {
-              "title": "Columns",
-              "description": "Source column bindings.",
-              "type": "array",
-              "items": {
-                "title": "Column",
-                "description": "Source column binding.",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "title": "Name",
-                    "description": "Column name.",
-                    "type": "string"
-                  }
-                }
-              }
-            }
-
-          }
+        "oneOf": [{
+          "$ref": "#/definitions/rangeBinding"
         }, {
-          "properties": {
-            "type": {
-              "enum": ["form"]
-            },
-            "sheet": {
-              "title": "Sheet",
-              "description": "Sheet name.",
-              "type": "string"
-            },
-            "cells": {
-              "title": "Cells",
-              "description": "Cell references.",
-              "type": "array",
-              "items": {
-                "title": "Cell",
-                "description": "Cell reference.",
-                "type": "object",
-                "properties": {
-                  "path": {
-                    "title": "Path",
-                    "description": "data path.",
-                    "type": "string"
-                  },
-                  "reference": {
-                    "title": "Reference",
-                    "description": "Range reference or named range.",
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }],
-        "x-hints": { "form": { "selector": "type" } }
+          "$ref": "#/definitions/formBinding"
+        }]
       }
     },
     "template": {
       "title": "Template",
       "description": "Spreadsheet template.",
       "type": "string"
+    }
+  },
+  "definitions": {
+    "query": {
+      "title": "Query",
+      "description": "How to retrieve data.",
+      "type": "object",
+      "properties": {
+        "dataMember": {
+          "title": "Data Member",
+          "description": "Source table.",
+          "type": "string"
+        },
+        "params": {
+          "title": "Parameters",
+          "description": "Query parameters.",
+          "type": "object",
+          "properties": {
+            "select": {
+              "title": "Select",
+              "description": "Columns to retrieve.",
+              "type": "string"
+            },
+            "filter": {
+              "title": "Filter",
+              "description": "Filter condition.",
+              "type": "string"
+            },
+            "sort": {
+              "title": "Sort",
+              "description": "Sort strategy.",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "$ref": "#/definitions/query"
+        }
+      },
+      "required": ["query"]
+    },
+    "rangeBinding": {
+      "type": "object",
+      "allOf": [{
+        "$ref": "#/definitions/binding"
+      }, {
+        "properties": {
+          "reference": {
+            "title": "Reference",
+            "description": "Range reference or named range.",
+            "type": "string"
+          },
+          "columns": {
+            "title": "Columns",
+            "description": "Source column bindings.",
+            "type": "array",
+            "items": {
+              "title": "Column",
+              "description": "Source column binding.",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "description": "Column name.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }]
+    },
+    "formBinding": {
+      "type": "object",
+      "allOf": [{
+        "$ref": "#/definitions/binding"
+      }, {
+        "properties": {
+          "sheet": {
+            "title": "Sheet",
+            "description": "Sheet name.",
+            "type": "string"
+          },
+          "cells": {
+            "title": "Cells",
+            "description": "Cell references.",
+            "type": "array",
+            "items": {
+              "title": "Cell",
+              "description": "Cell reference.",
+              "type": "object",
+              "properties": {
+                "path": {
+                  "title": "Path",
+                  "description": "data path.",
+                  "type": "string"
+                },
+                "reference": {
+                  "title": "Reference",
+                  "description": "Range reference or named range.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }]
     }
   }
 }
