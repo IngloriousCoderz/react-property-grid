@@ -24,37 +24,6 @@ const onSelect = event => console.log(event.sender.dataItem(event.node))
 const treeViewOptions = {
   dragAndDrop: true,
   dataSource: schema2TreeDS(schema, layout),
-  // [{
-  //     id: 'viewers',
-  //     text: "Viewers",
-  //     expanded: true,
-  //     items: [{
-  //       id: 'viewer1',
-  //       text: "Viewer1",
-  //       expanded: true,
-  //       items: [{
-  //         text: "Binding1.1"
-  //       }]
-  //     }, {
-  //       text: "Viewer2",
-  //       expanded: true,
-  //       items: [{
-  //         text: "Binding2.1"
-  //       }, {
-  //         text: "Binding2.2"
-  //       }]
-  //     }]
-  //   }, {
-  //     text: "Styles"
-  // }],
-  // schema: {
-  //   model: {
-  //     id: '',
-  //     hasChildren: function(item) { return },
-  //     children: function() { return }
-  //   },
-  //   parse: {}
-  // },
   select: onSelect
 }
 

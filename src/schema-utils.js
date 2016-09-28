@@ -1,4 +1,4 @@
-import defaults from 'json-schema-defaults'
+import defaults from './json-schema-defaults'
 
 export const layout2TreeDS = layout => {
   if (Array.isArray(layout)) {
