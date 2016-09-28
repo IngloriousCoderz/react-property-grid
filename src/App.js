@@ -5,8 +5,9 @@ import 'kendo/css/web/kendo.common.css'
 import 'kendo/css/web/kendo.fiori.css'
 import {Splitter, TreeView} from 'kendo-ui-react'
 import './index.css'
-import schema from './spreadsheet-schema.json'
+import schema from './layout-schema.json'
 import layout from './minimal-layout.json'
+import { schema2TreeDS } from './schema-utils'
 
 window.$ = $
 
@@ -18,42 +19,11 @@ const splitterOptions = {
   ]
 }
 
-const adaptLayout = layout => {
-  return [{
-    "id": "server",
-    "text": "Server properties"
-  }, {
-    "id": "styles",
-    "text": "Default styles"
-  }, {
-    "id": "viewers",
-    "text": "Viewers",
-    "items": []
-    // "items": [{
-    //   "id": "MarketsGrid",
-    //   "text": "MarketsGrid",
-    //   "items": [{
-    //     "id": "bindings",
-    //     "text": "Bindings",
-    //     "items": [{
-    //       "id": "Binding1",
-    //       "text": "Binding1",
-    //       "items": [{
-    //         "id": "columns",
-    //         "text": "Column definitions",
-    //         "items": []
-    //       }]
-    //     }]
-    //   }]
-    // }]
-  }]
-}
-
 const onSelect = event => console.log(event.sender.dataItem(event.node))
 
 const treeViewOptions = {
   dragAndDrop: true,
-  dataSource: adaptLayout(layout),
+  dataSource: schema2TreeDS(schema, layout),
   // [{
   //     id: 'viewers',
   //     text: "Viewers",
@@ -94,8 +64,9 @@ class App extends Component {
       <Splitter id='property-editor' options={splitterOptions}>
         <TreeView options={treeViewOptions}></TreeView>
         <div>Div2</div>
-      </Splitter>)
-    }
+      </Splitter>
+    )
   }
+}
 
-  export default App
+export default App

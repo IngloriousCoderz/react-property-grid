@@ -6,6 +6,7 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
+    "json-schema-defaults": "^0.2.0",
     "kendo": "^2016.3.607",
     "kendo-ui-react": "^0.14.2",
     "lodash": "^4.16.2",
