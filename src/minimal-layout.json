@@ -12,6 +12,7 @@
   }],
   "viewers": [{
     "id": "MarketsGrid",
+    "type": "Grid",
     "bindings": [{
       "query": "SELECT * FROM Markets ORDER BY Market",
       "columns": [{
