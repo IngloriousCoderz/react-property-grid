@@ -7,11 +7,13 @@
   },
   "dependencies": {
     "json-schema-defaults": "^0.2.0",
+    "json-schema-deref-sync": "^0.3.2",
     "kendo": "^2016.3.607",
     "kendo-ui-react": "^0.14.2",
     "lodash": "^4.16.2",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "traverse": "^0.6.6"
   },
   "scripts": {
     "start": "react-scripts start",

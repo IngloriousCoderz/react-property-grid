@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import {layout2TreeDS, schema2TreeDS} from './schema-utils'
 import minimalLayout from './minimal-layout.json'
 import schema from './layout-schema.json'
+import traverse from 'traverse'
+import deref from 'json-schema-deref-sync'
 
 // it('renders without crashing', () => {
 //   const div = document.createElement('div');
@@ -179,4 +181,43 @@ it('should give default values for given schema', () => {
       "items": []
     }
   ])
+})
+
+it ('should denormalize reference in a json schema', () => {
+  const schema = {
+    "definitions": {
+      "vehicle": {
+        "properties": {
+          "engine": { "type": "string"}
+        }
+      }
+    },
+    "type": "object",
+    "properties": {
+      "product": {
+        "$ref": "#/definitions/vehicle"
+      }
+    }
+  }
+
+  const derefSchema = {
+    "definitions": {
+      "vehicle": {
+        "properties": {
+          "engine": { "type": "string"}
+        }
+      }
+    },
+    "type": "object",
+    "properties": {
+      "product": {
+        "properties": {
+          "engine": { "type": "string"}
+        }
+      }
+    }
+  }
+
+  expect (deref(schema)).toEqual(derefSchema)
+
 })

@@ -8,6 +8,7 @@ import './index.css'
 import schema from './layout-schema.json'
 import layout from './minimal-layout.json'
 import { schema2TreeDS } from './schema-utils'
+import LayoutEditor from './editors/layout-editor'
 
 window.$ = $
 
@@ -21,19 +22,16 @@ const splitterOptions = {
 
 const onSelect = event => console.log(event.sender.dataItem(event.node))
 
-const treeViewOptions = {
-  dragAndDrop: true,
-  dataSource: schema2TreeDS(schema, layout),
+const layoutEditorOptions = {
+  schema: schema,
+  dataSource: layout,
   select: onSelect
 }
 
 class App extends Component {
   render() {
     return (
-      <Splitter id='property-editor' options={splitterOptions}>
-        <TreeView options={treeViewOptions}></TreeView>
-        <div>Div2</div>
-      </Splitter>
+      <LayoutEditor options={layoutEditorOptions} id='property-editor'></LayoutEditor>
     )
   }
 }

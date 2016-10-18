@@ -39,7 +39,6 @@ export const schema2TreeDS = (schema, layout) => {
     // layout = adjustAccordingToSchema(schema)
   } else {
     layout = defaults(schema)
-    console.log(layout)
   }
 
   return layout2TreeDS(layout)
