@@ -9,5 +9,32 @@
     "xshort": {
       "height": 122
     }
-  }
+  },
+  "viewers": {
+    "MarketsGrid": {
+      "type": "GrapeGrid",
+      "bindings": [{
+        "query": "SELECT * FROM Markets ORDER BY Market",
+        "columns": [{
+          "name": "Market",
+          "key": true,
+          "variable": "MarketsGrid.0.Market"
+        }, {
+          "name": "Description"
+        }],
+        "defaultCurrentRow": 0
+      }],
+      "style": {
+        "backgroundColor": "{{'lightyellow'}}"
+      }
+    }
+  },
+  "placing": {
+    "type": "Grid",
+    "props": {
+      "id": "MarketsGrid",
+      "style": ["small", "xshort"]
+    }
+  },
+  "defaults": {}
 }
