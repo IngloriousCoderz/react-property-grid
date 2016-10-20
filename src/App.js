@@ -24,7 +24,7 @@ const onSelect = event => console.log(event.sender.dataItem(event.node))
 
 const layoutEditorOptions = {
   schema: schema,
-  dataSource: layout,
+  data: layout,
   select: onSelect
 }
 

@@ -32,8 +32,6 @@
 					"additionalProperties": {
 						"anyOf": [{
 							"type": "string"
-						}, {
-							"type": "number"
 						}]
 					}
 
