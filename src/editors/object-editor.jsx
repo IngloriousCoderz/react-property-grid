@@ -7,7 +7,10 @@ class ObjectEditor extends React.Component {
 
   /*----------------------------------------------------------------------------*/
   render() {
-    const {schema, data} = this.props.options
+    const {schema, data, objectKey} = this.props.options
+    const key = objectKey != null
+      ? objectKey
+      : schema.title
 
     const derefSchema = this.dereference(schema)
 
@@ -16,7 +19,7 @@ class ObjectEditor extends React.Component {
         <div style={{
           fontWeight: 'bold'
         }}>
-          {schema.title}
+          {key}
         </div>
         <ul>
           {this.renderProperties(derefSchema.properties, data)}
@@ -108,7 +111,8 @@ class ObjectEditor extends React.Component {
       rendered = (<ObjectEditor options={{
         schema: propertySchema,
         data: propertyData,
-        fullSchema: this.props.options.fullSchema
+        fullSchema: this.props.options.fullSchema,
+        objectKey: propertyKey
       }}/>)
     } else if (isArray) {
       rendered = this.renderArray(propertySchema, propertyData)
@@ -122,13 +126,20 @@ class ObjectEditor extends React.Component {
 
   renderArray(propertySchema, propertyData) {
     const key = propertySchema.title
-    const rendered = propertyData.map((item) => {
-      return this.renderProperty(propertySchema.items, item)
+    const rendered = propertyData.map((item, index) => {
+      return this.renderProperty(propertySchema.items, item, key + `[${index}]`)
     })
     return (
-      <ul key={key + 'Property' + Math.random()}>
-        {rendered}
-      </ul>
+      <div>
+        <div style={{
+          fontWeight: 'bold'
+        }}>
+          {key}
+        </div>
+        <ul key={key + 'Property' + Math.random()}>
+          {rendered}
+        </ul>
+      </div>
     )
   }
 
