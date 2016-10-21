@@ -21,6 +21,7 @@ class ObjectEditor extends React.Component {
         <ul>
           {this.renderProperties(derefSchema.properties, data)}
           {this.renderAdditionalProperties(derefSchema.additionalProperties, data)}
+          {this.renderAnyOf(derefSchema.anyOf, data)}
         </ul>
       </div>
     )
@@ -53,7 +54,7 @@ class ObjectEditor extends React.Component {
       if (property.anyOf != null) {
         return Object.keys(data).map((propertyKey) => {
 
-          // Primitive types haven't type property in data,
+          // Primitive types haven't "type" property in data,
           // so only string type is allowed in "anyOf" schema prop
           if (data[propertyKey].type == null) {
             return this.renderProperty({
@@ -61,13 +62,8 @@ class ObjectEditor extends React.Component {
             }, data[propertyKey], propertyKey)
           }
 
-          // Select matching schema, based on (by convention) type attribute
-          let selectedSchema = property.anyOf.filter(p => {
-            p = this.dereference(p)
-            return p.properties.type.enum.includes(data[propertyKey].type)
-          })[0]
-
-          selectedSchema = this.dereference(selectedSchema)
+          // Render matching schema
+          let selectedSchema = this.matchSchema(property.anyOf, data[propertyKey])
           const rendered = this.renderProperty(selectedSchema, data[propertyKey], propertyKey)
           return rendered
         })
@@ -80,6 +76,16 @@ class ObjectEditor extends React.Component {
     } catch (e) {
       debugger
     }
+  }
+
+  renderAnyOf(anyOfSchema, data)
+  {
+    if (anyOfSchema == null || data == null) {
+      return null
+    }
+    const selectedSchema = this.matchSchema(anyOfSchema, data)
+    const rendered = this.renderProperty(selectedSchema, data)
+    return rendered
   }
 
   renderProperty(propertySchema, propertyData, propertyKey) {
@@ -95,9 +101,9 @@ class ObjectEditor extends React.Component {
 
     let rendered = null
     if (isEnum) {
-      rendered = this.renderPrimitiveProperty(propertySchema, propertyData)
+      rendered = this.renderPrimitive(propertySchema, propertyData)
     } else if (isValue) {
-      rendered = this.renderPrimitiveProperty(propertySchema, propertyData)
+      rendered = this.renderPrimitive(propertySchema, propertyData)
     } else if (isObject) {
       rendered = (<ObjectEditor options={{
         schema: propertySchema,
@@ -105,7 +111,7 @@ class ObjectEditor extends React.Component {
         fullSchema: this.props.options.fullSchema
       }}/>)
     } else if (isArray) {
-      rendered = this.renderArrayProperty(propertySchema, propertyData)
+      rendered = this.renderArray(propertySchema, propertyData)
     }
     return (
       <li key={key + 'Property' + Math.random()}>
@@ -114,14 +120,19 @@ class ObjectEditor extends React.Component {
     )
   }
 
-  renderArrayProperty(propertySchema, propertyData) {
+  renderArray(propertySchema, propertyData) {
+    const key = propertySchema.title
     const rendered = propertyData.map((item) => {
       return this.renderProperty(propertySchema.items, item)
     })
-    return rendered
+    return (
+      <ul key={key + 'Property' + Math.random()}>
+        {rendered}
+      </ul>
+    )
   }
 
-  renderPrimitiveProperty(propertySchema, propertyData) {
+  renderPrimitive(propertySchema, propertyData) {
     const title = propertySchema.title
     const key = propertySchema.title
     return (
@@ -139,6 +150,15 @@ class ObjectEditor extends React.Component {
         </span>
       </div>
     )
+  }
+
+  // Select matching schema, based on (by convention) type attribute
+  matchSchema(schemas, data) {
+    let selectedSchema = schemas.filter(p => {
+      p = this.dereference(p)
+      return p.properties.type.enum.includes(data.type)
+    })[0]
+    return this.dereference(selectedSchema)
   }
 
   dereference(property) {

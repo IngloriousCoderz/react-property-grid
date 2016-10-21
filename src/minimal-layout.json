@@ -14,7 +14,10 @@
     "MarketsGrid": {
       "type": "GrapeGrid",
       "bindings": [{
-        "query": "SELECT * FROM Markets ORDER BY Market",
+        "query": {
+          "type": "Sql",
+          "sql": "SELECT * FROM Markets ORDER BY Market"
+        },
         "columns": [{
           "name": "Market",
           "key": true,
@@ -33,7 +36,13 @@
     "type": "Grid",
     "props": {
       "id": "MarketsGrid",
-      "style": ["small", "xshort"]
+      "style": [{
+        "type": "Predefined",
+        "name": "small"
+      }, {
+        "type": "Predefined",
+        "name": "xshort"
+      }]
     }
   },
   "defaults": {}
