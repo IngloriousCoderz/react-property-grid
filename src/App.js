@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './index.css'
 import schema from './layout-schema.json'
-import layout from './layout.json'
+import layout from './minimal-layout.json'
 import LayoutEditor from './editors/layout-editor'
 
 class App extends Component {

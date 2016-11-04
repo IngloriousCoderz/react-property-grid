@@ -1,19 +1,22 @@
-import React from 'react'
-import '../utilities/object.js'
+import React, {Component} from 'react'
 import {jsonPathToValue} from '../utilities/json'
 import TextEditor from './text-editor'
 
 const styles = {
-  fullWidth: {
-    width: '100%'
+  editor: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    fontSize: '12px'
   },
-  condensed: {
-    borderCollapse: 'collapse'
+  cell: {
+    height: '20px',
+    border: '1px solid lightgrey',
+    padding: '2px'
   },
-  bordered: {
-    border: '1px solid lightgrey'
+  inputCell: {
+    padding: 0
   },
-  caption: {
+  label: {
     fontWeight: 'bold'
   },
   description: {
@@ -21,16 +24,16 @@ const styles = {
   }
 }
 
-class LayoutEditor extends React.Component {
+class LayoutEditor extends Component {
   render() {
     const {schema, data} = this.props
     const clonedData = JSON.parse(JSON.stringify(data))
 
     return (
-      <table style={{...styles.fullWidth, ...styles.condensed}}>
+      <table style={styles.editor}>
         <thead>
           <tr>
-            <th colSpan='2' style={styles.bordered}>Properties</th>
+            <th colSpan='2' style={styles.cell}>Properties</th>
           </tr>
         </thead>
         <tbody>
@@ -40,11 +43,11 @@ class LayoutEditor extends React.Component {
     )
   }
 
-  renderProperties(properties = {}, data) {
-    return Object.keys(properties).map(key => this.renderProperty(properties[key], data[key], key))
+  renderProperties(properties = {}, data, level = 0) {
+    return Object.keys(properties).map(key => this.renderProperty(properties[key], data[key], key, level))
   }
 
-  renderProperty(schema, data, key) {
+  renderProperty(schema, data, key, level) {
     if (schema['!editor-visible'] === false) {
       return null
     }
@@ -55,19 +58,20 @@ class LayoutEditor extends React.Component {
 
     switch (type) {
       case 'object':
-        return this.renderObject(derefSchema, data, key)
+        return this.renderObject(derefSchema, data, key, level)
       case 'array':
-        return this.renderArray(derefSchema, data, key)
+        return this.renderArray(derefSchema, data, key, level)
       default:
-        return this.renderPrimitive(derefSchema, data, key)
+        return this.renderPrimitive(derefSchema, data, key, level)
     }
   }
 
-  renderObject(schema, data, key) {
-    const captionRow = this.renderCaptionRow(schema.title || key, schema.description)
-    const properties = this.renderProperties(schema.properties, data)
-    const additionalProperties = this.renderAdditionalProperties(schema.additionalProperties, data)
-    const anyOf = this.renderAnyOf(schema.anyOf, data) || {}
+  renderObject(schema, data, key, level) {
+    const captionRow = this.renderCaptionRow(schema.title || key, schema.description, level)
+    level++
+    const properties = this.renderProperties(schema.properties, data, level)
+    const additionalProperties = this.renderAdditionalProperties(schema.additionalProperties, data, level)
+    const anyOf = this.renderAnyOf(schema.anyOf, data, level)
 
     return [
       captionRow,
@@ -77,10 +81,11 @@ class LayoutEditor extends React.Component {
     ]
   }
 
-  renderArray(schema, data, key) {
-    const captionRow = this.renderCaptionRow(schema.title || key, schema.description)
+  renderArray(schema, data, key, level) {
+    const captionRow = this.renderCaptionRow(schema.title || key, schema.description, level)
+    level++
     const items = data.map((item, index) => {
-      return this.renderProperty(schema.items, item, `${schema.title || key}[${index}]`)
+      return this.renderProperty(schema.items, item, `${schema.title || key}[${index}]`, level)
     })
 
     return [
@@ -89,21 +94,21 @@ class LayoutEditor extends React.Component {
     ]
   }
 
-  renderCaptionRow(text, summary) {
+  renderCaptionRow(text, summary, level) {
     if (text == null) return null
     return (
       <tr>
-        <td style={{...styles.bordered,...styles.caption}}>
-          {text}
+        <td style={{...styles.cell,...styles.label}}>
+          {'-'.repeat(level)}{text}
         </td>
-        <td style={{...styles.bordered, ...styles.description}}>
+        <td style={{...styles.cell, ...styles.description}}>
           {summary}
         </td>
       </tr>
     )
   }
 
-  renderAdditionalProperties(schema, data) {
+  renderAdditionalProperties(schema, data, level) {
     if (schema == null || schema === false || data == null) {
       return []
     }
@@ -112,30 +117,28 @@ class LayoutEditor extends React.Component {
       if (schema.$ref == null) {
         schema = this.matchSchema(schema.anyOf || [schema], data[key])
       }
-      return this.renderProperty(schema, data[key], key)
+      return this.renderProperty(schema, data[key], key, level)
     })
   }
 
-  renderAnyOf(anyOfSchema, data)
-  {
+  renderAnyOf(anyOfSchema, data, level) {
     if (anyOfSchema == null || data == null) {
-      return null
+      return []
     }
+
     const selectedSchema = this.matchSchema(anyOfSchema, data)
-    const rendered = this.renderProperty(selectedSchema, data)
-    return rendered
+    return this.renderProperty(selectedSchema, data, null, level)
   }
 
-  renderPrimitive(propertySchema, propertyData, propertyKey) {
-    const title = propertySchema.title || propertyKey
-    const key = propertySchema.title
+  renderPrimitive(schema, data, key, level) {
+    const caption = schema.title || key
     return (
       <tr>
-        <td style={styles.bordered}>
-          {title}
+        <td style={styles.cell}>
+          {'-'.repeat(level)}{caption}
         </td>
-        <td style={styles.bordered}>
-          <TextEditor schema={propertySchema} data={propertyData} key={key + 'Property' + Math.random()} />
+        <td style={{...styles.cell, ...styles.inputCell}}>
+          <TextEditor schema={schema} data={data} />
         </td>
       </tr>
     )
