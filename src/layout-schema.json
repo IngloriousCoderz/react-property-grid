@@ -18,6 +18,13 @@
           "default": 25000
         }
       },
+      "patternProperties": {
+        "endpoint": {
+          "title": "Databox endpoint",
+          "description": "Root URL for datamembers defined inside a databox.",
+          "type": "string"
+        }
+      },
       "additionalProperties": false,
       "required": ["pageSize"]
     },
@@ -26,15 +33,13 @@
       "description": "CSS style definitions.",
       "type": "object",
       "additionalProperties": {
-        "title": "Style",
-        "description": "CSS rule.",
-        "type": "object",
-        "additionalProperties": {
-          "anyOf": [{
+        "anyOf": [{
+          "description": "CSS rule.",
+          "type": "object",
+          "additionalProperties": {
             "type": "string"
-          }]
-        }
-
+          }
+        }]
       }
     },
     "viewers": {
@@ -43,17 +48,11 @@
       "type": "object",
       "additionalProperties": {
         "description": "A viewer.",
-        "type": "object",
-        "anyOf": [{
-          "$ref": "#/definitions/grid"
-        }, {
-          "$ref": "#/definitions/chart"
-        }, {
-          "$ref": "#/definitions/spreadsheet"
-        }]
+        "$ref": "#/definitions/viewer"
       }
     },
     "placing": {
+      "!editor-visible": false,
       "title": "Placing",
       "description": "HTML-like structure for placement of viewers in the webhost.",
       "$ref": "#/definitions/component"
@@ -73,111 +72,139 @@
   },
   "required": ["server", "styles", "viewers"],
   "definitions": {
-    "query": {
-      "title": "Query",
-      "description": "How to retrieve data.",
+    "viewer": {
+      "description": "A viewer.",
       "anyOf": [{
-        "title": "SQL",
-        "description": "Simplified SQL-like query.",
-        "type:": "object",
-        "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of query.",
-            "enum": ["Sql"]
-          },
-          "sql": {
-            "title": "SQL",
-            "description": "Simplified SQL-like query.",
-            "type": "string"
-          }
-        }
+        "$ref": "#/definitions/grid"
       }, {
-        "title": "Nested structure",
-        "description": "All fields organized in a convenient structure.",
-        "type": "object",
-        "properties": {
-          "type": {
-            "enum": ["Structure"]
-          },
-          "dataMember": {
-            "title": "Data Member",
-            "description": "Source table.",
-            "type": "string"
-          },
-          "params": {
-            "title": "Parameters",
-            "description": "Query parameters.",
-            "type": "object",
-            "properties": {
-              "select": {
-                "title": "Select",
-                "description": "Columns to retrieve.",
-                "type": "array",
-                "items": {
-                  "title": "Column",
-                  "description": "Column name.",
-                  "type": "string"
-                }
-              },
-              "filter": {
-                "title": "Filter",
-                "description": "Filter condition.",
-                "type": "string"
-              },
-              "sort": {
-                "title": "Sort",
-                "description": "Sort strategy.",
-                "type": "string"
-              },
-              "pageSize": {
-                "title": "Page size",
-                "description": "Number of records to show at a time.",
-                "type": "integer"
-              }
-            },
-            "additionalProperties": false
-          },
-          "paging": {
-            "title": "Paging",
-            "description": "Enable paging?",
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false,
-        "required": ["dataMember"]
+        "$ref": "#/definitions/chart"
+      }, {
+        "$ref": "#/definitions/spreadsheet"
       }]
     },
-    "binding": {
-      "title": "Binding",
-      "description": "Base definition of a binding.",
+    "grid": {
+      "description": "A table-like component.",
       "type": "object",
       "properties": {
-        "query": {
-          "title": "Query",
-          "description": "How to retrieve data.",
-          "$ref": "#/definitions/query"
+        "type": {
+          "title": "Type",
+          "description": "Viewer type.",
+          "enum": ["Grid", "GrapeGrid"],
+          "default": "Grid"
+        },
+        "bindings": {
+          "title": "Bindings",
+          "description": "Bindings between the viewer and the underlying data.",
+          "type": "array",
+          "items": {
+            "description": "Binding to a data source.",
+            "$ref": "#/definitions/columnBinding"
+          }
+        },
+        "style": {
+          "title": "Style",
+          "description": "Grid-specific dynamic style.",
+          "type": "object"
+        },
+        "showProgress": {
+          "title": "Show progress",
+          "description": "Show a progress indicator if loading takes long.",
+          "type": "boolean"
         }
       },
       "additionalProperties": false,
-      "required": ["query"]
+      "required": ["type"]
+    },
+    "chart": {
+      "description": "A graphic visualization component.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "Viewer type.",
+          "enum": ["Chart"]
+        },
+        "bindings": {
+          "title": "Bindings",
+          "description": "Bindings between the viewer and the underlying data.",
+          "type": "array",
+          "items": {
+            "description": "Binding to a data source.",
+            "$ref": "#/definitions/seriesBinding"
+          }
+        },
+        "showProgress": {
+          "title": "Show progress",
+          "description": "Show a progress indicator if loading takes long.",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type"]
+    },
+    "spreadsheet": {
+      "description": "An Excel-like component.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "Viewer type.",
+          "enum": ["Spreadsheet"]
+        },
+        "bindings": {
+          "title": "Bindings",
+          "description": "Bindings between the viewer and the underlying data.",
+          "type": "array",
+          "items": {
+            "description": "Binding to a data source.",
+            "type": "object",
+            "anyOf": [{
+              "title": "Range",
+              "description": "Binding to a range.",
+              "$ref": "#/definitions/rangeBinding"
+            }, {
+              "title": "Form",
+              "description": "Binding to specific cells as in a form.",
+              "$ref": "#/definitions/formBinding"
+            }]
+          }
+        },
+        "template": {
+          "title": "Template",
+          "description": "Base64 template string.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "bindings", "template"]
+    },
+    "binding": {
+      "description": "Base definition of a binding.",
+      "type": "object",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "description": "How to retrieve data.",
+          "$ref": "#/definitions/source"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["source"]
     },
     "columnBinding": {
-      "title": "Column",
       "description": "Binding used for column-shaped viewers.",
       "type": "object",
       "properties": {
-        "query": {
-          "title": "Query",
+        "source": {
+          "title": "Source",
           "description": "How to retrieve data.",
-          "$ref": "#/definitions/query"
+          "$ref": "#/definitions/source"
         },
         "columns": {
           "title": "Columns",
           "description": "Source column bindings.",
           "type": "array",
           "items": {
-            "title": "Column",
             "description": "Source column binding.",
             "type": "object",
             "properties": {
@@ -214,24 +241,22 @@
         }
       },
       "additionalProperties": false,
-      "required": ["query", "columns"]
+      "required": ["source", "columns"]
     },
     "seriesBinding": {
-      "title": "Series",
       "description": "Binding used for series-shaped viewers.",
       "type": "object",
       "properties": {
-        "query": {
-          "title": "Query",
+        "source": {
+          "title": "Source",
           "description": "How to retrieve data.",
-          "$ref": "#/definitions/query"
+          "$ref": "#/definitions/source"
         },
         "series": {
-          "title": "Series List",
+          "title": "Series",
           "description": "Source series bindings.",
           "type": "array",
           "items": {
-            "title": "Series",
             "description": "Source series binding.",
             "type": "object",
             "properties": {
@@ -290,17 +315,16 @@
         }
       },
       "additionalProperties": false,
-      "required": ["query", "series"]
+      "required": ["source", "series"]
     },
     "rangeBinding": {
-      "title": "Range",
       "description": "Binding to a range.",
       "type": "object",
       "properties": {
-        "query": {
-          "title": "Query",
+        "source": {
+          "title": "Source",
           "description": "How to retrieve data.",
-          "$ref": "#/definitions/query"
+          "$ref": "#/definitions/source"
         },
         "type": {
           "title": "Type",
@@ -349,17 +373,16 @@
         }
       },
       "additionalProperties": false,
-      "required": ["query", "reference"]
+      "required": ["type", "source", "reference"]
     },
     "formBinding": {
-      "title": "Form",
       "description": "Binding to specific cells as in a form.",
       "type": "object",
       "properties": {
-        "query": {
-          "title": "Query",
+        "source": {
+          "title": "Source",
           "description": "How to retrieve data.",
-          "$ref": "#/definitions/query"
+          "$ref": "#/definitions/source"
         },
         "type": {
           "title": "Type",
@@ -376,7 +399,6 @@
           "description": "Cell references.",
           "type": "array",
           "items": {
-            "title": "Cell",
             "description": "Cell reference.",
             "type": "object",
             "properties": {
@@ -397,109 +419,82 @@
         }
       },
       "additionalProperties": false,
-      "required": ["query", "sheet", "cells"]
+      "required": ["type", "source", "sheet", "cells"]
     },
-    "grid": {
-      "title": "Grid",
-      "description": "A table-like component.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "title": "Type",
-          "description": "Viewer type.",
-          "enum": ["Grid", "GrapeGrid"],
-          "default": "Grid"
-        },
-        "bindings": {
-          "title": "Bindings",
-          "description": "Bindings between the viewer and the underlying data.",
-          "type": "array",
-          "items": {
-            "title": "Binding",
-            "Description": "Binding to a data source.",
-            "$ref": "#/definitions/columnBinding"
+    "source": {
+      "title": "Source",
+      "description": "How to retrieve data.",
+      "anyOf": [{
+        "description": "Simplified SQL-like query.",
+        "type:": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of source.",
+            "enum": ["sql"]
+          },
+          "sql": {
+            "title": "SQL expression",
+            "description": "A SQL-like SELECT expression.",
+            "type": "string"
           }
         },
-        "style": {
-          "title": "Style",
-          "description": "Grid-specific dynamic style.",
-          "type": "object"
-        },
-        "showProgress": {
-          "title": "Show progress",
-          "description": "Show a progress indicator if loading takes long.",
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type"]
-    },
-    "chart": {
-      "title": "Chart",
-      "description": "A graphic visualization component.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "title": "Type",
-          "description": "Viewer type.",
-          "enum": ["Chart"]
-        },
-        "bindings": {
-          "title": "Bindings",
-          "description": "Bindings between the viewer and the underlying data.",
-          "type": "array",
-          "items": {
-            "title": "Binding",
-            "description": "Binding to a data source.",
-            "$ref": "#/definitions/seriesBinding"
-          }
-        },
-        "showProgress": {
-          "title": "Show progress",
-          "description": "Show a progress indicator if loading takes long.",
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type"]
-    },
-    "spreadsheet": {
-      "title": "Spreadsheet",
-      "description": "An Excel-like component.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "title": "Type",
-          "description": "Viewer type.",
-          "enum": ["Spreadsheet"]
-        },
-        "bindings": {
-          "title": "Bindings",
-          "description": "Bindings between the viewer and the underlying data.",
-          "type": "array",
-          "items": {
-            "title": "Binding",
-            "description": "Binding to a data source.",
+        "required": ["type"]
+      }, {
+        "description": "All fields organized in a convenient structure.",
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of source.",
+            "enum": ["structure"]
+          },
+          "dataMember": {
+            "title": "Data Member",
+            "description": "Source table.",
+            "type": "string"
+          },
+          "params": {
+            "title": "Parameters",
+            "description": "Query parameters.",
             "type": "object",
-            "anyOf": [{
-              "title": "Range",
-              "description": "Binding to a range.",
-              "$ref": "#/definitions/rangeBinding"
-            }, {
-              "title": "Form",
-              "description": "Binding to specific cells as in a form.",
-              "$ref": "#/definitions/formBinding"
-            }]
+            "properties": {
+              "select": {
+                "title": "Select",
+                "description": "Columns to retrieve.",
+                "type": "array",
+                "items": {
+                  "description": "Column name.",
+                  "type": "string"
+                }
+              },
+              "filter": {
+                "title": "Filter",
+                "description": "Filter condition.",
+                "type": "string"
+              },
+              "sort": {
+                "title": "Sort",
+                "description": "Sort strategy.",
+                "type": "string"
+              },
+              "pageSize": {
+                "title": "Page size",
+                "description": "Number of records to show at a time.",
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
+          "paging": {
+            "title": "Paging",
+            "description": "Enable paging?",
+            "type": "boolean"
           }
         },
-        "template": {
-          "title": "Template",
-          "description": "Base64 template string.",
-          "type": "string"
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type", "bindings", "template"]
+        "additionalProperties": false,
+        "required": ["type", "dataMember"]
+      }]
     },
     "component": {
       "title": "Component",
@@ -522,32 +517,32 @@
               "type": "array",
               "items": {
                 "anyOf": [{
-                  "title": "Predefined",
                   "description": "Apply a predefined style, given its name.",
                   "type:": "object",
                   "properties": {
                     "type": {
                       "title": "Type",
                       "description": "Type of style.",
-                      "enum": ["Predefined"]
+                      "enum": ["predefined"]
                     },
                     "name": {
                       "title": "Name",
                       "description": "Name of predefined style.",
                       "type": "string"
                     }
-                  }
+                  },
+                  "required": ["type"]
                 }, {
-                  "title": "Custom",
                   "description": "A custom style.",
                   "type": "object",
                   "properties": {
                     "type": {
                       "title": "Type",
                       "description": "Type of style.",
-                      "enum": ["Custom"]
+                      "enum": ["custom"]
                     }
-                  }
+                  },
+                  "required": ["type"]
                 }]
               }
             }

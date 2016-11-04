@@ -3,101 +3,117 @@ import '../utilities/object.js'
 import {jsonPathToValue} from '../utilities/json'
 import TextEditor from './text-editor'
 
-const captionStyle = {
-  fontWeight: 'bold'
+const styles = {
+  fullWidth: {
+    width: '100%'
+  },
+  condensed: {
+    borderCollapse: 'collapse'
+  },
+  bordered: {
+    border: '1px solid lightgrey'
+  },
+  caption: {
+    fontWeight: 'bold'
+  },
+  description: {
+    color: 'grey'
+  }
 }
 
 class LayoutEditor extends React.Component {
-
-  /*----------------------------------------------------------------------------*/
   render() {
-
-    const {schema, data} = this.props.options
-
+    const {schema, data} = this.props
     const clonedData = JSON.parse(JSON.stringify(data))
-    const derefSchema = this.dereference(schema)
 
-    const rendered = this.renderObject(derefSchema, clonedData)
     return (
-      <table>
+      <table style={{...styles.fullWidth, ...styles.condensed}}>
+        <thead>
+          <tr>
+            <th colSpan='2' style={styles.bordered}>Properties</th>
+          </tr>
+        </thead>
         <tbody>
-          {rendered}
+          {this.renderProperties(schema.properties, clonedData)}
         </tbody>
       </table>
     )
   }
 
-  /*----------------------------------------------------------------------------*/
-  renderObject(schema, data, objectKey) {
-    const key = objectKey != null
-      ? objectKey
-      : schema.title
+  renderProperties(properties = {}, data) {
+    return Object.keys(properties).map(key => this.renderProperty(properties[key], data[key], key))
+  }
+
+  renderProperty(schema, data, key) {
+    if (schema['!editor-visible'] === false) {
+      return null
+    }
 
     const derefSchema = this.dereference(schema)
+    const type = this.getType(derefSchema)
+    data = data || this.getDefaultForType(type)
 
-    const captionRow = this.renderCaptionRow(key)
-    const properties = this.renderProperties(derefSchema.properties, data) || {}
-    const additionalProperties = this.renderAdditionalProperties(derefSchema.additionalProperties, data) || {}
-    const anyOf = this.renderAnyOf(derefSchema.anyOf, data) || {}
+    switch (type) {
+      case 'object':
+        return this.renderObject(derefSchema, data, key)
+      case 'array':
+        return this.renderArray(derefSchema, data, key)
+      default:
+        return this.renderPrimitive(derefSchema, data, key)
+    }
+  }
 
-    const rendered = [
+  renderObject(schema, data, key) {
+    const captionRow = this.renderCaptionRow(schema.title || key, schema.description)
+    const properties = this.renderProperties(schema.properties, data)
+    const additionalProperties = this.renderAdditionalProperties(schema.additionalProperties, data)
+    const anyOf = this.renderAnyOf(schema.anyOf, data) || {}
+
+    return [
       captionRow,
       ...properties,
       ...additionalProperties,
       ...anyOf
     ]
-    return rendered
-
   }
 
-  renderProperties(properties, data) {
-    if (properties == null) {
-      return
-    }
+  renderArray(schema, data, key) {
+    const captionRow = this.renderCaptionRow(schema.title || key, schema.description)
+    const items = data.map((item, index) => {
+      return this.renderProperty(schema.items, item, `${schema.title || key}[${index}]`)
+    })
 
-    try {
-      if (properties != null) {
-        return Object.keys(properties).map((propertyKey) => {
-          const rendered = this.renderProperty(properties[propertyKey], data[propertyKey])
-          return rendered
-        })
-      } else {
-        return null
-      }
-    } catch (e) {
-      debugger
-    }
+    return [
+      captionRow,
+      ...items
+    ]
   }
 
-  renderAdditionalProperties(property, data) {
-    try {
-      if (property == null || property === false || data == null)
-        return null
-      if (property.anyOf != null) {
-        return Object.keys(data).map((propertyKey) => {
+  renderCaptionRow(text, summary) {
+    if (text == null) return null
+    return (
+      <tr>
+        <td style={{...styles.bordered,...styles.caption}}>
+          {text}
+        </td>
+        <td style={{...styles.bordered, ...styles.description}}>
+          {summary}
+        </td>
+      </tr>
+    )
+  }
 
-          // Primitive types haven't "type" property in data,
-          // so only string type is allowed in "anyOf" schema prop
-          if (data[propertyKey].type == null) {
-            return this.renderProperty({
-              type: 'string'
-            }, data[propertyKey], propertyKey)
-          }
-
-          // Render matching schema
-          let selectedSchema = this.matchSchema(property.anyOf, data[propertyKey])
-          const rendered = this.renderProperty(selectedSchema, data[propertyKey], propertyKey)
-          return rendered
-        })
-      } else {
-        return Object.keys(data).map((propertyKey) => {
-          const rendered = this.renderProperty(property, data[propertyKey], propertyKey)
-          return rendered
-        })
-      }
-    } catch (e) {
-      debugger
+  renderAdditionalProperties(schema, data) {
+    if (schema == null || schema === false || data == null) {
+      return []
     }
+
+    return Object.keys(data).map(key => {
+      if (schema.$ref == null) {
+        schema = this.matchSchema(schema.anyOf || [schema], data[key])
+      }
+      return this.renderProperty(schema, data[key], key)
+    })
   }
 
   renderAnyOf(anyOfSchema, data)
@@ -110,62 +126,17 @@ class LayoutEditor extends React.Component {
     return rendered
   }
 
-  renderProperty(propertySchema, propertyData, propertyKey) {
-    const key = propertyKey || propertySchema.title
-    const title = key
-    const isArray = propertySchema.type === 'array'
-    const isObject = propertySchema.type === 'object' || propertySchema.type == null
-    const isValue = propertySchema.type != null && !isArray && !isObject
-    const isEnum = propertySchema.enum != null
-
-    let rendered = null
-    if (isEnum) {
-      rendered = this.renderPrimitive(propertySchema, propertyData, propertyKey)
-    } else if (isValue) {
-      rendered = this.renderPrimitive(propertySchema, propertyData, propertyKey)
-    } else if (isObject) {
-      rendered = this.renderObject(propertySchema, propertyData, propertyKey)
-    } else if (isArray) {
-      rendered = this.renderArray(propertySchema, propertyData)
-    }
-    return rendered
-  }
-
-  renderArray(propertySchema, propertyData) {
-    const key = propertySchema.title
-    const rendered = propertyData.map((item, index) => {
-      return this.renderProperty(propertySchema.items, item, key + `[${index}]`)
-    })
-    return [
-      this.renderCaptionRow(key), ...rendered
-    ]
-  }
-
   renderPrimitive(propertySchema, propertyData, propertyKey) {
     const title = propertySchema.title || propertyKey
     const key = propertySchema.title
     return (
       <tr>
-        <td style={captionStyle}>
+        <td style={styles.bordered}>
           {title}
         </td>
-        <td>
-          <TextEditor options={{
-            schema: propertySchema,
-            data: propertyData
-          }} key={key + 'Property' + Math.random()}/>
+        <td style={styles.bordered}>
+          <TextEditor schema={propertySchema} data={propertyData} key={key + 'Property' + Math.random()} />
         </td>
-      </tr>
-    )
-  }
-
-  renderCaptionRow(text) {
-    return (
-      <tr>
-        <td style={captionStyle}>
-          {text}
-        </td>
-        <td></td>
       </tr>
     )
   }
@@ -173,15 +144,19 @@ class LayoutEditor extends React.Component {
   /*----------------------------------------------------------------------------*/
   // Select matching schema, based on (by convention) type attribute
   matchSchema(schemas, data) {
-    let selectedSchema = schemas.filter(p => {
-      p = this.dereference(p)
-      return p.properties.type.enum.includes(data.type)
-    })[0]
-    return this.dereference(selectedSchema)
+    const type = this.inferType(data)
+    const selectedSchemas = schemas.filter(schema => {
+      schema = this.dereference(schema)
+      if (data.type == null) {
+        return schema.type === type
+      }
+      return schema.properties.type.enum.includes(data.type)
+    })
+    return selectedSchemas[0]
   }
 
   dereference(property) {
-    const {schema} = this.props.options
+    const {schema} = this.props
     const ref = property['$ref']
     if (ref != null) {
       const refPath = ref.replace('#/', '').replace('/', '.')
@@ -190,6 +165,42 @@ class LayoutEditor extends React.Component {
     } else {
       return property
     }
+  }
+
+  getType(schema) {
+    if (schema.type == null) {
+      return schema.enum != null ? 'string' : 'object'
+    }
+    if (schema.type === 'object') {
+      return 'object'
+    }
+    if (schema.type === 'array') {
+      return 'array'
+    }
+
+    return schema.type
+  }
+
+  /* http://arcturo.github.io/library/coffeescript/07_the_bad_parts.html */
+  inferType(data) {
+    const classToType = {}
+    "Boolean Number String Function Array Date RegExp Undefined Null".split(" ").forEach(name => {
+      classToType["[object " + name + "]"] = name.toLowerCase()
+    })
+    const strType = Object.prototype.toString.call(data)
+    return classToType[strType] || "object"
+  }
+
+  getDefaultForType(type) {
+    return {
+      string: '',
+      number: 0,
+      "null": null,
+      object: {},
+      integer: 0,
+      boolean: false,
+      array: []
+    }[type]
   }
 }
 

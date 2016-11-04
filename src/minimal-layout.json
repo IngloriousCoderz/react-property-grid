@@ -1,22 +1,26 @@
 {
   "server": {
-    "pageSize": 25000
+    "pageSize": 25000,
+    "endpoint": "http://santiago:1337/Irion/Shelf/MarketData/Equity/"
   },
   "styles": {
     "small": {
       "width": "23.6064912503%"
     },
     "xshort": {
-      "height": 122
+      "height": "122"
     }
   },
   "viewers": {
     "MarketsGrid": {
-      "type": "GrapeGrid",
+      "type": "Grid",
       "bindings": [{
-        "query": {
-          "type": "Sql",
-          "sql": "SELECT * FROM Markets ORDER BY Market"
+        "source": {
+          "type": "structure",
+          "dataMember": "Markets",
+          "params": {
+            "sort": "Market"
+          }
         },
         "columns": [{
           "name": "Market",
@@ -37,10 +41,10 @@
     "props": {
       "id": "MarketsGrid",
       "style": [{
-        "type": "Predefined",
+        "type": "predefined",
         "name": "small"
       }, {
-        "type": "Predefined",
+        "type": "predefined",
         "name": "xshort"
       }]
     }
