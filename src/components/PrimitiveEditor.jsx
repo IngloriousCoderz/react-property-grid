@@ -1,6 +1,9 @@
 import React from 'react'
 
+import {getType} from '../utilities'
 import {last, asciiTree} from '../utilities/path'
+import BooleanEditor from './BooleanEditor'
+import NumberEditor from './NumberEditor'
 import TextEditor from './TextEditor'
 
 const styles = {
@@ -27,6 +30,20 @@ const styles = {
 
 const PrimitiveEditor = ({schema, data, path}) => {
   const text = schema.title || last(path)
+  const type = getType(schema)
+
+  let Component
+  switch (type) {
+    case 'boolean':
+      Component = <BooleanEditor schema={schema} data={data} />
+      break
+    case 'integer':
+    case 'number':
+      Component = <NumberEditor schema={schema} data={data} />
+      break
+    default:
+      Component = <TextEditor schema={schema} data={data} />
+  }
 
   return (
     <div style={styles.row}>
@@ -34,7 +51,7 @@ const PrimitiveEditor = ({schema, data, path}) => {
         <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
       </div>
       <div style={{...styles.cell, ...styles.inputCell}}>
-        <TextEditor schema={schema} data={data} />
+        {Component}
       </div>
     </div>
   )

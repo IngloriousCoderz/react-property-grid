@@ -7,7 +7,7 @@ import rootReducer from './reducers'
 import {clone} from './utilities'
 
 import schema from './layout-schema.json'
-import layout from './minimal-layout.json'
+import layout from './layout.json'
 
 const store = createStore(rootReducer, {rootSchema: schema, data: clone(layout)}, window.devToolsExtension ? window.devToolsExtension() : f => f)
 
