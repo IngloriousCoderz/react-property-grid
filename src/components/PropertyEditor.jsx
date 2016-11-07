@@ -15,14 +15,20 @@ const PropertyEditor = ({schema, data, title, path, rootSchema}) => {
   const type = getType(derefSchema)
   data = data || getDefaultForType(type)
 
+  let Component
+
   switch (type) {
     case 'object':
-      return <ObjectEditor schema={derefSchema} data={data} title={title} path={path} />
+      Component = ObjectEditor
+      break
     case 'array':
-      return <ArrayEditor schema={derefSchema} data={data} title={title} path={path} />
+      Component = ArrayEditor
+      break
     default:
-      return <PrimitiveEditor schema={derefSchema} data={data} title={title} path={path} />
+      Component = PrimitiveEditor
   }
+
+  return <Component schema={derefSchema} data={data} title={title} path={path} />
 }
 
 export default connect(({rootSchema}) => ({rootSchema}))(PropertyEditor)

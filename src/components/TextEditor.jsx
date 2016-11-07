@@ -9,6 +9,6 @@ const styles = {
   },
 }
 
-const TextEditor = ({schema, data}) => <input type='text' value={data} onChange={console.log} style={styles.input} />
+const TextEditor = ({schema, data, path, setData}) => <input type='text' value={data} onChange={event => setData(path, event.target.value)} style={styles.input} />
 
 export default TextEditor

@@ -10,6 +10,6 @@ const styles = {
   },
 }
 
-const NumberEditor = ({schema, data}) => <input type='number' value={data} onChange={console.log} style={styles.input} />
+const NumberEditor = ({schema, data, path, setData}) => <input type='number' value={data} onChange={event => setData(path, event.target.value)} style={styles.input} />
 
 export default NumberEditor

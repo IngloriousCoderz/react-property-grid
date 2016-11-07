@@ -7,4 +7,6 @@ const styles = {
   }
 }
 
-export default ({schema, data}) => <input type='checkbox' checked={data} onChange={console.log} style={styles.input} />
+const BooleanEditor = ({schema, data, path, setData}) => <input type='checkbox' checked={data} onChange={event => setData(path, event.target.checked)} style={styles.input} />
+
+export default BooleanEditor

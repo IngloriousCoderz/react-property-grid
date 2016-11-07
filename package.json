@@ -6,16 +6,11 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
-    "json-schema-defaults": "^0.2.0",
-    "json-schema-deref-sync": "^0.3.2",
-    "kendo": "^2016.3.607",
-    "kendo-ui-react": "^0.14.2",
-    "lodash": "^4.16.2",
+    "jsonpath": "^0.2.7",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
-    "redux": "^3.6.0",
-    "traverse": "^0.6.6"
+    "redux": "^3.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,10 +1,12 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import {getType} from '../utilities'
 import {last, asciiTree} from '../utilities/path'
 import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'
 import TextEditor from './TextEditor'
+import {setData} from '../actions'
 
 const styles = {
   row: {
@@ -28,21 +30,21 @@ const styles = {
   }
 }
 
-const PrimitiveEditor = ({schema, data, path}) => {
+const PrimitiveEditor = ({schema, data, path, setData}) => {
   const text = schema.title || last(path)
   const type = getType(schema)
 
   let Component
   switch (type) {
     case 'boolean':
-      Component = <BooleanEditor schema={schema} data={data} />
+      Component = BooleanEditor
       break
     case 'integer':
     case 'number':
-      Component = <NumberEditor schema={schema} data={data} />
+      Component = NumberEditor
       break
     default:
-      Component = <TextEditor schema={schema} data={data} />
+      Component = TextEditor
   }
 
   return (
@@ -51,10 +53,10 @@ const PrimitiveEditor = ({schema, data, path}) => {
         <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
       </div>
       <div style={{...styles.cell, ...styles.inputCell}}>
-        {Component}
+        <Component schema={schema} data={data} path={path} setData={setData} />
       </div>
     </div>
   )
 }
 
-export default PrimitiveEditor
+export default connect(() => ({}), {setData})(PrimitiveEditor)
