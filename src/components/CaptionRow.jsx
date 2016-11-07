@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {asciiTree} from '../utilities/path'
+
 const styles = {
   row: {
     // display: 'table-row'
@@ -25,15 +27,17 @@ const styles = {
   }
 }
 
-const CaptionRow = ({text, summary, path}) => {
-  if (text == null) {
+const CaptionRow = ({schema, data, title, path}) => {
+  const summary = schema.description
+
+  if (title == null) {
     return null
   }
 
   return (
     <div style={styles.row}>
-      <div style={{...styles.cell,...styles.label}}>
-        {'-'.repeat(path.split('.').length)}{text}
+      <div style={{...styles.cell,...styles.label}} >
+        <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{title}
       </div>
       <div style={{...styles.cell, ...styles.description}}>
         {summary}

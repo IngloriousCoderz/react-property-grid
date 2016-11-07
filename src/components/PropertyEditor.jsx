@@ -6,7 +6,7 @@ import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
 
-const PropertyEditor = ({schema, data, key, path, rootSchema}) => {
+const PropertyEditor = ({schema, data, title, path, rootSchema}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }
@@ -17,11 +17,11 @@ const PropertyEditor = ({schema, data, key, path, rootSchema}) => {
 
   switch (type) {
     case 'object':
-      return <ObjectEditor schema={derefSchema} data={data} key={key} path={path} />
+      return <ObjectEditor schema={derefSchema} data={data} title={title} path={path} />
     case 'array':
-      return <ArrayEditor schema={derefSchema} data={data} key={key} path={path} />
+      return <ArrayEditor schema={derefSchema} data={data} title={title} path={path} />
     default:
-      return <PrimitiveEditor schema={derefSchema} data={data} key={key} path={path} />
+      return <PrimitiveEditor schema={derefSchema} data={data} title={title} path={path} />
   }
 }
 

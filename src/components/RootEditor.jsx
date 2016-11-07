@@ -24,9 +24,9 @@ const styles = {
   }
 }
 
-const RootEditor = ({rootSchema, data}) => (
+const RootEditor = ({rootSchema, data, title}) => (
   <div style={styles.editor}>
-    <div style={{...styles.header, ...styles.cell}}>Properties</div>
+    <div style={{...styles.header, ...styles.cell}}>{title}</div>
     <div style={styles.body}>
       <PropertiesEditor schema={rootSchema.properties} data={data} />
     </div>

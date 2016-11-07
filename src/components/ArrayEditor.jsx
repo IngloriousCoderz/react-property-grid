@@ -1,15 +1,18 @@
 import React from 'react'
 
+import {last, subpath} from '../utilities/path'
 import CaptionRow from './CaptionRow'
 import PropertyEditor from './PropertyEditor'
 
-const ArrayEditor = ({schema, data, key, path}) => {
-  const subPath = `${path}.${key}`
-
+const ArrayEditor = ({schema, data, title, path}) => {
   return (
     <div>
-      <CaptionRow text={schema.title || key} summary={schema.description} path={path} />
-      {data.map((item, index) => <PropertyEditor schema={schema.items} data={item} key={`${schema.title || key}[${index}]`} path={subPath} />)}
+      <CaptionRow schema={schema} data={data} title={title} path={path} />
+      {data.map((item, index) => {
+        const sub = subpath(path, index)
+        const title = schema.title || last(sub)
+        return <PropertyEditor key={sub} schema={schema.items} data={item} title={`${title}[${index}]`} path={sub} />
+      })}
     </div>
   )
 }

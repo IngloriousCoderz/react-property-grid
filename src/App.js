@@ -2,7 +2,7 @@ import React from 'react'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 
-import RootEditor from './components/RootEditor'
+import PropertyEditor from './components/RootEditor'
 import rootReducer from './reducers'
 import {clone} from './utilities'
 
@@ -20,7 +20,7 @@ if (module.hot) {
 
 const App = () => (
   <Provider store={store}>
-    <RootEditor />
+    <PropertyEditor title='Properties' />
   </Provider>
 )
 

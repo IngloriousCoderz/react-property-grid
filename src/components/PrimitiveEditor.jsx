@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {last, asciiTree} from '../utilities/path'
 import TextEditor from './TextEditor'
 
 const styles = {
@@ -24,12 +25,13 @@ const styles = {
   }
 }
 
-const PrimitiveEditor = ({schema, data, key, path}) => {
-  const caption = schema.title || key
+const PrimitiveEditor = ({schema, data, path}) => {
+  const text = schema.title || last(path)
+
   return (
     <div style={styles.row}>
       <div style={styles.cell}>
-        {'-'.repeat(path.split('.').length)}{caption}
+        <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
       </div>
       <div style={{...styles.cell, ...styles.inputCell}}>
         <TextEditor schema={schema} data={data} />

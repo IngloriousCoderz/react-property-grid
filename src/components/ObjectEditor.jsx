@@ -5,15 +5,13 @@ import PropertiesEditor from './PropertiesEditor'
 import AdditionalPropertiesEditor from './AdditionalPropertiesEditor'
 import AnyOfEditor from './AnyOfEditor'
 
-const ObjectEditor = ({schema, data, key, path}) => {
-  const subPath = `${path}.${key}`
-
+const ObjectEditor = ({schema, data, title, path}) => {
   return (
     <div>
-      <CaptionRow text={schema.title || key} summary={schema.description} path={path} />
-      <PropertiesEditor schema={schema.properties} data={data} path={subPath} />
-      <AdditionalPropertiesEditor schema={schema.additionalProperties} data={data} path={subPath} />
-      <AnyOfEditor schema={schema.anyOf} data={data} path={subPath} />
+      <CaptionRow schema={schema} data={data} title={title} path={path} />
+      <PropertiesEditor schema={schema.properties} data={data} path={path} />
+      <AdditionalPropertiesEditor schema={schema.additionalProperties} data={data} path={path} />
+      <AnyOfEditor schema={schema.anyOf} data={data} path={path} />
     </div>
   )
 }
