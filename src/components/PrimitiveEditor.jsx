@@ -5,6 +5,7 @@ import {getType} from '../utilities'
 import {last, asciiTree} from '../utilities/path'
 import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'
+import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setData} from '../actions'
 
@@ -42,6 +43,9 @@ const PrimitiveEditor = ({schema, data, path, setData}) => {
     case 'integer':
     case 'number':
       Component = NumberEditor
+      break
+    case 'enum':
+      Component = EnumEditor
       break
     default:
       Component = TextEditor

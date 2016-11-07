@@ -9,7 +9,7 @@ export const clone = json => JSON.parse(JSON.stringify(json))
 
 export const getType = schema => {
   if (schema.type == null) {
-    return schema.enum != null ? 'string' : 'object'
+    return schema.enum != null ? 'enum' : 'object'
   }
   if (schema.type === 'object') {
     return 'object'
