@@ -12,6 +12,7 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canRe
   }
 
   schema = dereference(schema, rootSchema)
+
   const type = getType(schema)
   data = data || getDefaultForType(type)
   const required = isRequired(path, requireds)

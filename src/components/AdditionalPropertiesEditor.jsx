@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {dereference, matchSchema} from '../utilities'
+import {matchSchema} from '../utilities'
 import {subpath, last} from '../utilities/path'
 import PropertyEditor from './PropertyEditor'
 
@@ -9,8 +9,6 @@ const AdditionalPropertiesEditor = ({schema, data, path, rootSchema}) => {
   if (schema == null || schema === false || data == null) {
     return null
   }
-
-  schema = dereference(schema, rootSchema)
 
   return (
     <div>
@@ -20,7 +18,7 @@ const AdditionalPropertiesEditor = ({schema, data, path, rootSchema}) => {
         }
         const sub = subpath(path, key)
         const title = schema.title || last(sub)
-        return <PropertyEditor key={key} schema={schema} data={data[key]} title={title} path={sub} canRemove={true} />
+          return <PropertyEditor key={key} schema={schema} data={data[key]} title={title} path={sub} canRemove={true} />
       })}
     </div>
   )

@@ -54,8 +54,7 @@ export const isRequired = (path, requireds) => requireds != null && requireds.in
 
 export const matchSchema = (schemas, data, rootSchema) => {
   const type = inferType(data)
-  const selectedSchemas = schemas.filter(schema => {
-    schema = dereference(schema, rootSchema)
+  const selectedSchemas = schemas.map(schema => dereference(schema, rootSchema)).filter(schema => {
     if (data.type == null) {
       return schema.type === type
     }
