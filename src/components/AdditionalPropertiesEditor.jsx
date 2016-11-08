@@ -18,7 +18,7 @@ const AdditionalPropertiesEditor = ({schema, data, path, rootSchema}) => {
         }
         const sub = subpath(path, key)
         const title = schema.title || last(sub)
-        return <PropertyEditor key={key} schema={schema} data={data[key]} title={title} path={sub} canDelete={true} />
+        return <PropertyEditor key={key} schema={schema} data={data[key]} title={title} path={sub} canRemove={true} />
       })}
     </div>
   )

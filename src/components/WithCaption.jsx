@@ -8,10 +8,10 @@ const redStar = {
 }
 
 const label = {
-  fontWeight: 'bold'
+  // fontWeight: 'bold'
 }
 
-const WithCaption = Component => ({schema, data, title, path, required, canDelete, canAdd}) => (
+const WithCaption = Component => ({schema, data, title, path, required, canRemove, canAdd, removeItem, addItem}) => (
   <div style={row}>
     <div style={cell}>
       <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />
@@ -20,11 +20,11 @@ const WithCaption = Component => ({schema, data, title, path, required, canDelet
     </div>
     <div style={cell}>
       <div style={buttonGroup}>
-        {canDelete ? <div style={button} onClick={console.log}>&ndash;</div> : null}
-        {canAdd ? <div style={button} onClick={console.log}>+</div> : null}
+        {canRemove ? <div style={button} onClick={() => removeItem(path, schema)}>&ndash;</div> : null}
+        {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
       </div>
       <div style={ellipsis}>
-        <Component schema={schema} data={data} title={title} path={path} canDelete={canDelete} />
+        <Component schema={schema} data={data} title={title} path={path} canRemove={canRemove} />
       </div>
     </div>
   </div>
