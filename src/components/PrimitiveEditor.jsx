@@ -8,13 +8,7 @@ import NumberEditor from './NumberEditor'
 import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setData} from '../actions'
-import {row, cell, buttonGroup, button} from './styles'
-
-const field = {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
-}
+import {row, ellipsis, cell, buttonGroup, button} from './styles'
 
 const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
   const text = schema.title || last(path)
@@ -45,7 +39,7 @@ const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
         <div style={buttonGroup}>
           {canDelete ? <div style={button} onClick={console.log}>&ndash;</div> : null}
         </div>
-        <div style={field}>
+        <div style={ellipsis}>
           <Component schema={schema} data={data} path={path} setData={setData} />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {asciiTree} from '../utilities/path'
-import {row, cell, buttonGroup, button} from './styles'
+import {row, ellipsis, cell, buttonGroup, button} from './styles'
 
 const required = {
   color: 'red'
@@ -13,9 +13,7 @@ const label = {
 
 const description = {
   color: 'grey',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
+  ...ellipsis
 }
 
 const CaptionRow = ({schema, data, title, path, required, canDelete}) => {
@@ -39,9 +37,7 @@ const CaptionRow = ({schema, data, title, path, required, canDelete}) => {
           {canDelete ? <div style={button} onClick={console.log}>&ndash;</div> : null}
           {canAdd ? <div style={button} onClick={console.log}>+</div> : null}
         </div>
-        <div style={description}>
-          {summary}
-        </div>
+        <span style={description}>{summary}</span>
       </div>
     </div>
   )

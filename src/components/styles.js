@@ -2,6 +2,12 @@ export const row = {
   // display: 'table-row'
 }
 
+export const ellipsis = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
+}
+
 export const cell = {
   // display: 'table-cell',
   display: 'inline-block',
@@ -11,9 +17,7 @@ export const cell = {
   borderRight: '1px solid lightgrey',
   borderBottom: '1px solid lightgrey',
   padding: '2px',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
+  ...ellipsis
 }
 
 export const buttonGroup = {
@@ -31,5 +35,6 @@ export const input = {
   width: '100%',
   margin: 0,
   border: 0,
-  padding: 0
+  padding: 0,
+  ...ellipsis
 }

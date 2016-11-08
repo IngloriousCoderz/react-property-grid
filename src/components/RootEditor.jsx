@@ -8,6 +8,8 @@ const editor = {
   // display: 'table',
   // width: '100%',
   // borderCollapse: 'collapse',
+  borderTop: '1px solid lightgrey',
+  borderLeft: '1px solid lightgrey',
   fontSize: '12px'
 }
 
