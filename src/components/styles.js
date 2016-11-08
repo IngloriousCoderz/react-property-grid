@@ -13,10 +13,10 @@ export const cell = {
   display: 'inline-block',
   verticalAlign: 'top',
   width: '50%',
-  height: '21px',
+  height: 21,
   borderRight: '1px solid lightgrey',
   borderBottom: '1px solid lightgrey',
-  padding: '2px',
+  padding: 2,
   ...ellipsis
 }
 
@@ -33,8 +33,9 @@ export const button = {
 
 export const input = {
   width: '100%',
+  height: 21,
   margin: 0,
   border: 0,
-  padding: 0,
+  padding: 2,
   ...ellipsis
 }

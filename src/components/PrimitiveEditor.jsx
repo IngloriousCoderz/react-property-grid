@@ -31,4 +31,4 @@ const PrimitiveEditor = ({schema, data, path, required, setData, canRemove}) => 
   return <Component schema={schema} data={data} path={path} required={required} setData={setData} />
 }
 
-export default connect(() => ({}), {setData})(WithCaption(PrimitiveEditor))
+export default connect(() => ({}), {setData})(WithCaption({field: true})(PrimitiveEditor))
