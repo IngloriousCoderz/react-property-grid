@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {matchSchema} from '../utilities'
+import {dereference, matchSchema} from '../utilities'
 import {subpath, last} from '../utilities/path'
 import PropertyEditor from './PropertyEditor'
 
@@ -9,6 +9,8 @@ const AdditionalPropertiesEditor = ({schema, data, path, rootSchema}) => {
   if (schema == null || schema === false || data == null) {
     return null
   }
+
+  schema = dereference(schema, rootSchema)
 
   return (
     <div>

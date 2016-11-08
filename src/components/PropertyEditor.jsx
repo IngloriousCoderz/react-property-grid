@@ -11,8 +11,8 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canRe
     return null
   }
 
-  const derefSchema = dereference(schema, rootSchema)
-  const type = getType(derefSchema)
+  schema = dereference(schema, rootSchema)
+  const type = getType(schema)
   data = data || getDefaultForType(type)
   const required = isRequired(path, requireds)
 
@@ -28,7 +28,7 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canRe
       Component = PrimitiveEditor
   }
 
-  return <Component schema={derefSchema} data={data} title={title} path={path} required={required} canRemove={canRemove} />
+  return <Component schema={schema} data={data} title={title} path={path} required={required} canRemove={canRemove} />
 }
 
 export default connect(({rootSchema}) => ({rootSchema}))(PropertyEditor)

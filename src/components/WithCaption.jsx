@@ -11,10 +11,10 @@ const label = {
   // fontWeight: 'bold'
 }
 
-const WithCaption = Component => ({schema, data, title, path, required, canRemove, canAdd, removeItem, addItem}) => (
+const WithCaption = Component => ({schema, data, title, path, required, expanded, toggleExpanded, canRemove, canAdd, removeItem, addItem}) => (
   <div style={row}>
     <div style={cell}>
-      <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />
+      <span dangerouslySetInnerHTML={{__html: asciiTree(path, expanded)}} onClick={toggleExpanded} />
       <span style={label}>{title}</span>
       {required ? <span style={redStar}>*</span> : null}
     </div>

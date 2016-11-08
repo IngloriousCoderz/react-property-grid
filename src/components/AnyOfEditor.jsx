@@ -4,13 +4,13 @@ import {connect} from 'react-redux'
 import {matchSchema} from '../utilities'
 import PropertyEditor from './PropertyEditor'
 
-const AnyOfEditor = ({schema, data, path, rootSchema}) => {
-  if (schema == null || data == null) {
+const AnyOfEditor = ({schemas, data, path, rootSchema}) => {
+  if (schemas == null || data == null) {
     return null
   }
 
-  const selectedSchema = matchSchema(schema, data, rootSchema)
-  return <PropertyEditor schema={selectedSchema} data={data} path={path} canRemove={true} />
+  const schema = matchSchema(schemas, data, rootSchema)
+  return <PropertyEditor schema={schema} data={data} path={path} canRemove={true} />
 }
 
 export default connect(({rootSchema}) => ({rootSchema}))(AnyOfEditor)
