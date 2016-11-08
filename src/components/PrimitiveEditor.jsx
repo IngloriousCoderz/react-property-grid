@@ -27,11 +27,31 @@ const styles = {
     whiteSpace: 'nowrap'
   },
   inputCell: {
+    padding: 2
+  },
+  buttonGroup: {
+    float: 'right'
+  },
+  button: {
+    display: 'inline-block',
+    width: 14,
+    borderLeft: '1px solid lightgrey',
+    textAlign: 'center'
+  },
+  field: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  },
+  input: {
+    width: '100%',
+    margin: 0,
+    border: 0,
     padding: 0
   }
 }
 
-const PrimitiveEditor = ({schema, data, path, setData}) => {
+const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
   const text = schema.title || last(path)
   const type = getType(schema)
 
@@ -57,7 +77,12 @@ const PrimitiveEditor = ({schema, data, path, setData}) => {
         <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
       </div>
       <div style={{...styles.cell, ...styles.inputCell}}>
-        <Component schema={schema} data={data} path={path} setData={setData} />
+        <div style={styles.buttonGroup}>
+          {canDelete ? <div style={styles.button} onClick={console.log}>&ndash;</div> : null}
+        </div>
+        <div style={styles.field}>
+          <Component schema={schema} data={data} path={path} setData={setData} style={styles.input} />
+        </div>
       </div>
     </div>
   )

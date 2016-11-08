@@ -15,7 +15,7 @@ const styles = {
     textAlign: 'center'
   },
   cell: {
-    height: '20px',
+    height: '21px',
     border: '1px solid lightgrey',
     padding: '2px'
   },

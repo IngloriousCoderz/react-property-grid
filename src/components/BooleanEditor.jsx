@@ -1,12 +1,12 @@
 import React from 'react'
 
 const styles = {
-  input: {
-    width: '100%',
-    textAlign: 'center'
+  boolean: {
+    textAlign: 'center',
+    verticalAlign: 'middle'
   }
 }
 
-const BooleanEditor = ({schema, data, path, setData}) => <input type='checkbox' checked={data} onChange={event => setData(path, event.target.checked)} style={styles.input} />
+const BooleanEditor = ({schema, data, path, style, setData}) => <input type='checkbox' checked={data} onChange={event => setData(path, event.target.checked)} style={{...style, ...styles.boolean}} />
 
 export default BooleanEditor

@@ -6,7 +6,7 @@ import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
 
-const PropertyEditor = ({schema, data, title, path, rootSchema}) => {
+const PropertyEditor = ({schema, data, title, path, rootSchema, canDelete}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }
@@ -28,7 +28,7 @@ const PropertyEditor = ({schema, data, title, path, rootSchema}) => {
       Component = PrimitiveEditor
   }
 
-  return <Component schema={derefSchema} data={data} title={title} path={path} />
+  return <Component schema={derefSchema} data={data} title={title} path={path} canDelete={canDelete} />
 }
 
 export default connect(({rootSchema}) => ({rootSchema}))(PropertyEditor)

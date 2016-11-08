@@ -10,7 +10,7 @@ const AnyOfEditor = ({schema, data, path, rootSchema}) => {
   }
 
   const selectedSchema = matchSchema(schema, data, rootSchema)
-  return <PropertyEditor schema={selectedSchema} data={data} path={path} />
+  return <PropertyEditor schema={selectedSchema} data={data} path={path} canDelete={true} />
 }
 
 export default connect(({rootSchema}) => ({rootSchema}))(AnyOfEditor)

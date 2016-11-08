@@ -1,15 +1,11 @@
 import React from 'react'
 
 const styles = {
-  input: {
-    width: '100%',
-    margin: 0,
-    border: 0,
-    padding: '2px',
+  number: {
     textAlign: 'right'
   },
 }
 
-const NumberEditor = ({schema, data, path, setData}) => <input type='number' value={data} onChange={event => setData(path, event.target.value)} style={styles.input} />
+const NumberEditor = ({schema, data, path, style, setData}) => <input type='number' value={data} onChange={event => setData(path, event.target.value)} style={{...style, ...styles.number}} />
 
 export default NumberEditor
