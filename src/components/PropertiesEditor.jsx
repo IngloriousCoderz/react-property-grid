@@ -8,7 +8,7 @@ const PropertiesEditor = ({schema = {}, data, path}) => (
     {Object.keys(schema).map(key => {
       const sub = subpath(path, key)
       const title = schema[key].title || last(sub)
-      return <PropertyEditor key={key} schema={schema[key]} data={data[key]} title={title} path={sub} />
+        return <PropertyEditor key={key} schema={schema[key]} data={data[key]} title={title} path={sub} />
     })}
   </div>
 )

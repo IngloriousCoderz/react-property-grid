@@ -2,16 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {getType} from '../utilities'
-import {last, asciiTree} from '../utilities/path'
+import WithCaption from './WithCaption'
 import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'
 import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setData} from '../actions'
-import {row, ellipsis, cell, buttonGroup, button} from './styles'
 
-const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
-  const text = schema.title || last(path)
+const PrimitiveEditor = ({schema, data, path, setData, required, canDelete}) => {
   const type = getType(schema)
 
   let Component
@@ -30,21 +28,7 @@ const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
       Component = TextEditor
   }
 
-  return (
-    <div style={row}>
-      <div style={cell}>
-        <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
-      </div>
-      <div style={cell}>
-        <div style={buttonGroup}>
-          {canDelete ? <div style={button} onClick={console.log}>&ndash;</div> : null}
-        </div>
-        <div style={ellipsis}>
-          <Component schema={schema} data={data} path={path} setData={setData} />
-        </div>
-      </div>
-    </div>
-  )
+  return <Component schema={schema} data={data} path={path} setData={setData} />
 }
 
-export default connect(() => ({}), {setData})(PrimitiveEditor)
+export default connect(() => ({}), {setData})(WithCaption(PrimitiveEditor))
