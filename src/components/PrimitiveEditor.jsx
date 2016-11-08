@@ -8,47 +8,12 @@ import NumberEditor from './NumberEditor'
 import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setData} from '../actions'
+import {row, cell, buttonGroup, button} from './styles'
 
-const styles = {
-  row: {
-    // display: 'table-row'
-  },
-  cell: {
-    // display: 'table-cell',
-    display: 'inline-block',
-    verticalAlign: 'top',
-    width: '50%',
-    height: '20px',
-    borderRight: '1px solid lightgrey',
-    borderBottom: '1px solid lightgrey',
-    padding: '2px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-  inputCell: {
-    padding: 2
-  },
-  buttonGroup: {
-    float: 'right'
-  },
-  button: {
-    display: 'inline-block',
-    width: 14,
-    borderLeft: '1px solid lightgrey',
-    textAlign: 'center'
-  },
-  field: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-  input: {
-    width: '100%',
-    margin: 0,
-    border: 0,
-    padding: 0
-  }
+const field = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
 }
 
 const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
@@ -72,16 +37,16 @@ const PrimitiveEditor = ({schema, data, path, setData, canDelete}) => {
   }
 
   return (
-    <div style={styles.row}>
-      <div style={styles.cell}>
+    <div style={row}>
+      <div style={cell}>
         <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />{text}
       </div>
-      <div style={{...styles.cell, ...styles.inputCell}}>
-        <div style={styles.buttonGroup}>
-          {canDelete ? <div style={styles.button} onClick={console.log}>&ndash;</div> : null}
+      <div style={cell}>
+        <div style={buttonGroup}>
+          {canDelete ? <div style={button} onClick={console.log}>&ndash;</div> : null}
         </div>
-        <div style={styles.field}>
-          <Component schema={schema} data={data} path={path} setData={setData} style={styles.input} />
+        <div style={field}>
+          <Component schema={schema} data={data} path={path} setData={setData} />
         </div>
       </div>
     </div>
