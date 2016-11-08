@@ -1,3 +1,4 @@
+import {last} from './path'
 import {jsonPathToValue} from './json'
 
 const classToType = {}
@@ -39,18 +40,18 @@ export const getDefaultForType = type => {
   }[type]
 }
 
-export const dereference = (property, rootSchema) => {
-  const ref = property['$ref']
+export const dereference = (schema, rootSchema) => {
+  const ref = schema['$ref']
   if (ref == null) {
-    return property
+    return schema
   }
 
   const refPath = ref.replace('#/', '').replace('/', '.')
   return jsonPathToValue(rootSchema, refPath)
 }
 
-/*----------------------------------------------------------------------------*/
-// Select matching schema, based on (by convention) type attribute
+export const isRequired = (path, requireds) => requireds != null && requireds.includes(last(path))
+
 export const matchSchema = (schemas, data, rootSchema) => {
   const type = inferType(data)
   const selectedSchemas = schemas.filter(schema => {

@@ -22,7 +22,7 @@ const header = {
 const RootEditor = ({rootSchema, data, title}) => (
   <div style={editor}>
     <div style={{...cell, ...header}}>{title}</div>
-    <PropertiesEditor schema={rootSchema.properties} data={data} />
+    <PropertiesEditor schema={rootSchema.properties} data={data} requireds={rootSchema.required} />
   </div>
 )
 

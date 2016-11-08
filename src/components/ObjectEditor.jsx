@@ -7,12 +7,12 @@ import PropertiesEditor from './PropertiesEditor'
 import AdditionalPropertiesEditor from './AdditionalPropertiesEditor'
 import AnyOfEditor from './AnyOfEditor'
 
-const ObjectEditor = ({schema, data, title, path, canRemove, addItem, removeItem}) => {
+const ObjectEditor = ({schema, data, title, path, required, canRemove, addItem, removeItem}) => {
   const canAddOrRemoveProperties = schema.additionalProperties
   return (
     <div>
-      {title != null ? <Summary schema={schema} data={data} title={title} path={path} canAdd={canAddOrRemoveProperties} canRemove={canRemove} addItem={addItem} removeItem={removeItem} /> : null}
-      <PropertiesEditor schema={schema.properties} data={data} path={path} />
+      {title != null ? <Summary schema={schema} data={data} title={title} path={path} required={required} canAdd={canAddOrRemoveProperties} canRemove={canRemove} addItem={addItem} removeItem={removeItem} /> : null}
+      <PropertiesEditor schema={schema.properties} data={data} path={path} requireds={schema.required} />
       <AdditionalPropertiesEditor schema={schema.additionalProperties} data={data} path={path} />
       <AnyOfEditor schema={schema.anyOf} data={data} path={path} />
     </div>

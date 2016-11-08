@@ -9,7 +9,7 @@ import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setData} from '../actions'
 
-const PrimitiveEditor = ({schema, data, path, setData, required, canRemove}) => {
+const PrimitiveEditor = ({schema, data, path, required, setData, canRemove}) => {
   const type = getType(schema)
 
   let Component
@@ -28,7 +28,7 @@ const PrimitiveEditor = ({schema, data, path, setData, required, canRemove}) => 
       Component = TextEditor
   }
 
-  return <Component schema={schema} data={data} path={path} setData={setData} />
+  return <Component schema={schema} data={data} path={path} required={required} setData={setData} />
 }
 
 export default connect(() => ({}), {setData})(WithCaption(PrimitiveEditor))

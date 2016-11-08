@@ -15,8 +15,8 @@ const WithCaption = Component => ({schema, data, title, path, required, canRemov
   <div style={row}>
     <div style={cell}>
       <span dangerouslySetInnerHTML={{__html: asciiTree(path)}} />
-      {required ? <span style={redStar}>*</span> : null}
       <span style={label}>{title}</span>
+      {required ? <span style={redStar}>*</span> : null}
     </div>
     <div style={cell}>
       <div style={buttonGroup}>
