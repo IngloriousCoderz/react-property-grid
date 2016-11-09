@@ -7,11 +7,11 @@ import Summary from './Summary'
 import PropertyEditor from './PropertyEditor'
 import Expandable from './Expandable'
 
-const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canRemove, addItem, removeItem}) => {
+const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {
   const canAddOrRemoveItems = schema.additionalItems !== false
   return (
     <div>
-      <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canAdd={canAddOrRemoveItems} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+      <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canEditKey={canEditKey} canAdd={canAddOrRemoveItems} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
       {expanded ? data.map((item, index) => {
         const sub = subpath(path, index)
         const title = schema.title || last(sub)

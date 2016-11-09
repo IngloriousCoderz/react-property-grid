@@ -113,6 +113,8 @@
                   "description": "Highlighted row styling.",
                   "properties": {
                     "backgroundColor": {
+                      "title": "backgroundColor",
+                      "description": "Background color of a highlighted row.",
                       "type": "string"
                     }
                   },
@@ -123,6 +125,8 @@
                   "description": "Focused row styling.",
                   "properties": {
                     "backgroundColor": {
+                      "title": "backgroundColor",
+                      "description": "Background color of a focused row.",
                       "type": "string"
                     }
                   },
@@ -453,6 +457,7 @@
       "title": "Source",
       "description": "How to retrieve data.",
       "anyOf": [{
+        "title": "Source",
         "description": "Simplified SQL-like query.",
         "type:": "object",
         "properties": {
@@ -469,6 +474,7 @@
         },
         "required": ["type"]
       }, {
+        "title": "Source",
         "description": "All fields organized in a convenient structure.",
         "type": "object",
         "properties": {

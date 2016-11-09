@@ -9,7 +9,7 @@ import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
 import {setValue} from '../actions'
 
-const PrimitiveEditor = ({schema, data, path, required, setValue, canRemove}) => {
+const PrimitiveEditor = ({schema, data, path, required, setValue}) => {
   const type = getType(schema)
 
   let Component

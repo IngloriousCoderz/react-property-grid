@@ -8,7 +8,7 @@ import PropertiesEditor from './PropertiesEditor'
 import AdditionalPropertiesEditor from './AdditionalPropertiesEditor'
 import Expandable from './Expandable'
 
-const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canRemove, addItem, removeItem, rootSchema}) => {
+const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem, rootSchema}) => {
   const canAddOrRemoveProperties = schema.additionalProperties
 
   if (schema.anyOf != null) {
@@ -17,7 +17,7 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
 
   return (
     <div>
-      {title != null ? <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canAdd={canAddOrRemoveProperties} canRemove={canRemove} addItem={addItem} removeItem={removeItem} /> : null}
+      {title != null ? <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canAdd={canAddOrRemoveProperties} canEditKey={canEditKey} canRemove={canRemove} addItem={addItem} removeItem={removeItem} /> : null}
       {expanded ?
         <div>
           <PropertiesEditor schema={schema.properties} data={data} path={path} requireds={schema.required} />

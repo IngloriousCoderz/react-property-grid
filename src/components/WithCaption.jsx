@@ -39,10 +39,9 @@ const paddedButtonGroup = {
 }
 
 const WithCaption = ({field}) => Component => {
-  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
-    const editableKey = schema.title == null
+  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
     const caption = {
-      ...(editableKey ? fieldCell : cell),
+      ...(canEditKey ? fieldCell : cell),
       paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
     }
 
@@ -59,7 +58,7 @@ const WithCaption = ({field}) => Component => {
           {expanded != null ? <div style={expander}>
             <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} onClick={toggleExpanded} />
           </div> : null}
-          {editableKey ? <div style={ellipsis}>
+          {canEditKey ? <div style={ellipsis}>
             <TextEditor schema={schema} data={title} path={path} setValue={setKey} /></div>
             : <span style={label}>{title}</span>}
           {required ? <span style={redStar}>*</span> : null}
