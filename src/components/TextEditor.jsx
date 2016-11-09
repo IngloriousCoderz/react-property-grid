@@ -3,11 +3,11 @@ import {Debounce} from 'react-throttle'
 
 import {input} from './styles'
 
-const TextEditor = ({schema, data, path, setData}) => (
+const TextEditor = ({schema, data, path, setValue}) => (
   <Debounce time='200' handler='onChange'>
     <input type='text'
       defaultValue={data}
-      onChange={event => setData(path, event.target.value)}
+      onChange={event => setValue(path, event.target.value)}
       style={input} />
   </Debounce>
 )

@@ -1,10 +1,18 @@
 import * as types from '../constants/actionTypes'
 
-export const setData = (path, data) => ({
-  type: types.SET_DATA,
+export const setKey = (path, key) => ({
+  type: types.SET_KEY,
   payload: {
     path,
-    data
+    key
+  }
+})
+
+export const setValue = (path, value) => ({
+  type: types.SET_VALUE,
+  payload: {
+    path,
+    value
   }
 })
 
@@ -16,10 +24,9 @@ export const addItem = (path, schema) => ({
   }
 })
 
-export const removeItem = (path, schema) => ({
+export const removeItem = path => ({
   type: types.REMOVE_ITEM,
   payload: {
-    path,
-    schema
+    path
   }
 })

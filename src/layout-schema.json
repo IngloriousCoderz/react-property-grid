@@ -33,13 +33,11 @@
       "description": "CSS style definitions.",
       "type": "object",
       "additionalProperties": {
-        "anyOf": [{
-          "description": "CSS rule.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }]
+        "description": "CSS rule.",
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
       }
     },
     "viewers": {
@@ -117,7 +115,8 @@
                     "backgroundColor": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "focused": {
                   "title": "Focused",
@@ -126,11 +125,14 @@
                     "backgroundColor": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
-              }
+              },
+              "additionalProperties": false
             }
-          }
+          },
+          "additionalProperties": false
         },
         "showProgress": {
           "title": "Show progress",

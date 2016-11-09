@@ -12,6 +12,10 @@ const headerRow = {
   background: '#FAFAFA'
 }
 
+const expander = {
+  cursor: 'pointer'
+}
+
 const redStar = {
   color: 'red'
 }
@@ -30,10 +34,10 @@ const paddedButtonGroup = {
   padding: 3
 }
 
-const WithCaption = ({field}) => Component => ({schema, data, title, path, required, expanded, toggleExpanded, setData, canAdd, addItem, canRemove, removeItem}) => (
+const WithCaption = ({field}) => Component => ({schema, data, title, path, required, expanded, toggleExpanded, setValue, canAdd, addItem, canRemove, removeItem}) => (
   <div style={field ? row : headerRow}>
     <div style={{...cell, paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))}}>
-      {expanded != null ? <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} onClick={toggleExpanded} /> : null}
+      {expanded != null ? <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} style={expander} onClick={toggleExpanded} /> : null}
       <span style={label}>{title}</span>
       {required ? <span style={redStar}>*</span> : null}
     </div>
@@ -45,7 +49,7 @@ const WithCaption = ({field}) => Component => ({schema, data, title, path, requi
         </div>
       : null}
       <div style={ellipsis}>
-        <Component schema={schema} data={data} title={title} path={path} setData={setData} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+        <Component schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
       </div>
     </div>
   </div>
