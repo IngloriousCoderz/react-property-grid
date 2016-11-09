@@ -1,6 +1,9 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import {level} from '../utilities/path'
+import TextEditor from './TextEditor'
+import {setKey} from '../actions'
 import {row, ellipsis, cell, buttonGroup, button} from './styles'
 
 const EXPANDER_WIDTH = 10
@@ -13,6 +16,7 @@ const headerRow = {
 }
 
 const expander = {
+  float: 'left',
   cursor: 'pointer'
 }
 
@@ -34,25 +38,42 @@ const paddedButtonGroup = {
   padding: 3
 }
 
-const WithCaption = ({field}) => Component => ({schema, data, title, path, required, expanded, toggleExpanded, setValue, canAdd, addItem, canRemove, removeItem}) => (
-  <div style={field ? row : headerRow}>
-    <div style={{...cell, paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))}}>
-      {expanded != null ? <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} style={expander} onClick={toggleExpanded} /> : null}
-      <span style={label}>{title}</span>
-      {required ? <span style={redStar}>*</span> : null}
-    </div>
-    <div style={field ? fieldCell : cell}>
-      {canAdd || canRemove ?
-        <div style={field ? paddedButtonGroup : buttonGroup}>
-          {canRemove ? <div style={button} onClick={() => removeItem(path, schema)}>-</div> : null/*&ndash;*/}
-          {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
-        </div>
-      : null}
-      <div style={ellipsis}>
-        <Component schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+const WithCaption = ({field}) => Component => {
+  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
+    const editableKey = schema.title == null
+    const caption = {
+      ...(editableKey ? fieldCell : cell),
+      paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
+    }
+
+    const buttons = canAdd || canRemove ?
+      <div style={field ? paddedButtonGroup : buttonGroup}>
+        {canRemove ? <div style={button} onClick={() => removeItem(path, schema)}>-</div> : null}
+        {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
       </div>
-    </div>
-  </div>
-)
+    : null
+
+    return (
+      <div style={field ? row : headerRow}>
+        <div style={caption}>
+          {expanded != null ? <div style={expander}>
+            <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} onClick={toggleExpanded} />
+          </div> : null}
+          {editableKey ? <div style={ellipsis}>
+            <TextEditor schema={schema} data={title} path={path} setValue={setKey} /></div>
+            : <span style={label}>{title}</span>}
+          {required ? <span style={redStar}>*</span> : null}
+        </div>
+        <div style={field ? fieldCell : cell}>
+          {buttons}
+          <div style={ellipsis}>
+            <Component schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+  return connect(() => ({}), {setKey})(Row)
+}
 
 export default WithCaption

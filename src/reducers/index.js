@@ -1,22 +1,7 @@
-import jsonpath from 'jsonpath'
-
 import * as types from '../constants/actionTypes'
 import {clone} from '../utilities'
-import {split, join} from '../utilities/path'
-
-const setKey = (state, keys, key) => {
-  return state
-}
-
-const setValue = (state, keys, value) => {
-  const key = keys.pop()
-
-  jsonpath.apply(state, `$.data.${join(keys)}`, prop => {
-    prop[key] = value
-    return prop
-  })
-  return state
-}
+import {setKey, setValue} from '../utilities/data'
+import {split} from '../utilities/path'
 
 const data = (state, action) => {
   const {type, payload} = action
