@@ -47,7 +47,7 @@ const WithCaption = ({field}) => Component => {
 
     const buttons = canAdd || canRemove ?
       <div style={field ? paddedButtonGroup : buttonGroup}>
-        {canRemove ? <div style={button} onClick={() => removeItem(path, schema)}>-</div> : null}
+        {canRemove ? <div style={button} onClick={() => removeItem(path)}>-</div> : null}
         {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
       </div>
     : null

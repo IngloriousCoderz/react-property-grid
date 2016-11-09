@@ -7,9 +7,9 @@ import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'
 import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
-import {setValue} from '../actions'
+import {setValue, removeItem} from '../actions'
 
-const PrimitiveEditor = ({schema, data, path, required, setValue}) => {
+const PrimitiveEditor = ({schema, data, path, required, setValue, removeItem}) => {
   const type = getType(schema)
 
   let Component
@@ -28,7 +28,7 @@ const PrimitiveEditor = ({schema, data, path, required, setValue}) => {
       Component = TextEditor
   }
 
-  return <Component schema={schema} data={data} path={path} required={required} setValue={setValue} />
+  return <Component schema={schema} data={data} path={path} required={required} setValue={setValue} removeItem={removeItem} />
 }
 
-export default connect(() => ({}), {setValue})(WithCaption({field: true})(PrimitiveEditor))
+export default connect(() => ({}), {setValue, removeItem})(WithCaption({field: true})(PrimitiveEditor))
