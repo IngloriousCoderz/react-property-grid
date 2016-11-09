@@ -104,7 +104,33 @@
         "style": {
           "title": "Style",
           "description": "Grid-specific dynamic style.",
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "row": {
+              "title": "Grid Row",
+              "description": "Custom grid row styling.",
+              "properties": {
+                "highlighted": {
+                  "title": "Highlighted",
+                  "description": "Highlighted row styling.",
+                  "properties": {
+                    "backgroundColor": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "focused": {
+                  "title": "Focused",
+                  "description": "Focused row styling.",
+                  "properties": {
+                    "backgroundColor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         },
         "showProgress": {
           "title": "Show progress",

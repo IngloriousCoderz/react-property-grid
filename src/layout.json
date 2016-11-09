@@ -79,7 +79,7 @@
         "defaultCurrentRow": 0
       }],
       "style": {
-        "gridRow": {
+        "row": {
           "highlighted": {
             "backgroundColor": "{{MarketsGrid.0.Market === 'AF' ? 'khaki' : MarketsGrid.0.Market === 'AS' ? 'lightyellow' : 'aliceblue'}}"
           },
