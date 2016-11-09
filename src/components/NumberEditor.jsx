@@ -9,7 +9,13 @@ const number = {
 
 const NumberEditor = ({schema, data, path, setData}) => (
   <Debounce time='200' handler='onChange'>
-    <input type='number' defaultValue={data} onChange={event => setData(path, event.target.value)} style={{...input, ...number}} />
+    <input type='number'
+      step={schema.multipleOf}
+      min={schema.minimum + (schema.exclusiveMinimum ? 1 : 0)}
+      max={schema.maximum - (schema.exclusiveMaximum ? 1 : 0)}
+      defaultValue={data}
+      onChange={event => setData(path, event.target.value)}
+      style={{...input, ...number}} />
   </Debounce>
 )
 

@@ -5,7 +5,10 @@ import {input} from './styles'
 
 const TextEditor = ({schema, data, path, setData}) => (
   <Debounce time='200' handler='onChange'>
-    <input type='text' defaultValue={data} onChange={event => setData(path, event.target.value)} style={input} />
+    <input type='text'
+      defaultValue={data}
+      onChange={event => setData(path, event.target.value)}
+      style={input} />
   </Debounce>
 )
 
