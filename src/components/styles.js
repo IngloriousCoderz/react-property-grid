@@ -33,7 +33,7 @@ export const button = {
 
 export const input = {
   width: '100%',
-  height: 21,
+  height: 20,
   margin: 0,
   border: 0,
   padding: 2,

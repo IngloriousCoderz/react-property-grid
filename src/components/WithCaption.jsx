@@ -21,7 +21,12 @@ const fieldCell = {
   padding: 0
 }
 
-const WithCaption = ({field}) => Component => ({schema, data, title, path, required, expanded, toggleExpanded, setData, canRemove, canAdd, removeItem, addItem}) => (
+const paddedButtonGroup = {
+  ...buttonGroup,
+  padding: 2
+}
+
+const WithCaption = ({field}) => Component => ({schema, data, title, path, required, expanded, toggleExpanded, setData, canAdd, addItem, canRemove, removeItem}) => (
   <div style={field ? row : headerRow}>
     <div style={cell}>
       <span dangerouslySetInnerHTML={{__html: asciiTree(path, expanded)}} onClick={toggleExpanded} />
@@ -29,12 +34,12 @@ const WithCaption = ({field}) => Component => ({schema, data, title, path, requi
       {required ? <span style={redStar}>*</span> : null}
     </div>
     <div style={field ? fieldCell : cell}>
-      <div style={buttonGroup}>
+      <div style={field ? paddedButtonGroup : buttonGroup}>
         {canRemove ? <div style={button} onClick={() => removeItem(path, schema)}>&ndash;</div> : null}
         {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
       </div>
       <div style={ellipsis}>
-        <Component schema={schema} data={data} title={title} path={path} setData={setData} canRemove={canRemove} />
+        <Component schema={schema} data={data} title={title} path={path} setData={setData} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
       </div>
     </div>
   </div>
