@@ -6,6 +6,8 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
+    "json-schema-defaults": "^0.2.0",
+    "json-schema-deref-local": "^0.2.1",
     "jsonpath": "^0.2.7",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getType, getDefaultForType, dereference, isRequired} from '../utilities'
+import {getType, getDefaultForType, isRequired} from '../utilities'
 import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
@@ -10,8 +10,6 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canEd
   if (schema['!editor-visible'] === false) {
     return null
   }
-
-  schema = dereference(schema, rootSchema)
 
   const type = getType(schema)
   data = data || getDefaultForType(type)

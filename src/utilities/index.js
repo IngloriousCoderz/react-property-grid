@@ -1,5 +1,4 @@
 import {last} from './path'
-import {jsonPathToValue} from './json'
 
 const classToType = {}
 "Boolean Number String Function Array Date RegExp Undefined Null".split(" ").forEach(name => {
@@ -40,21 +39,11 @@ export const getDefaultForType = type => {
   }[type]
 }
 
-export const dereference = (schema, rootSchema) => {
-  const ref = schema['$ref']
-  if (ref == null) {
-    return schema
-  }
-
-  const refPath = ref.replace('#/', '').replace('/', '.')
-  return jsonPathToValue(rootSchema, refPath)
-}
-
 export const isRequired = (path, requireds) => requireds != null && requireds.includes(last(path))
 
 export const matchSchema = (schemas, data, rootSchema) => {
   const type = inferType(data)
-  const selectedSchemas = schemas.map(schema => dereference(schema, rootSchema)).filter(schema => {
+  const selectedSchemas = schemas.filter(schema => {
     if (data.type == null) {
       return schema.type === type
     }

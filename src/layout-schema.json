@@ -33,9 +33,12 @@
       "description": "CSS style definitions.",
       "type": "object",
       "additionalProperties": {
-        "description": "CSS rule.",
+        "title": "Style",
+        "description": "CSS style definition.",
         "type": "object",
         "additionalProperties": {
+          "title": "Rule",
+          "description": "CSS rule.",
           "type": "string"
         }
       }
@@ -45,21 +48,18 @@
       "description": "List of viewers.",
       "type": "object",
       "additionalProperties": {
+        "title": "Viewer",
         "description": "A viewer.",
         "$ref": "#/definitions/viewer"
       }
-    },
-    "placing": {
-      "!editor-visible": false,
-      "title": "Placing",
-      "description": "HTML-like structure for placement of viewers in the webhost.",
-      "$ref": "#/definitions/component"
     },
     "defaults": {
       "title": "Defaults",
       "description": "Default variable values to apply at startup.",
       "type": "object",
       "additionalProperties": {
+        "title": "Default",
+        "description": "A variable that has a specific value at startup.",
         "anyOf": [{
           "type": "string"
         }, {
@@ -529,78 +529,6 @@
         "additionalProperties": false,
         "required": ["type", "dataMember"]
       }]
-    },
-    "component": {
-      "title": "Component",
-      "description": "An HTML tag or viewer.",
-      "type": "object",
-      "properties": {
-        "type": {
-          "title": "Type",
-          "description": "HTML tag or viewer name.",
-          "type": "string"
-        },
-        "props": {
-          "title": "Properties",
-          "description": "Additional properties (like custom styles).",
-          "type": "object",
-          "properties": {
-            "style": {
-              "title": "Style",
-              "description": "A collection of styles to apply to this viewer.",
-              "type": "array",
-              "items": {
-                "anyOf": [{
-                  "description": "Apply a predefined style, given its name.",
-                  "type:": "object",
-                  "properties": {
-                    "type": {
-                      "title": "Type",
-                      "description": "Type of style.",
-                      "enum": ["predefined"]
-                    },
-                    "name": {
-                      "title": "Name",
-                      "description": "Name of predefined style.",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["type"]
-                }, {
-                  "description": "A custom style.",
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "title": "Type",
-                      "description": "Type of style.",
-                      "enum": ["custom"]
-                    }
-                  },
-                  "required": ["type"]
-                }]
-              }
-            }
-          }
-        },
-        "children": {
-          "title": "Content",
-          "description": "Optional content (if component is a container).",
-          "anyOf": [{
-            "title": "Children",
-            "description": "A list of child components",
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/component"
-            }
-          }, {
-            "title": "Value",
-            "description": "Text content.",
-            "type": "string"
-          }]
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type", "props"]
     }
   }
 }

@@ -5,12 +5,12 @@ import PropertiesEditor from './PropertiesEditor'
 import {cell} from './styles'
 
 const editor = {
-  // display: 'table',
-  // width: '100%',
-  // borderCollapse: 'collapse',
+  fontFamily: 'sans-serif',
+  fontSize: '12px',
+  margin: 0,
   borderTop: '1px solid lightgrey',
   borderLeft: '1px solid lightgrey',
-  fontSize: '12px'
+  padding: 0
 }
 
 const header = {
@@ -19,7 +19,7 @@ const header = {
   textAlign: 'center'
 }
 
-const RootEditor = ({rootSchema, data, title}) => (
+const RootEditor = ({rootSchema, data, title = 'Properties'}) => (
   <div style={editor}>
     <div style={{...cell, ...header}}>{title}</div>
     <PropertiesEditor schema={rootSchema.properties} data={data} requireds={rootSchema.required} />

@@ -13,12 +13,9 @@ const AdditionalPropertiesEditor = ({schema, data, path, rootSchema}) => {
   return (
     <div>
       {Object.keys(data).map(key => {
-        if (schema.$ref == null) {
-          schema = matchSchema(schema.anyOf || [schema], data[key], rootSchema)
-        }
         const sub = subpath(path, key)
-        const title = schema.title || last(sub)
-          return <PropertyEditor key={key} schema={schema} data={data[key]} title={title} path={sub} canEditKey={true} canRemove={true} />
+        const title = last(sub)
+        return <PropertyEditor key={key} schema={matchSchema(schema.anyOf || [schema], data[key], rootSchema)} data={data[key]} title={title} path={sub} canEditKey={true} canRemove={true} />
       })}
     </div>
   )
