@@ -1,3 +1,6 @@
+import uuid from 'uuid'
+
+import {INTERNAL_ID} from './data'
 import {last} from './path'
 
 const classToType = {}
@@ -64,13 +67,15 @@ export const defaults = schema => {
   }
 
   if (type === 'object') {
-    return Object.keys(schema.properties || {}).reduce((values, key) => {
+    const value = Object.keys(schema.properties || {}).reduce((values, key) => {
       const value = defaults(schema.properties[key])
       if (value != null) {
         values[key] = value
       }
       return values
     }, {})
+    value[INTERNAL_ID] = uuid.v4()
+    return value
   }
 
   if (type === 'array') {
