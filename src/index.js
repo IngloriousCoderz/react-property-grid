@@ -3,7 +3,7 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import deref from 'json-schema-deref-local'
 
-import RootEditor from './components/RootEditor'
+import RootEditor from './components'
 import rootReducer from './reducers'
 import {clone} from './utilities'
 import './index.css'

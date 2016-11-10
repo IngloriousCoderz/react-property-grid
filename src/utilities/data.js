@@ -43,7 +43,11 @@ export const addItem = (data, keys, schema) => {
 export const removeItem = (data, keys) => {
   const key = keys.pop()
   jsonpath.apply(data, `$.data.${join(keys)}`, prop => {
-    delete prop[key]
+    if (Array.isArray(prop)) {
+      prop.splice(key, 1)
+    } else {
+      delete prop[key]
+    }
     return prop
   })
   return data
