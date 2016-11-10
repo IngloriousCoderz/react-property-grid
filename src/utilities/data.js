@@ -1,8 +1,30 @@
+import uuid from 'uuid'
 import jsonpath from 'jsonpath'
-// import defaults from 'json-schema-defaults'
 
-import {getType, defaults} from './index'
+import {clone, inferType, getType, defaults} from './index'
 import {join} from './path'
+
+export const INTERNAL_ID = '__id'
+
+export const importData = data => {
+  const importedData = clone(data)
+  jsonpath.apply(importedData, '$..*', value => {
+    if (inferType(value) === 'object') {
+      value[INTERNAL_ID] = uuid.v4()
+    }
+    return value
+  })
+  return importedData
+}
+
+export const exportData = data => {
+  const exportedData = clone(data)
+  jsonpath.apply(exportedData, '$..*', value => {
+    delete value[INTERNAL_ID]
+    return value
+  })
+  return exportedData
+}
 
 export const setKey = (data, keys, newKey) => {
   const oldKey = keys.pop()

@@ -5,11 +5,15 @@ import deref from 'json-schema-deref-local'
 
 import RootEditor from './components'
 import rootReducer from './reducers'
-import {clone} from './utilities'
+import {importData, exportData} from './utilities/data'
 import './index.css'
 
-const PropertyGrid = ({schema, data, title = 'Properties'}) => {
-  const store = createStore(rootReducer, {rootSchema: deref(schema), data: clone(data)}, window.devToolsExtension ? window.devToolsExtension() : f => f)
+const PropertyGrid = ({schema, data, title = 'Properties', onChange}) => {
+  const store = createStore(rootReducer, {rootSchema: deref(schema), data: importData(data)}, window.devToolsExtension ? window.devToolsExtension() : f => f)
+
+  if (onChange != null) {
+    store.subscribe(() => onChange(exportData(store.getState().data)))
+  }
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
@@ -20,7 +24,7 @@ const PropertyGrid = ({schema, data, title = 'Properties'}) => {
 
   return (
     <Provider store={store}>
-      <RootEditor />
+      <RootEditor title={title} onChange={onChange} />
     </Provider>
   )
 }
@@ -30,7 +34,7 @@ import schema from './layout-schema.json'
 import layout from './layout.json'
 
 ReactDOM.render(
-  <PropertyGrid schema={schema} data={layout} />,
+  <PropertyGrid schema={schema} data={layout} onChange={console.log} />,
   document.getElementById('root')
 )
 

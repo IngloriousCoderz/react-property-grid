@@ -15,7 +15,7 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
       {expanded ? data.map((item, index) => {
         const sub = subpath(path, index)
         const title = `${schema.title || last(sub)}[${index}]`
-          return <PropertyEditor key={sub} schema={schema.items} data={item} title={title} path={sub} canRemove={canAddOrRemoveItems} />
+          return <PropertyEditor key={item.__id || sub} schema={schema.items} data={item} title={title} path={sub} canRemove={canAddOrRemoveItems} />
       }) : null}
     </div>
   )

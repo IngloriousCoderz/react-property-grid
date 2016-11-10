@@ -6,14 +6,14 @@
     "react-scripts": "0.4.3"
   },
   "dependencies": {
-    "json-schema-defaults": "^0.2.0",
     "json-schema-deref-local": "^0.2.1",
     "jsonpath": "^0.2.7",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-throttle": "^0.3.0",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "uuid": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

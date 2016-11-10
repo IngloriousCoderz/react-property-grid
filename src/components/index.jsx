@@ -19,7 +19,7 @@ const header = {
   textAlign: 'center'
 }
 
-const RootEditor = ({rootSchema, data, title = 'Properties'}) => (
+const RootEditor = ({rootSchema, data, title}) => (
   <div style={editor}>
     <div style={{...cell, ...header}}>{title}</div>
     <PropertiesEditor schema={rootSchema.properties} data={data} requireds={rootSchema.required} />

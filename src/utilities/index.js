@@ -106,11 +106,7 @@ export const defaults = schema => {
     }
 
     return Array(Math.max(1, minItems)).fill(value)
-    // const values = []
-    // for (let i = 0; i < Math.max(1, minItems); i++) {
-    //   values.push(value)
-    // }
-    // return values
   }
+
   return getDefaultForType(type)
 }
