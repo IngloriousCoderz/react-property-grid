@@ -1,7 +1,7 @@
 import jsonpath from 'jsonpath'
-import defaults from 'json-schema-defaults'
+// import defaults from 'json-schema-defaults'
 
-import {getType} from './index'
+import {getType, defaults} from './index'
 import {join} from './path'
 
 export const setKey = (data, keys, newKey) => {
@@ -32,7 +32,7 @@ export const addItem = (data, keys, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
       prop.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
-      const index = Object.keys(prop).length
+      const index = Object.keys(prop).length + 1
       prop[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
     return prop

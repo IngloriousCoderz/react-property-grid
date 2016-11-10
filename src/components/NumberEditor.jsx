@@ -8,7 +8,7 @@ const number = {
 }
 
 const NumberEditor = ({schema, data, path, setValue}) => (
-  <Debounce time='200' handler='onChange'>
+  <Debounce time='500' handler='onChange'>
     <input type='number'
       step={schema.multipleOf}
       min={schema.minimum + (schema.exclusiveMinimum ? 1 : 0)}

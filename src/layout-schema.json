@@ -48,8 +48,6 @@
       "description": "List of viewers.",
       "type": "object",
       "additionalProperties": {
-        "title": "Viewer",
-        "description": "A viewer.",
         "$ref": "#/definitions/viewer"
       }
     },
@@ -71,6 +69,7 @@
   "required": ["server", "styles", "viewers"],
   "definitions": {
     "viewer": {
+      "title": "Viewer",
       "description": "A viewer.",
       "anyOf": [{
         "$ref": "#/definitions/grid"

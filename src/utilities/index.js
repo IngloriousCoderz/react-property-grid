@@ -51,3 +51,66 @@ export const matchSchema = (schemas, data, rootSchema) => {
   })
   return selectedSchemas[0]
 }
+
+export const defaults = schema => {
+  const type = getType(schema)
+
+  if (schema['default'] != null) {
+    return schema['default']
+  }
+
+  if (schema.allOf != null) {
+    return defaults(schema.allOf)
+  }
+
+  if (type === 'object') {
+    return Object.keys(schema.properties || {}).reduce((values, key) => {
+      const value = defaults(schema.properties[key])
+      if (value != null) {
+        values[key] = value
+      }
+      return values
+    }, {})
+  }
+
+  if (type === 'array') {
+    if (!schema.items) {
+      return []
+    }
+
+    const minItems = schema.minItems || 0
+
+    // tuple-typed arrays
+    if (Array.isArray(schema.items)) {
+      const values = schema.items.map(function(item) {
+        return defaults(item)
+      })
+
+      // remove undefined items at the end (unless required by minItems)
+      for (let i = values.length - 1; i >= 0; i--) {
+        if (values[i] != null) {
+          break
+        }
+        if (i + 1 > minItems) {
+          values.pop()
+        }
+      }
+
+      return values
+    }
+
+    // object-typed arrays
+    const value = defaults(schema.items)
+    if (value == null) {
+      return []
+    }
+
+    return Array(Math.max(1, minItems)).fill(value)
+    // const values = []
+    // for (let i = 0; i < Math.max(1, minItems); i++) {
+    //   values.push(value)
+    // }
+    // return values
+  }
+  return getDefaultForType(type)
+}
