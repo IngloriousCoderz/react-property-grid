@@ -5,8 +5,8 @@ import {getType} from '../utilities/schema'
 import {getDefaultForType} from '../utilities/data'
 import {setValue} from '../actions'
 
-const Adjustable = Enhanced => {
-  class Adjustable extends Component {
+const autoPopulating = Enhanced => {
+  class AutoPopulating extends Component {
     componentWillMount() {
       const {schema, data, path, setValue} = this.props
       if (data == null) {
@@ -19,7 +19,7 @@ const Adjustable = Enhanced => {
     }
   }
 
-  return connect(() => ({}), {setValue})(Adjustable)
+  return connect(() => ({}), {setValue})(AutoPopulating)
 }
 
-export default Adjustable
+export default autoPopulating

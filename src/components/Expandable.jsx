@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-const Expandable = Enhanced => class Expandable extends Component {
+const expandable = Enhanced => class Expandable extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -18,4 +18,4 @@ const Expandable = Enhanced => class Expandable extends Component {
   }
 }
 
-export default Expandable
+export default expandable

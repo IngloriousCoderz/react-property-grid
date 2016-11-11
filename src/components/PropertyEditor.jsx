@@ -5,7 +5,7 @@ import {last} from '../utilities/path'
 import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
-import Autopopulating from './Autopopulating'
+import autoPopulating from './auto-populating'
 
 const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove, setValue}) => {
   if (schema['!editor-visible'] === false) {
@@ -34,4 +34,4 @@ const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRe
   return <Component schema={schema} data={data} title={title} path={path} required={required} canEditKey={canEditKey} canRemove={canRemove} />
 }
 
-export default Autopopulating(PropertyEditor)
+export default autoPopulating(PropertyEditor)

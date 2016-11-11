@@ -1,6 +1,6 @@
 import React from 'react'
 
-import WithCaption from './WithCaption'
+import withCaption from './with-caption'
 
 const description = {
   color: 'grey'
@@ -8,4 +8,4 @@ const description = {
 
 const Summary = ({schema, data, title, path}) => <span style={description}>{schema.description}</span>
 
-export default WithCaption({field: false})(Summary)
+export default withCaption({field: false})(Summary)

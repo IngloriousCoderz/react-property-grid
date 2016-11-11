@@ -38,7 +38,7 @@ const paddedButtonGroup = {
   padding: 3
 }
 
-const WithCaption = ({field}) => Component => {
+const withCaption = ({field}) => Enhanced => {
   const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
     const caption = {
       ...(canEditKey ? fieldCell : cell),
@@ -66,7 +66,7 @@ const WithCaption = ({field}) => Component => {
         <div style={field ? fieldCell : cell}>
           {buttons}
           <div style={ellipsis}>
-            <Component schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+            <Enhanced schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
           </div>
         </div>
       </div>
@@ -75,4 +75,4 @@ const WithCaption = ({field}) => Component => {
   return connect(() => ({}), {setKey})(Row)
 }
 
-export default WithCaption
+export default withCaption

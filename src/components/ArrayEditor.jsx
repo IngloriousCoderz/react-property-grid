@@ -5,7 +5,7 @@ import {addItem, removeItem} from '../actions'
 import {child, last} from '../utilities/path'
 import Summary from './Summary'
 import PropertyEditor from './PropertyEditor'
-import Expandable from './Expandable'
+import Expandable from './expandable'
 
 const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {
   const canAddOrRemoveItems = schema.additionalItems !== false

@@ -2,11 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {getType} from '../utilities/schema'
-import WithCaption from './WithCaption'
 import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'
 import EnumEditor from './EnumEditor'
 import TextEditor from './TextEditor'
+import withCaption from './with-caption'
 import {setValue, removeItem} from '../actions'
 
 const PrimitiveEditor = ({schema, data, path, required, setValue, removeItem}) => {
@@ -31,4 +31,4 @@ const PrimitiveEditor = ({schema, data, path, required, setValue, removeItem}) =
   return <Component schema={schema} data={data} path={path} required={required} setValue={setValue} removeItem={removeItem} />
 }
 
-export default connect(() => ({}), {setValue, removeItem})(WithCaption({field: true})(PrimitiveEditor))
+export default connect(() => ({}), {setValue, removeItem})(withCaption({field: true})(PrimitiveEditor))
