@@ -1,6 +1,6 @@
 import React from 'react'
 
-import withCaption from './with-caption'
+import withCaption from './hoc/with-caption'
 
 const description = {
   color: 'grey'

@@ -5,7 +5,7 @@ import {last} from '../utilities/path'
 import ObjectEditor from './Object'
 import ArrayEditor from './Array'
 import FieldEditor from './Field'
-import autoPopulating from './auto-populating'
+import autoPopulating from './hoc/auto-populating'
 
 const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove, setValue}) => {
   if (schema['!editor-visible'] === false) {

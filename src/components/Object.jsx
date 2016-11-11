@@ -5,7 +5,7 @@ import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
 import PropertiesEditor from './Properties'
 import AdditionalPropertiesEditor from './AdditionalProperties'
-import expandable from './expandable'
+import expandable from './hoc/expandable'
 
 const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {
   const canAddOrRemoveProperties = schema.additionalProperties
@@ -23,4 +23,4 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
   )
 }
 
-export default connect(() => ({}), {addItem, removeItem})(expandable(ObjectEditor))
+export default connect(null, {addItem, removeItem})(expandable(ObjectEditor))

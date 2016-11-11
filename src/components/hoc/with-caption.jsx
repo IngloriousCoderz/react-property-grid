@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {level} from '../utilities/path'
-import TextEditor from './fields/Text'
-import {setKey} from '../actions'
-import {row, ellipsis, cell, buttonGroup, button} from './styles'
+import {level} from '../../utilities/path'
+import TextEditor from './../fields/Text'
+import {setKey} from '../../actions'
+import {row, ellipsis, cell, buttonGroup, button} from './../styles'
 
 const EXPANDER_WIDTH = 10
 const EXPANDED_ENTITY = '&dtri;'
@@ -38,7 +38,9 @@ const paddedButtonGroup = {
   padding: 3
 }
 
-const withCaption = ({field}) => Enhanced => {
+const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
+
+const withCaption = ({field}) => WrappedComponent => {
   const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
     const caption = {
       ...(canEditKey ? fieldCell : cell),
@@ -66,13 +68,16 @@ const withCaption = ({field}) => Enhanced => {
         <div style={field ? fieldCell : cell}>
           {buttons}
           <div style={ellipsis}>
-            <Enhanced schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+            <WrappedComponent schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
           </div>
         </div>
       </div>
     )
   }
-  return connect(() => ({}), {setKey})(Row)
+
+  Row.displayName = `Row(${getDisplayName(WrappedComponent)})`
+
+  return connect(null, {setKey})(Row)
 }
 
 export default withCaption
