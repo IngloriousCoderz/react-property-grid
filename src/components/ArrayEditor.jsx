@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {addItem, removeItem} from '../actions'
-import {last, subpath} from '../utilities/path'
+import {child, last} from '../utilities/path'
 import Summary from './Summary'
 import PropertyEditor from './PropertyEditor'
 import Expandable from './Expandable'
@@ -13,9 +13,9 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
     <div>
       <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canEditKey={canEditKey} canAdd={canAddOrRemoveItems} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
       {expanded ? data.map((item, index) => {
-        const sub = subpath(path, index)
-        const title = `${schema.title || last(sub)}[${index}]`
-        return <PropertyEditor key={item.__id || sub} schema={schema.items} data={item} title={title} path={sub} canRemove={canAddOrRemoveItems} />
+        const title = last(path)
+        const childPath = child(path, index)
+        return <PropertyEditor key={item.__id || childPath} schema={schema.items} data={item} title={`${schema.title || title}[${index}]`} path={childPath} canRemove={canAddOrRemoveItems} />
       }) : null}
     </div>
   )

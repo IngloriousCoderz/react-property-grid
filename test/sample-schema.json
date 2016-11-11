@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "obj": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "arr": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "item1": {
+                "type": "string"
+              },
+              "type": {
+                "enum": ["type1"]
+              }
+            }
+          }, {
+            "properties": {
+              "item2": {
+                "type": "number"
+              },
+              "type": {
+                "enum": ["type2"]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "choices": {
+      "type": {
+        "enum": ["hello", "world"]
+      }
+    }
+  }
+}

@@ -1,10 +1,12 @@
 import uuid from 'uuid'
-import jsonpath from 'jsonpath'
+import jp from 'jsonpath'
 
 import {getType, defaults} from './schema'
-import {split, join} from './path'
+import {ALL, last, parent} from './path'
 
 export const INTERNAL_ID = '__id'
+
+const clone = json => JSON.parse(JSON.stringify(json))
 
 /* http://arcturo.github.io/library/coffeescript/07_the_bad_parts.html */
 const classToType = {}
@@ -17,11 +19,30 @@ export const inferType = data => {
   return classToType[strType] || 'object'
 }
 
-export const clone = json => JSON.parse(JSON.stringify(json))
+const isPrimitive = data => {
+  const type = inferType(data)
+  return 'boolean number string date regexp undefined null'.split(' ').includes(type)
+}
+
+export const getDefaultForType = type => {
+  return {
+    boolean: false,
+    integer: 0,
+    number: 0,
+    string: '',
+    function: function() {},
+    object: {},
+    array: [],
+    date: new Date(),
+    regexp: /.*/,
+    undefined: undefined,
+    null: null
+  }[type]
+}
 
 export const importData = data => {
   const newData = clone(data)
-  jsonpath.apply(newData, '$..*', value => {
+  jp.apply(newData, ALL, value => {
     if (inferType(value) === 'object') {
       value[INTERNAL_ID] = uuid.v4()
     }
@@ -32,18 +53,24 @@ export const importData = data => {
 
 export const exportData = data => {
   const newData = clone(data)
-  jsonpath.apply(newData, '$..*', value => {
+  if (isPrimitive(newData)) {
+    return newData
+  }
+
+  jp.apply(newData, ALL, value => {
     delete value[INTERNAL_ID]
     return value
   })
+  if (newData[INTERNAL_ID] != null) {
+    delete newData[INTERNAL_ID]
+  }
   return newData
 }
 
 export const setKey = (data, path, newKey) => {
   const newData = clone(data)
-  const keys = split(path)
-  const oldKey = keys.pop()
-  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
+  const oldKey = last(path)
+  jp.apply(newData, parent(path), prop => {
     return Object.assign({}, ...Object.keys(prop).map(key => {
       if (key === oldKey) {
         return {[newKey]: prop[key]}
@@ -56,9 +83,8 @@ export const setKey = (data, path, newKey) => {
 
 export const setValue = (data, path, value) => {
   const newData = clone(data)
-  const keys = split(path)
-  const key = keys.pop()
-  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
+  const key = last(path)
+  jp.apply(newData, parent(path), prop => {
     prop[key] = value
     return prop
   })
@@ -67,9 +93,8 @@ export const setValue = (data, path, value) => {
 
 export const addItem = (data, path, schema) => {
   const newData = clone(data)
-  const keys = split(path)
-  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
-    const type = getType(schema)
+  const type = getType(schema)
+  jp.apply(newData, path, prop => {
     if (type === 'array' && schema.additionalItems !== false) {
       prop.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
@@ -83,9 +108,15 @@ export const addItem = (data, path, schema) => {
 
 export const removeItem = (data, path) => {
   const newData = clone(data)
-  const keys = split(path)
-  const key = keys.pop()
-  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
+  const key = last(path)
+  const parentPath = parent(path)
+
+  if (parentPath === '$') {
+    delete newData[key]
+    return newData
+  }
+
+  jp.apply(newData, parentPath, prop => {
     if (Array.isArray(prop)) {
       prop.splice(key, 1)
     } else {
@@ -94,16 +125,4 @@ export const removeItem = (data, path) => {
     return prop
   })
   return newData
-}
-
-export const getDefaultForType = type => {
-  return {
-    string: '',
-    number: 0,
-    'null': null,
-    object: {},
-    integer: 0,
-    boolean: false,
-    array: []
-  }[type]
 }

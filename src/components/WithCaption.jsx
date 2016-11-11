@@ -42,7 +42,7 @@ const WithCaption = ({field}) => Component => {
   const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
     const caption = {
       ...(canEditKey ? fieldCell : cell),
-      paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
+      paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) - 1 + (expanded != null ? 0 : 1))
     }
 
     const buttons = canAdd || canRemove ?

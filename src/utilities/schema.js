@@ -1,6 +1,7 @@
 import uuid from 'uuid'
+import tv4 from 'tv4'
 
-import {INTERNAL_ID, inferType, getDefaultForType} from './data'
+import {INTERNAL_ID, getDefaultForType, exportData} from './data'
 
 export const getType = schema => {
   if (schema.type == null) {
@@ -16,16 +17,7 @@ export const getType = schema => {
   return schema.type
 }
 
-export const matchSchema = (schemas, data, rootSchema) => {
-  const type = inferType(data)
-  const selectedSchemas = schemas.filter(schema => {
-    if (data.type == null) {
-      return schema.type === type
-    }
-    return schema.properties.type.enum.includes(data.type)
-  })
-  return selectedSchemas[0]
-}
+export const matchSchema = (schemas, data) => schemas.filter(schema => tv4.validate(exportData(data), schema))[0]
 
 /* borrowed by https://github.com/chute/json-schema-defaults */
 export const defaults = schema => {
@@ -37,6 +29,10 @@ export const defaults = schema => {
 
   if (schema.allOf != null) {
     return defaults(schema.allOf)
+  }
+
+  if (schema.anyOf != null) {
+    return defaults(schema.anyOf[0])
   }
 
   if (type === 'object') {

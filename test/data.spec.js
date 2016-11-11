@@ -1,4 +1,6 @@
 import {
+  inferType,
+  getDefaultForType,
   importData,
   exportData,
   setKey,
@@ -6,19 +8,40 @@ import {
   addItem,
   removeItem
 } from '../src/utilities/data'
+import data from './sample-data.json'
 
 describe('data', () => {
-  const data = {
-    obj: {
-      key: 'value'
-    },
-    arr: [
-      {
-        item1: 'value1'
-      },
-      'item2'
-    ]
-  }
+
+  describe('inferType', () => {
+    it('should infer the right type for any data', () => {
+      expect(inferType(false)).toEqual('boolean')
+      expect(inferType(42.0)).toEqual('number')
+      expect(inferType('hello')).toEqual('string')
+      expect(inferType(() => {})).toEqual('function')
+      expect(inferType({})).toEqual('object')
+      expect(inferType([])).toEqual('array')
+      expect(inferType(new Date())).toEqual('date')
+      expect(inferType(/.*/)).toEqual('regexp')
+      expect(inferType(undefined)).toEqual('undefined')
+      expect(inferType(null)).toEqual('null')
+    })
+  })
+
+  describe('getDefaultForType', () => {
+    it('should give a default value for each type', () => {
+      expect(getDefaultForType('boolean')).toEqual(false)
+      expect(getDefaultForType('integer')).toEqual(0)
+      expect(getDefaultForType('number')).toEqual(0)
+      expect(getDefaultForType('string')).toEqual('')
+      expect(inferType(getDefaultForType('function'))).toEqual('function')
+      expect(getDefaultForType('object')).toEqual({})
+      expect(getDefaultForType('array')).toEqual([])
+      expect(inferType(getDefaultForType('date'))).toEqual('date')
+      expect(getDefaultForType('regexp')).toEqual(/.*/),
+      expect(getDefaultForType('undefined')).toEqual(undefined)
+      expect(getDefaultForType('null')).toEqual(null)
+    })
+  })
 
   describe('importData', () => {
     it('should put an internal id inside each object (except root)', () => {
@@ -36,7 +59,7 @@ describe('data', () => {
 
   describe('exportData', () => {
     it('should remove all internal ids from data', () => {
-      const dataToExport = {
+      expect(exportData({
         obj: {
           __id: '1',
           key: 'value'
@@ -48,19 +71,13 @@ describe('data', () => {
           },
           'item2'
         ]
-      }
-
-      const newData = exportData(dataToExport)
-
-      expect(newData).toEqual(data)
+      })).toEqual(data)
     })
   })
 
   describe('setKey', () => {
     it('should change a property key', () => {
-      const newData = setKey(data, 'obj.key', 'newKey')
-
-      expect(newData).toEqual({
+      expect(setKey(data, '$.obj.key', 'newKey')).toEqual({
         obj: {
           newKey: 'value'
         },
@@ -74,9 +91,7 @@ describe('data', () => {
     })
 
     it('should change any key, even deeply nested ones', () => {
-      const newData = setKey(data, 'arr[0].item1', 'newItem1')
-
-      expect(newData).toEqual({
+      expect(setKey(data, '$.arr.0.item1', 'newItem1')).toEqual({
         obj: {
           key: 'value'
         },
@@ -92,9 +107,7 @@ describe('data', () => {
 
   describe('setValue', () => {
     it('should change a property value', () => {
-      const newData = setValue(data, 'obj.key', 'newValue')
-
-      expect(newData).toEqual({
+      expect(setValue(data, '$.obj.key', 'newValue')).toEqual({
         obj: {
           key: 'newValue'
         },
@@ -108,9 +121,7 @@ describe('data', () => {
     })
 
     it('should change any value, even deeply nested ones', () => {
-      const newData = setValue(data, 'arr[0].item1', 'newValue1')
-
-      expect(newData).toEqual({
+      expect(setValue(data, '$.arr.0.item1', 'newValue1')).toEqual({
         obj: {
           key: 'value'
         },
@@ -130,12 +141,10 @@ describe('data', () => {
 
   describe('removeItem', () => {
     it('should remove an item from an object', () => {
-      const newData = removeItem(data, 'obj')
-
-      expect(newData).toEqual({
+      expect(removeItem(data, '$.obj')).toEqual({
         arr: [
           {
-            item1: 'newValue1'
+            item1: 'value1'
           },
           'item2'
         ]

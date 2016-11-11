@@ -1,0 +1,11 @@
+{
+  "obj": {
+    "key": "value"
+  },
+  "arr": [
+    {
+      "item1": "value1"
+    },
+    "item2"
+  ]
+}
