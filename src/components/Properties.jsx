@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {child} from '../utilities/path'
-import PropertyEditor from './PropertyEditor'
+import PropertyEditor from './Property'
 
 const PropertiesEditor = ({schema = {}, data, path, requireds}) => (
   <div>

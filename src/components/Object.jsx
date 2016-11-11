@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 
 import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
-import PropertiesEditor from './PropertiesEditor'
-import AdditionalPropertiesEditor from './AdditionalPropertiesEditor'
+import PropertiesEditor from './Properties'
+import AdditionalPropertiesEditor from './AdditionalProperties'
 import expandable from './expandable'
 
 const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {

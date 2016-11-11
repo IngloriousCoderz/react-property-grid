@@ -2,7 +2,7 @@ import React from 'react'
 
 import {INTERNAL_ID} from '../utilities/data'
 import {child} from '../utilities/path'
-import PropertyEditor from './PropertyEditor'
+import PropertyEditor from './Property'
 
 const AdditionalPropertiesEditor = ({schema, data, path}) => {
   if (schema == null || schema === false || data == null) {

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {addItem, removeItem} from '../actions'
 import {child, last} from '../utilities/path'
 import Summary from './Summary'
-import PropertyEditor from './PropertyEditor'
+import PropertyEditor from './Property'
 import Expandable from './expandable'
 
 const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {

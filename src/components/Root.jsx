@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import PropertiesEditor from './PropertiesEditor'
+import PropertiesEditor from './Properties'
 import {cell} from './styles'
 
 const editor = {

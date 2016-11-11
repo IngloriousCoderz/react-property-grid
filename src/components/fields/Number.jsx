@@ -1,7 +1,7 @@
 import React from 'react'
 import {Debounce} from 'react-throttle'
 
-import {input} from './styles'
+import {input} from '../styles'
 
 const number = {
   textAlign: 'right'

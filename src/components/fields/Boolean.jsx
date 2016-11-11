@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {input} from './styles'
+import {input} from '../styles'
 
 const boolean = {
   width: '100%',

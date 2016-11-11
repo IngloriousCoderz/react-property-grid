@@ -3,7 +3,7 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import deref from 'json-schema-deref-local'
 
-import RootEditor from './components/RootEditor'
+import Root from './components/Root'
 import rootReducer from './reducers'
 import {importData, exportData} from './utilities/data'
 import './index.css'
@@ -29,7 +29,7 @@ const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
 
   return (
     <Provider store={store}>
-      <RootEditor title={title} onChange={onChange} />
+      <Root title={title} onChange={onChange} />
     </Provider>
   )
 }

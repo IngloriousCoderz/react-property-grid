@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import {level} from '../utilities/path'
-import TextEditor from './TextEditor'
+import TextEditor from './fields/Text'
 import {setKey} from '../actions'
 import {row, ellipsis, cell, buttonGroup, button} from './styles'
 
