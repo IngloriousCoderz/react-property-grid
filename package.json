@@ -1,7 +1,25 @@
 {
-  "name": "property-editor",
+  "name": "react-property-grid",
   "version": "0.1.0",
-  "private": true,
+  "description": "A react/redux hierarchical editable property grid",
+  "author": "Matteo Antony Mistretta <antony.mistretta@gmail.com> (http://www.ingloriouscoderz.it)",
+  "contributors": [
+    "Alessandro Passarotto <alessandro.passarotto@gmail.com> (http://www.irion.it)"
+  ],
+  "homepage": "https://github.com/IngloriousCoderz/react-property-grid",
+  "keywords": [
+    "react",
+    "redux",
+    "property",
+    "grid"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IngloriousCoderz/react-property-grid.git",
+    "web": "https://github.com/IngloriousCoderz/react-property-grid"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
   "devDependencies": {
     "react-scripts": "0.4.3"
   },

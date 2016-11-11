@@ -1,10 +1,23 @@
 import uuid from 'uuid'
 import jsonpath from 'jsonpath'
 
-import {clone, inferType, getType, defaults} from './index'
+import {getType, defaults} from './schema'
 import {join} from './path'
 
 export const INTERNAL_ID = '__id'
+
+/* http://arcturo.github.io/library/coffeescript/07_the_bad_parts.html */
+const classToType = {}
+"Boolean Number String Function Array Date RegExp Undefined Null".split(" ").forEach(name => {
+  classToType[`[object ${name}]`] = name.toLowerCase()
+})
+
+export const inferType = data => {
+  const strType = Object.prototype.toString.call(data)
+  return classToType[strType] || "object"
+}
+
+export const clone = json => JSON.parse(JSON.stringify(json))
 
 export const importData = data => {
   const importedData = clone(data)
@@ -73,4 +86,16 @@ export const removeItem = (data, keys) => {
     return prop
   })
   return data
+}
+
+export const getDefaultForType = type => {
+  return {
+    string: '',
+    number: 0,
+    "null": null,
+    object: {},
+    integer: 0,
+    boolean: false,
+    array: []
+  }[type]
 }

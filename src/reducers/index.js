@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes'
-import {clone} from '../utilities'
+import {clone} from '../utilities/data'
 import {setKey, setValue, addItem, removeItem} from '../utilities/data'
 import {split} from '../utilities/path'
 

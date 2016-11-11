@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getType, getDefaultForType, isRequired} from '../utilities'
+import {getType} from '../utilities/schema'
+import {getDefaultForType} from '../utilities/data'
+import {last} from '../utilities/path'
 import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
@@ -13,7 +15,7 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canEd
 
   const type = getType(schema)
   data = data || getDefaultForType(type)
-  const required = isRequired(path, requireds)
+  const required = requireds != null && requireds.includes(last(path))
 
   let Component
   switch (type) {

@@ -8,7 +8,7 @@ import rootReducer from './reducers'
 import {importData, exportData} from './utilities/data'
 import './index.css'
 
-const PropertyGrid = ({schema, data, title = 'Properties', onChange}) => {
+const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
   const store = createStore(rootReducer, {rootSchema: deref(schema), data: importData(data)}, window.devToolsExtension ? window.devToolsExtension() : f => f)
 
   if (onChange != null) {
@@ -30,8 +30,8 @@ const PropertyGrid = ({schema, data, title = 'Properties', onChange}) => {
 }
 
 import ReactDOM from 'react-dom'
-import schema from './layout-schema.json'
-import layout from './layout.json'
+import schema from '../test/layout-schema.json'
+import layout from '../test/layout.json'
 
 ReactDOM.render(
   <PropertyGrid schema={schema} data={layout} onChange={console.log} />,

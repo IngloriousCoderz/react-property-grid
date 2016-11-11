@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getType} from '../utilities'
+import {getType} from '../utilities/schema'
 import WithCaption from './WithCaption'
 import BooleanEditor from './BooleanEditor'
 import NumberEditor from './NumberEditor'

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {matchSchema} from '../utilities'
+import {matchSchema} from '../utilities/schema'
 import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
 import PropertiesEditor from './PropertiesEditor'

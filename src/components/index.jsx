@@ -21,7 +21,7 @@ const header = {
 
 const RootEditor = ({rootSchema, data, title}) => (
   <div style={editor}>
-    <div style={{...cell, ...header}}>{title}</div>
+    {title != null ? <div style={{...cell, ...header}}>{title}</div> : null}
     <PropertiesEditor schema={rootSchema.properties} data={data} requireds={rootSchema.required} />
   </div>
 )
