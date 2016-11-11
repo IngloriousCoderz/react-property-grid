@@ -1,19 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {matchSchema} from '../utilities/schema'
 import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
 import PropertiesEditor from './PropertiesEditor'
 import AdditionalPropertiesEditor from './AdditionalPropertiesEditor'
 import Expandable from './Expandable'
 
-const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem, rootSchema}) => {
+const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {
   const canAddOrRemoveProperties = schema.additionalProperties
-
-  if (schema.anyOf != null) {
-    schema = matchSchema(schema.anyOf, data, rootSchema)
-  }
 
   return (
     <div>
@@ -28,4 +23,4 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
   )
 }
 
-export default connect(({rootSchema}) => ({rootSchema}), {addItem, removeItem})(Expandable(ObjectEditor))
+export default connect(() => ({}), {addItem, removeItem})(Expandable(ObjectEditor))

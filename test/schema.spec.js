@@ -1,4 +1,4 @@
-import {getType, matchSchema, defaults} from '../src/utilities/schema'
+import {getType, match, defaults} from '../src/utilities/schema'
 import schema from './sample-schema.json'
 
 describe('schema', () => {
@@ -17,18 +17,18 @@ describe('schema', () => {
     })
   })
 
-  describe('matchSchema', () => {
+  describe('match', () => {
     it('should choose the right schema based on a custom \'type\' property', () => {
       /* this is a custom behaviour that allows us to choose the right schema
          without the need for validation */
       const {anyOf} = schema.properties.arr.items
 
-      expect(matchSchema(anyOf, {
+      expect(match(anyOf, {
         item1: 'value1',
         type: 'type1'
       }, schema)).toBe(anyOf[0])
 
-      expect(matchSchema(anyOf, {
+      expect(match(anyOf, {
         item2: 42,
         type: 'type2'
       }, schema)).toBe(anyOf[1])

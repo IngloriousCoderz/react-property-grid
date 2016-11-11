@@ -1,20 +1,22 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
-import {getType} from '../utilities/schema'
-import {getDefaultForType} from '../utilities/data'
+import {match, getType} from '../utilities/schema'
 import {last} from '../utilities/path'
 import ObjectEditor from './ObjectEditor'
 import ArrayEditor from './ArrayEditor'
 import PrimitiveEditor from './PrimitiveEditor'
+import Autopopulating from './Autopopulating'
 
-const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canEditKey, canRemove}) => {
+const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove, setValue}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }
 
+  if (schema.anyOf != null) {
+    schema = match(schema.anyOf, data)
+  }
+
   const type = getType(schema)
-  data = data || getDefaultForType(type)
   const required = requireds != null && requireds.includes(last(path))
 
   let Component
@@ -32,4 +34,4 @@ const PropertyEditor = ({schema, data, title, path, rootSchema, requireds, canEd
   return <Component schema={schema} data={data} title={title} path={path} required={required} canEditKey={canEditKey} canRemove={canRemove} />
 }
 
-export default connect(({rootSchema}) => ({rootSchema}))(PropertyEditor)
+export default Autopopulating(PropertyEditor)

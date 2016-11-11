@@ -80,6 +80,7 @@
       }]
     },
     "grid": {
+      "title": "Grid",
       "description": "A table-like component.",
       "type": "object",
       "properties": {
@@ -147,14 +148,10 @@
       "required": ["type"]
     },
     "chart": {
+      "title": "Chart",
       "description": "A graphic visualization component.",
       "type": "object",
       "properties": {
-        "type": {
-          "title": "Type",
-          "description": "Viewer type.",
-          "enum": ["Chart"]
-        },
         "bindings": {
           "title": "Bindings",
           "description": "Bindings between the viewer and the underlying data.",
@@ -170,18 +167,13 @@
           "type": "boolean"
         }
       },
-      "additionalProperties": false,
-      "required": ["type"]
+      "additionalProperties": false
     },
     "spreadsheet": {
+      "title": "Spreadsheet",
       "description": "An Excel-like component.",
       "type": "object",
       "properties": {
-        "type": {
-          "title": "Type",
-          "description": "Viewer type.",
-          "enum": ["Spreadsheet"]
-        },
         "bindings": {
           "title": "Bindings",
           "description": "Bindings between the viewer and the underlying data.",
@@ -207,7 +199,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["type", "bindings", "template"]
+      "required": ["bindings", "template"]
     },
     "binding": {
       "description": "Base definition of a binding.",
@@ -357,11 +349,6 @@
           "description": "How to retrieve data.",
           "$ref": "#/definitions/source"
         },
-        "type": {
-          "title": "Type",
-          "description": "Binding type.",
-          "enum": ["range"]
-        },
         "reference": {
           "title": "Reference",
           "description": "Range reference or named range.",
@@ -404,7 +391,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["type", "source", "reference"]
+      "required": ["source", "reference"]
     },
     "formBinding": {
       "description": "Binding to specific cells as in a form.",
@@ -414,11 +401,6 @@
           "title": "Source",
           "description": "How to retrieve data.",
           "$ref": "#/definitions/source"
-        },
-        "type": {
-          "title": "Type",
-          "description": "Binding type.",
-          "enum": ["form"]
         },
         "sheet": {
           "title": "Sheet",
@@ -450,38 +432,21 @@
         }
       },
       "additionalProperties": false,
-      "required": ["type", "source", "sheet", "cells"]
+      "required": ["source", "sheet", "cells"]
     },
     "source": {
       "title": "Source",
       "description": "How to retrieve data.",
       "anyOf": [{
         "title": "Source",
-        "description": "Simplified SQL-like query.",
-        "type:": "object",
-        "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of source.",
-            "enum": ["sql"]
-          },
-          "sql": {
-            "title": "SQL expression",
-            "description": "A SQL-like SELECT expression.",
-            "type": "string"
-          }
-        },
-        "required": ["type"]
+        "description": "Simplified SQL-like SELECT expression.",
+        "type": "string",
+        "additionalProperties": false
       }, {
         "title": "Source",
         "description": "All fields organized in a convenient structure.",
         "type": "object",
         "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of source.",
-            "enum": ["structure"]
-          },
           "dataMember": {
             "title": "Data Member",
             "description": "Source table.",
@@ -497,6 +462,7 @@
                 "description": "Columns to retrieve.",
                 "type": "array",
                 "items": {
+                  "title": "Column",
                   "description": "Column name.",
                   "type": "string"
                 }
@@ -526,7 +492,7 @@
           }
         },
         "additionalProperties": false,
-        "required": ["type", "dataMember"]
+        "required": ["dataMember"]
       }]
     }
   }

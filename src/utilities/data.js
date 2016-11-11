@@ -98,7 +98,7 @@ export const addItem = (data, path, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
       prop.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
-      const index = Object.keys(prop).length + 1
+      const index = Object.keys(exportData(prop)).length + 1
       prop[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
     return prop

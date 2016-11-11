@@ -9,7 +9,12 @@ import {importData, exportData} from './utilities/data'
 import './index.css'
 
 const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
-  const store = createStore(rootReducer, {rootSchema: deref(schema), data: importData(data)}, window.devToolsExtension ? window.devToolsExtension() : f => f)
+  const store = createStore(rootReducer, {
+      rootSchema: deref(schema),
+      data: importData(data)
+    },
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
 
   if (onChange != null) {
     store.subscribe(() => onChange(exportData(store.getState().data)))
@@ -34,7 +39,7 @@ import schema from '../test/layout-schema.json'
 import layout from '../test/layout.json'
 
 ReactDOM.render(
-  <PropertyGrid schema={schema} data={layout} onChange={console.log} />,
+  <PropertyGrid schema={schema} data={layout} />,
   document.getElementById('root')
 )
 

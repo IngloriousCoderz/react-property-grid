@@ -17,7 +17,10 @@ export const getType = schema => {
   return schema.type
 }
 
-export const matchSchema = (schemas, data) => schemas.filter(schema => tv4.validate(exportData(data), schema))[0]
+export const match = (schemas, data) => {
+  const cleanData = exportData(data)
+  return schemas.filter(schema => tv4.validate(cleanData, schema))[0]
+}
 
 /* borrowed by https://github.com/chute/json-schema-defaults */
 export const defaults = schema => {
