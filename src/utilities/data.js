@@ -2,46 +2,48 @@ import uuid from 'uuid'
 import jsonpath from 'jsonpath'
 
 import {getType, defaults} from './schema'
-import {join} from './path'
+import {split, join} from './path'
 
 export const INTERNAL_ID = '__id'
 
 /* http://arcturo.github.io/library/coffeescript/07_the_bad_parts.html */
 const classToType = {}
-"Boolean Number String Function Array Date RegExp Undefined Null".split(" ").forEach(name => {
+'Boolean Number String Function Array Date RegExp Undefined Null'.split(' ').forEach(name => {
   classToType[`[object ${name}]`] = name.toLowerCase()
 })
 
 export const inferType = data => {
   const strType = Object.prototype.toString.call(data)
-  return classToType[strType] || "object"
+  return classToType[strType] || 'object'
 }
 
 export const clone = json => JSON.parse(JSON.stringify(json))
 
 export const importData = data => {
-  const importedData = clone(data)
-  jsonpath.apply(importedData, '$..*', value => {
+  const newData = clone(data)
+  jsonpath.apply(newData, '$..*', value => {
     if (inferType(value) === 'object') {
       value[INTERNAL_ID] = uuid.v4()
     }
     return value
   })
-  return importedData
+  return newData
 }
 
 export const exportData = data => {
-  const exportedData = clone(data)
-  jsonpath.apply(exportedData, '$..*', value => {
+  const newData = clone(data)
+  jsonpath.apply(newData, '$..*', value => {
     delete value[INTERNAL_ID]
     return value
   })
-  return exportedData
+  return newData
 }
 
-export const setKey = (data, keys, newKey) => {
+export const setKey = (data, path, newKey) => {
+  const newData = clone(data)
+  const keys = split(path)
   const oldKey = keys.pop()
-  jsonpath.apply(data, `$.data.${join(keys)}`, prop => {
+  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
     return Object.assign({}, ...Object.keys(prop).map(key => {
       if (key === oldKey) {
         return {[newKey]: prop[key]}
@@ -49,20 +51,24 @@ export const setKey = (data, keys, newKey) => {
       return {[key]: prop[key]}
     }))
   })
-  return data
+  return newData
 }
 
-export const setValue = (data, keys, value) => {
+export const setValue = (data, path, value) => {
+  const newData = clone(data)
+  const keys = split(path)
   const key = keys.pop()
-  jsonpath.apply(data, `$.data.${join(keys)}`, prop => {
+  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
     prop[key] = value
     return prop
   })
-  return data
+  return newData
 }
 
-export const addItem = (data, keys, schema) => {
-  jsonpath.apply(data, `$.data.${join(keys)}`, prop => {
+export const addItem = (data, path, schema) => {
+  const newData = clone(data)
+  const keys = split(path)
+  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
     const type = getType(schema)
     if (type === 'array' && schema.additionalItems !== false) {
       prop.push(defaults(schema.items))
@@ -72,12 +78,14 @@ export const addItem = (data, keys, schema) => {
     }
     return prop
   })
-  return data
+  return newData
 }
 
-export const removeItem = (data, keys) => {
+export const removeItem = (data, path) => {
+  const newData = clone(data)
+  const keys = split(path)
   const key = keys.pop()
-  jsonpath.apply(data, `$.data.${join(keys)}`, prop => {
+  jsonpath.apply(newData, `$.${join(keys)}`, prop => {
     if (Array.isArray(prop)) {
       prop.splice(key, 1)
     } else {
@@ -85,14 +93,14 @@ export const removeItem = (data, keys) => {
     }
     return prop
   })
-  return data
+  return newData
 }
 
 export const getDefaultForType = type => {
   return {
     string: '',
     number: 0,
-    "null": null,
+    'null': null,
     object: {},
     integer: 0,
     boolean: false,
