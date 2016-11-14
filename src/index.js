@@ -35,13 +35,13 @@ const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
 }
 
 /* Uncomment these lines to see something on the browser */
-import ReactDOM from 'react-dom'
-import schema from '../test/sample-schema.json'
-import data from '../test/sample-data.json'
-
-ReactDOM.render(
-  <PropertyGrid schema={schema} data={data} />,
-  document.getElementById('root')
-)
+// import ReactDOM from 'react-dom'
+// import schema from '../test/sample-schema.json'
+// import data from '../test/sample-data.json'
+//
+// ReactDOM.render(
+//   <PropertyGrid schema={schema} data={data} />,
+//   document.getElementById('root')
+// )
 
 export default PropertyGrid
