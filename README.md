@@ -26,6 +26,16 @@ ReactDOM.render(
 )
 ```
 
+For best results, it is better to add a
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+to your stylesheet.
+
 ### Options
 
 | Name     | Description | Default |
