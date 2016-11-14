@@ -228,9 +228,6 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: false,
-      mangle: false,
       compress: {
         screw_ie8: true, // React doesn't support IE8
         warnings: false

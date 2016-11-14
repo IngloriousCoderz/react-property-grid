@@ -1,5 +1,5 @@
 import uuid from 'uuid'
-import jp from 'jsonpath'
+import jp from 'jsonpath-lite'
 
 import {getType, defaults} from './schema'
 import {ALL, last, parent} from './path'

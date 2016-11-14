@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.1.3
+
+- Use jsonpath-lite, a fork made by me that removes dependencies from Node APIs
+
 ### 0.1.2
 
 - Version bump to override first bugfix attempt
