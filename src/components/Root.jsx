@@ -10,7 +10,8 @@ const editor = {
   margin: 0,
   borderTop: '1px solid lightgrey',
   borderLeft: '1px solid lightgrey',
-  padding: 0
+  padding: 0,
+  userSelect: 'none'
 }
 
 const header = {

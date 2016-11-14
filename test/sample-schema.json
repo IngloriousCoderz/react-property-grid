@@ -10,33 +10,16 @@
     "arr": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "item1": {
-                "type": "string"
-              },
-              "type": {
-                "enum": ["type1"]
-              }
-            }
-          }, {
-            "properties": {
-              "item2": {
-                "type": "number"
-              },
-              "type": {
-                "enum": ["type2"]
-              }
+        "anyOf": [{
+          "type": "object",
+          "properties": {
+            "item1": {
+              "type": "string"
             }
           }
-        ]
-      }
-    },
-    "choices": {
-      "type": {
-        "enum": ["hello", "world"]
+        }, {
+          "type": "number"
+        }]
       }
     }
   }

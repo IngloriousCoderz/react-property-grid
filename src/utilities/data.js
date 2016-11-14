@@ -42,6 +42,7 @@ export const getDefaultForType = type => {
 
 export const importData = data => {
   const newData = clone(data)
+
   jp.apply(newData, ALL, value => {
     if (inferType(value) === 'object') {
       value[INTERNAL_ID] = uuid.v4()
@@ -53,56 +54,80 @@ export const importData = data => {
 
 export const exportData = data => {
   const newData = clone(data)
+
   if (isPrimitive(newData)) {
     return newData
+  }
+  if (newData[INTERNAL_ID] != null) {
+    delete newData[INTERNAL_ID]
   }
 
   jp.apply(newData, ALL, value => {
     delete value[INTERNAL_ID]
     return value
   })
-  if (newData[INTERNAL_ID] != null) {
-    delete newData[INTERNAL_ID]
-  }
   return newData
 }
 
 export const setKey = (data, path, newKey) => {
   const newData = clone(data)
   const oldKey = last(path)
-  jp.apply(newData, parent(path), prop => {
-    return Object.assign({}, ...Object.keys(prop).map(key => {
+  const parentPath = parent(path)
+
+  const _setKey = (data, newKey) => {
+    return Object.assign({}, ...Object.keys(data).map(key => {
       if (key === oldKey) {
-        return {[newKey]: prop[key]}
+        return {[newKey]: data[key]}
       }
-      return {[key]: prop[key]}
+      return {[key]: data[key]}
     }))
-  })
+  }
+
+  if (parentPath === '$') {
+    return _setKey(newData, newKey)
+  }
+
+  jp.apply(newData, parentPath, prop => _setKey(prop, newKey))
   return newData
 }
 
 export const setValue = (data, path, value) => {
   const newData = clone(data)
   const key = last(path)
-  jp.apply(newData, parent(path), prop => {
-    prop[key] = value
-    return prop
-  })
+  const parentPath = parent(path)
+
+  const _setValue = (data, key, value) => {
+    data[key] = value
+    return data
+  }
+
+  if (parentPath === '$') {
+    return _setValue(newData, key, value)
+  }
+
+  jp.apply(newData, parentPath, prop => _setValue(prop, key, value))
   return newData
 }
 
 export const addItem = (data, path, schema) => {
   const newData = clone(data)
   const type = getType(schema)
-  jp.apply(newData, path, prop => {
+
+  const _addItem = (data, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
-      prop.push(defaults(schema.items))
+      data.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
-      const index = Object.keys(exportData(prop)).length + 1
-      prop[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
+      const index = Object.keys(exportData(data)).length + 1
+      data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
-    return prop
-  })
+    return data
+  }
+
+  if (path === '$') {
+    return _addItem(newData, schema)
+  }
+
+  jp.apply(newData, path, prop => _addItem(prop, schema))
   return newData
 }
 
@@ -111,18 +136,19 @@ export const removeItem = (data, path) => {
   const key = last(path)
   const parentPath = parent(path)
 
-  if (parentPath === '$') {
-    delete newData[key]
-    return newData
+  const _removeItem = (data, key) => {
+    if (Array.isArray(data)) {
+      data.splice(key, 1)
+    } else {
+      delete data[key]
+    }
+    return data
   }
 
-  jp.apply(newData, parentPath, prop => {
-    if (Array.isArray(prop)) {
-      prop.splice(key, 1)
-    } else {
-      delete prop[key]
-    }
-    return prop
-  })
+  if (parentPath === '$') {
+    return _removeItem(newData, key)
+  }
+
+  jp.apply(newData, parentPath, prop => _removeItem(prop, key))
   return newData
 }

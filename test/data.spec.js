@@ -69,7 +69,7 @@ describe('data', () => {
             __id: '2',
             item1: 'value1'
           },
-          'item2'
+          42
         ]
       })).toEqual(data)
     })
@@ -85,7 +85,7 @@ describe('data', () => {
           {
             item1: 'value1'
           },
-          'item2'
+          42
         ]
       })
     })
@@ -99,7 +99,7 @@ describe('data', () => {
           {
             newItem1: 'value1'
           },
-          'item2'
+          42
         ]
       })
     })
@@ -115,7 +115,7 @@ describe('data', () => {
           {
             item1: 'value1'
           },
-          'item2'
+          42
         ]
       })
     })
@@ -129,7 +129,7 @@ describe('data', () => {
           {
             item1: 'newValue1'
           },
-          'item2'
+          42
         ]
       })
     })
@@ -146,7 +146,7 @@ describe('data', () => {
           {
             item1: 'value1'
           },
-          'item2'
+          42
         ]
       })
     })

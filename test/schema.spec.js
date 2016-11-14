@@ -13,7 +13,7 @@ describe('schema', () => {
     it('should expect no type to be an object', () => {
       expect(getType(schema)).toEqual('object')
       expect(getType(schema.properties.arr.items)).toEqual('object')
-      expect(getType(schema.properties.arr.items.anyOf[1])).toEqual('object')
+      expect(getType(schema.properties.arr.items.anyOf[1])).toEqual('number')
     })
   })
 
@@ -24,14 +24,10 @@ describe('schema', () => {
       const {anyOf} = schema.properties.arr.items
 
       expect(match(anyOf, {
-        item1: 'value1',
-        type: 'type1'
+        item1: 'value1'
       }, schema)).toBe(anyOf[0])
 
-      expect(match(anyOf, {
-        item2: 42,
-        type: 'type2'
-      }, schema)).toBe(anyOf[1])
+      expect(match(anyOf, 42, schema)).toBe(anyOf[1])
     })
   })
 

@@ -39,7 +39,7 @@ ReactDOM.render(
 
 - Fields validation
 - Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
-- Sorting of array items w/ drag and drop
+- Handle `allOf` properties
 - More useful description on caption row
 
 ## Contributing
