@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {getType} from '../../utilities/schema'
-import {getDefaultForType} from '../../utilities/data'
+import {defaults} from '../../utilities/schema'
 import {setValue} from '../../actions'
 
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
@@ -11,8 +10,9 @@ const autoPopulating = WrappedComponent => {
   class AutoPopulating extends Component {
     componentWillMount() {
       const {schema, data, path, setValue} = this.props
+
       if (data == null) {
-        setValue(path, getDefaultForType(getType(schema)))
+        setValue(path, defaults(schema))
       }
     }
 

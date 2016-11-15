@@ -12,11 +12,12 @@ const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRe
     return null
   }
 
-  if (schema.anyOf != null) {
-    schema = match(schema.anyOf, data)
+  let subschema = schema
+  if (subschema.anyOf != null) {
+    subschema = match(subschema.anyOf, data)
   }
 
-  const type = getType(schema)
+  const type = getType(subschema)
   const required = requireds != null && requireds.includes(last(path))
 
   let Component
@@ -31,7 +32,7 @@ const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRe
       Component = FieldEditor
   }
 
-  return <Component schema={schema} data={data} title={title} path={path} required={required} canEditKey={canEditKey} canRemove={canRemove} />
+  return <Component schema={subschema} data={data} title={title} path={path} required={required} canEditKey={canEditKey} canRemove={canRemove} />
 }
 
 export default autoPopulating(PropertyEditor)

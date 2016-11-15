@@ -19,11 +19,6 @@ export const inferType = data => {
   return classToType[strType] || 'object'
 }
 
-const isPrimitive = data => {
-  const type = inferType(data)
-  return 'boolean number string date regexp undefined null'.split(' ').includes(type)
-}
-
 export const getDefaultForType = type => {
   return {
     boolean: false,
@@ -41,31 +36,40 @@ export const getDefaultForType = type => {
 }
 
 export const importData = data => {
-  const newData = clone(data)
+  if (inferType(data) !== 'object') {
+    return data
+  }
 
-  jp.apply(newData, ALL, value => {
-    if (inferType(value) === 'object') {
-      value[INTERNAL_ID] = uuid.v4()
+  let newData = clone(data)
+
+  const _importData = data => {
+    if (inferType(data) === 'object') {
+      data[INTERNAL_ID] = uuid.v4()
     }
-    return value
-  })
+    return data
+  }
+
+  newData = _importData(newData)
+  jp.apply(newData, ALL, value => _importData(value))
   return newData
 }
 
 export const exportData = data => {
-  const newData = clone(data)
-
-  if (isPrimitive(newData)) {
-    return newData
-  }
-  if (newData[INTERNAL_ID] != null) {
-    delete newData[INTERNAL_ID]
+  if (inferType(data) !== 'object') {
+    return data
   }
 
-  jp.apply(newData, ALL, value => {
-    delete value[INTERNAL_ID]
-    return value
-  })
+  let newData = clone(data)
+
+  const _exportData = data => {
+    if (inferType(data) === 'object') {
+      delete data[INTERNAL_ID]
+    }
+    return data
+  }
+
+  newData = _exportData(newData)
+  jp.apply(newData, ALL, value => _exportData(value))
   return newData
 }
 

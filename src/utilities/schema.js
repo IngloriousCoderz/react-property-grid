@@ -26,11 +26,16 @@ export const match = (schemas, data) => {
 export const defaults = schema => {
   const type = getType(schema)
 
-  if (schema['default'] != null) {
-    return schema['default']
+  if (schema.default != null) {
+    return schema.default
+  }
+
+  if (schema.minimum != null) {
+    return schema.minimum + (schema.exclusiveMinimum ? 1 : 0)
   }
 
   if (schema.allOf != null) {
+    // TODO: just a placeholder, it shouldn't behave like this
     return defaults(schema.allOf)
   }
 
@@ -51,11 +56,17 @@ export const defaults = schema => {
   }
 
   if (type === 'array') {
-    if (!schema.items) {
+    const minItems = schema.minItems || 0
+
+    if (!schema.items || minItems === 0) {
       return []
     }
 
-    const minItems = schema.minItems || 0
+    // object-typed arrays
+    const value = defaults(schema.items)
+    if (value == null) {
+      return []
+    }
 
     // tuple-typed arrays
     if (Array.isArray(schema.items)) {
@@ -76,13 +87,7 @@ export const defaults = schema => {
       return values
     }
 
-    // object-typed arrays
-    const value = defaults(schema.items)
-    if (value == null) {
-      return []
-    }
-
-    return Array(Math.max(1, minItems)).fill(value)
+    return Array(minItems).fill(value)
   }
 
   return getDefaultForType(type)

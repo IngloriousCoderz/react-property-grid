@@ -37,17 +37,17 @@ describe('data', () => {
       expect(getDefaultForType('object')).toEqual({})
       expect(getDefaultForType('array')).toEqual([])
       expect(inferType(getDefaultForType('date'))).toEqual('date')
-      expect(getDefaultForType('regexp')).toEqual(/.*/),
+      expect(getDefaultForType('regexp')).toEqual(/.*/)
       expect(getDefaultForType('undefined')).toEqual(undefined)
       expect(getDefaultForType('null')).toEqual(null)
     })
   })
 
   describe('importData', () => {
-    it('should put an internal id inside each object (except root)', () => {
+    it('should put an internal id inside each object', () => {
       const newData = importData(data)
 
-      expect(newData.__id).not.toBeDefined()
+      expect(newData.__id).toBeDefined()
       expect(newData.obj.__id).toBeDefined()
       expect(newData.obj.key.__id).not.toBeDefined()
       expect(newData.arr.__id).not.toBeDefined()
@@ -60,13 +60,14 @@ describe('data', () => {
   describe('exportData', () => {
     it('should remove all internal ids from data', () => {
       expect(exportData({
+        __id: '1',
         obj: {
-          __id: '1',
+          __id: '2',
           key: 'value'
         },
         arr: [
           {
-            __id: '2',
+            __id: '3',
             item1: 'value1'
           },
           42

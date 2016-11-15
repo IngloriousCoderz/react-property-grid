@@ -59,15 +59,17 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
         canRemove={canRemove}
         addItem={addItem}
         removeItem={removeItem} />
-      {expanded ? <SortableList
-        lockAxis={'y'}
-        // pressDelay={200}
-        useDragHandle={true}
-        onSortEnd={({oldIndex, newIndex, collection}, e) => setValue(path, arrayMove(data, oldIndex, newIndex))}
-        schema={schema}
-        data={data}
-        path={path}
-        canAddOrRemoveItems={canAddOrRemoveItems} /> : null}
+      {expanded ?
+        <SortableList
+          lockAxis={'y'}
+          // pressDelay={200}
+          useDragHandle={true}
+          onSortEnd={({oldIndex, newIndex, collection}, e) => setValue(path, arrayMove(data, oldIndex, newIndex))}
+          schema={schema}
+          data={data}
+          path={path}
+          canAddOrRemoveItems={canAddOrRemoveItems} />
+      : null}
     </div>
   )
 }

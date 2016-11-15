@@ -12,6 +12,7 @@ export const cell = {
   // display: 'table-cell',
   display: 'inline-block',
   verticalAlign: 'top',
+  textAlign: 'left',
   width: '50%',
   height: 21,
   borderRight: '1px solid lightgrey',

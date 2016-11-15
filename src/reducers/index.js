@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes'
-import {setKey, setValue, addItem, removeItem, swapItems} from '../utilities/data'
+import {setKey, setValue, addItem, removeItem} from '../utilities/data'
 
 const data = (state, action) => {
   const {type, payload} = action
@@ -12,8 +12,6 @@ const data = (state, action) => {
       return addItem(state, payload.path, payload.schema)
     case types.REMOVE_ITEM:
       return removeItem(state, payload.path)
-    case types.SWAP_ITEMS:
-      return swapItems(state, payload.path, payload.index1, payload.index2)
     default:
       return state
   }

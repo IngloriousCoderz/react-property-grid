@@ -12,7 +12,21 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
 
   return (
     <div>
-      {title != null ? <Summary schema={schema} data={data} title={title} path={path} required={required} expanded={expanded} toggleExpanded={toggleExpanded} canAdd={canAddOrRemoveProperties} canEditKey={canEditKey} canRemove={canRemove} addItem={addItem} removeItem={removeItem} /> : null}
+      {title != null ?
+        <Summary
+          schema={schema}
+          data={data}
+          title={title}
+          path={path}
+          required={required}
+          expanded={expanded}
+          toggleExpanded={toggleExpanded}
+          canAdd={canAddOrRemoveProperties}
+          canEditKey={canEditKey}
+          canRemove={canRemove}
+          addItem={addItem}
+          removeItem={removeItem} />
+      : null}
       {expanded ?
         <div>
           <PropertiesEditor schema={schema.properties} data={data} path={path} requireds={schema.required} />

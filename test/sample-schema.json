@@ -16,7 +16,8 @@
             "item1": {
               "type": "string"
             }
-          }
+          },
+          "required": ["item1"]
         }, {
           "type": "number"
         }]
