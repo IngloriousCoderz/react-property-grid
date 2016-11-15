@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.1.4
+
+- Refactor automatic defaults generation logic
+- Init grid with a custom action
+
 ### 0.1.3
 
 - Use jsonpath-lite, a fork made by me that removes dependencies from Node APIs
