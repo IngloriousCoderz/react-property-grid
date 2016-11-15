@@ -2,7 +2,7 @@ import {
   inferType,
   getDefaultForType,
   importData,
-  exportData,
+  cleanup,
   setKey,
   setValue,
   addItem,
@@ -11,7 +11,6 @@ import {
 import data from './sample-data.json'
 
 describe('data', () => {
-
   describe('inferType', () => {
     it('should infer the right type for any data', () => {
       expect(inferType(false)).toEqual('boolean')
@@ -57,9 +56,9 @@ describe('data', () => {
     })
   })
 
-  describe('exportData', () => {
+  describe('cleanup', () => {
     it('should remove all internal ids from data', () => {
-      expect(exportData({
+      expect(cleanup({
         __id: '1',
         obj: {
           __id: '2',
@@ -137,7 +136,7 @@ describe('data', () => {
   })
 
   describe('addItem', () => {
-    // too complex for now, needs schema
+    // TODO: too complex for now
   })
 
   describe('removeItem', () => {

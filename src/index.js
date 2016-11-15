@@ -6,8 +6,8 @@ import deref from 'json-schema-deref-local'
 import NAMESPACE from './constants/namespace'
 import Root from './components/Root'
 import rootReducer from './reducers'
-import {init} from './actions'
-import {importData, exportData} from './utilities/data'
+import {init, exportData} from './actions'
+import {importData, cleanup} from './utilities/data'
 import './index.css'
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
@@ -25,7 +25,13 @@ const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
   store.dispatch(init(deref(schema), importData(data)))
 
   if (onChange != null) {
-    store.subscribe(() => onChange(exportData(store.getState().data)))
+    store.subscribe(() => {
+      const state = store.getState()
+      if (state.dirty) {
+        onChange(cleanup(state.data))
+        store.dispatch(exportData())
+      }
+    })
   }
 
   return (

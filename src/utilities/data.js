@@ -54,22 +54,22 @@ export const importData = data => {
   return newData
 }
 
-export const exportData = data => {
+export const cleanup = data => {
   if (inferType(data) !== 'object') {
     return data
   }
 
   let newData = clone(data)
 
-  const _exportData = data => {
+  const _cleanup = data => {
     if (inferType(data) === 'object') {
       delete data[INTERNAL_ID]
     }
     return data
   }
 
-  newData = _exportData(newData)
-  jp.apply(newData, ALL, value => _exportData(value))
+  newData = _cleanup(newData)
+  jp.apply(newData, ALL, value => _cleanup(value))
   return newData
 }
 
@@ -121,7 +121,7 @@ export const addItem = (data, path, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
       data.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
-      const index = Object.keys(exportData(data)).length + 1
+      const index = Object.keys(cleanup(data)).length + 1
       data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
     return data

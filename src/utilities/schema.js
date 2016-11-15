@@ -1,7 +1,7 @@
 import uuid from 'uuid'
 import tv4 from 'tv4'
 
-import {INTERNAL_ID, getDefaultForType, exportData} from './data'
+import {INTERNAL_ID, getDefaultForType, cleanup} from './data'
 
 export const getType = schema => {
   if (schema.type == null) {
@@ -18,7 +18,7 @@ export const getType = schema => {
 }
 
 export const match = (schemas, data) => {
-  const cleanData = exportData(data)
+  const cleanData = cleanup(data)
   return schemas.filter(schema => tv4.validate(cleanData, schema))[0]
 }
 

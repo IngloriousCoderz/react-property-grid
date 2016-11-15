@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.1.5
+
+- Use custom named store as a singleton for module
+- Trigger onChange only upon user interaction
+
 ### 0.1.4
 
 - Refactor automatic defaults generation logic

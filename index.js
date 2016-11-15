@@ -6,6 +6,6 @@ var schema = require('./test/sample-schema.json')
 var data = require('./test/sample-data.json')
 
 ReactDOM.render(
-  React.createElement(PropertyGrid, {schema, data}),
+  React.createElement(PropertyGrid, {schema, data, onChange: console.log}),
   document.getElementById('root')
 )

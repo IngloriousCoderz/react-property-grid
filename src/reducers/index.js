@@ -1,9 +1,12 @@
 import * as types from '../constants/actionTypes'
+import {defaults} from '../utilities/schema'
 import {setKey, setValue, addItem, removeItem} from '../utilities/data'
 
 const data = (state, action) => {
   const {type, payload} = action
   switch (type) {
+    case types.SET_DEFAULTS:
+      return setValue(state, payload.path, defaults(payload.schema))
     case types.SET_KEY:
       return setKey(state, payload.path, payload.key)
     case types.SET_VALUE:
@@ -25,14 +28,23 @@ export default (state, action) => {
         rootSchema: payload.schema,
         data: payload.data
       }
+    case types.SET_DEFAULTS:
+      return {
+        ...state,
+        data: data(state.data, action)
+      }
     case types.SET_KEY:
     case types.SET_VALUE:
     case types.ADD_ITEM:
     case types.REMOVE_ITEM:
       return {
         ...state,
+        dirty: true,
         data: data(state.data, action)
       }
+    case types.EXPORT:
+      const {dirty, ...rest} = state // eslint-disable-line no-unused-vars
+      return rest
     default:
       return state
   }

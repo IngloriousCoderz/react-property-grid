@@ -8,6 +8,14 @@ export const init = (schema, data) => ({
   }
 })
 
+export const setDefaults = (path, schema) => ({
+  type: types.SET_DEFAULTS,
+  payload: {
+    path,
+    schema
+  }
+})
+
 export const setKey = (path, key) => ({
   type: types.SET_KEY,
   payload: {
@@ -36,4 +44,9 @@ export const removeItem = path => ({
   type: types.REMOVE_ITEM,
   payload: {
     path
-  }})
+  }
+})
+
+export const exportData = () => ({
+  type: types.EXPORT
+})

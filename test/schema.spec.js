@@ -1,5 +1,5 @@
 import {getType, match, defaults} from '../src/utilities/schema'
-import {exportData} from '../src/utilities/data'
+import {cleanup} from '../src/utilities/data'
 import schema from './sample-schema.json'
 
 describe('schema', () => {
@@ -44,11 +44,11 @@ describe('schema', () => {
     })
 
     it('should choose the first choice in an \'anyOf\'', () => {
-      expect(exportData(defaults(schema.properties.arr.items))).toEqual({item1: ''})
+      expect(cleanup(defaults(schema.properties.arr.items))).toEqual({item1: ''})
     })
 
     it('should recursively generate a default value for an object', () => {
-      expect(exportData(defaults(schema))).toEqual({obj: {}, arr: []})
+      expect(cleanup(defaults(schema))).toEqual({obj: {}, arr: []})
     })
   })
 })
