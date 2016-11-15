@@ -18,13 +18,17 @@ const data = (state, action) => {
 }
 
 export default (state, action) => {
-  const {type} = action
+  const {type, payload} = action
   switch (type) {
+    case types.INIT:
+      return {
+        rootSchema: payload.schema,
+        data: payload.data
+      }
     case types.SET_KEY:
     case types.SET_VALUE:
     case types.ADD_ITEM:
     case types.REMOVE_ITEM:
-    case types.SWAP_ITEMS:
       return {
         ...state,
         data: data(state.data, action)

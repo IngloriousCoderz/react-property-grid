@@ -1,5 +1,13 @@
 import * as types from '../constants/actionTypes'
 
+export const init = (schema, data) => ({
+  type: types.INIT,
+  payload: {
+    schema,
+    data
+  }
+})
+
 export const setKey = (path, key) => ({
   type: types.SET_KEY,
   payload: {
@@ -28,5 +36,4 @@ export const removeItem = path => ({
   type: types.REMOVE_ITEM,
   payload: {
     path
-  }
-})
+  }})

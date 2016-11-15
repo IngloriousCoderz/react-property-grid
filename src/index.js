@@ -5,16 +5,16 @@ import deref from 'json-schema-deref-local'
 
 import Root from './components/Root'
 import rootReducer from './reducers'
+import {init} from './actions'
 import {importData, exportData} from './utilities/data'
 import './index.css'
 
 const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
-  const store = createStore(rootReducer, {
-      rootSchema: deref(schema),
-      data: importData(data)
-    },
+  const store = createStore(rootReducer, null,
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
+
+  store.dispatch(init(deref(schema), importData(data)))
 
   if (onChange != null) {
     store.subscribe(() => onChange(exportData(store.getState().data)))
