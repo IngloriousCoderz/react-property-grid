@@ -9,11 +9,9 @@ import {init} from './actions'
 import {importData, exportData} from './utilities/data'
 import './index.css'
 
-const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
-  const store = createStore(rootReducer, null,
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
+const PropertyGrid = ({schema, data = {}, title = 'Properties', onChange}) => {
   store.dispatch(init(deref(schema), importData(data)))
 
   if (onChange != null) {
