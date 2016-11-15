@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../../constants/namespace'
 import {defaults} from '../../utilities/schema'
 import {setValue} from '../../actions'
 
@@ -23,7 +24,7 @@ const autoPopulating = WrappedComponent => {
 
   AutoPopulating.displayName = `AutoPopulating${getDisplayName(WrappedComponent)}`
 
-  return connect(null, {setValue})(AutoPopulating)
+  return connect(null, {setValue})(AutoPopulating, NAMESPACE)
 }
 
 export default autoPopulating

@@ -1,6 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../constants/namespace'
 import {getType} from '../utilities/schema'
 import BooleanEditor from './fields/Boolean'
 import NumberEditor from './fields/Number'
@@ -31,4 +32,4 @@ const FieldEditor = ({schema, data, path, required, setValue, removeItem}) => {
   return <Component schema={schema} data={data} path={path} required={required} setValue={setValue} removeItem={removeItem} />
 }
 
-export default connect(null, {setValue, removeItem})(withCaption({field: true})(FieldEditor))
+export default connect(null, {setValue, removeItem})(withCaption({field: true})(FieldEditor), NAMESPACE)

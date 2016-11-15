@@ -1,6 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../constants/namespace'
 import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
 import PropertiesEditor from './Properties'
@@ -37,4 +38,4 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
   )
 }
 
-export default connect(null, {addItem, removeItem})(expandable(ObjectEditor))
+export default connect(null, {addItem, removeItem})(expandable(ObjectEditor), NAMESPACE)

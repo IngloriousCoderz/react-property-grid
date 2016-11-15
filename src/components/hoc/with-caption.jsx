@@ -1,6 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../../constants/namespace'
 import {level} from '../../utilities/path'
 import TextEditor from './../fields/Text'
 import {setKey} from '../../actions'
@@ -77,7 +78,7 @@ const withCaption = ({field}) => WrappedComponent => {
 
   Row.displayName = `Row(${getDisplayName(WrappedComponent)})`
 
-  return connect(null, {setKey})(Row)
+  return connect(null, {setKey})(Row, NAMESPACE)
 }
 
 export default withCaption
