@@ -49,8 +49,10 @@ to your stylesheet.
 
 - Fields validation
 - Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
-- Handle `allOf` properties
+- `allOf` properties
+- Circular `$ref`s
 - More useful description on caption row
+- Custom field editors?
 
 ## Contributing
 

@@ -3,6 +3,7 @@ import {connect} from 'react-redux-custom-store'
 
 import NAMESPACE from '../constants/namespace'
 import PropertiesEditor from './Properties'
+import AdditionalPropertiesEditor from './AdditionalProperties'
 import {cell} from './styles'
 
 const editor = {
@@ -24,7 +25,8 @@ const header = {
 const RootEditor = ({rootSchema, data, title}) => (
   <div style={editor}>
     {title != null ? <div style={{...cell, ...header}}>{title}</div> : null}
-    <PropertiesEditor schema={rootSchema.properties} data={data} path={'$'} requireds={rootSchema.required} />
+    <PropertiesEditor schema={rootSchema.properties} data={data} path='$' requireds={rootSchema.required} />
+    <AdditionalPropertiesEditor schema={rootSchema.additionalProperties} data={data} path='$' />
   </div>
 )
 

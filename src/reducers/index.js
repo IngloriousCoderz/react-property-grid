@@ -42,7 +42,7 @@ export default (state, action) => {
         dirty: true,
         data: data(state.data, action)
       }
-    case types.EXPORT:
+    case types.SYNC:
       const {dirty, ...rest} = state // eslint-disable-line no-unused-vars
       return rest
     default:

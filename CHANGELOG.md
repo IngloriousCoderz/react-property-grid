@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.1.6
+
+- Move store creation to constructor
+- Fix onChange being triggered anyways
+
 ### 0.1.5
 
 - Use custom named store as a singleton for module

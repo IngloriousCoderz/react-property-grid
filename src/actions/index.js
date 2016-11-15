@@ -47,6 +47,6 @@ export const removeItem = path => ({
   }
 })
 
-export const exportData = () => ({
-  type: types.EXPORT
+export const sync = () => ({
+  type: types.SYNC
 })
