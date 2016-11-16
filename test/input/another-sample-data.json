@@ -1,0 +1,11 @@
+{
+  "anotherArr": [
+    {
+      "item1": "value1"
+    },
+    42
+  ],
+  "anotherObj": {
+    "key": "value"
+  }
+}

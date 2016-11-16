@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.1.7
+
+- Fix interaction with parent store and provide a working use case
+
 ### 0.1.6
 
 - Move store creation to constructor

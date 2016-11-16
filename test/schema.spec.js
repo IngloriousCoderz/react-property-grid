@@ -1,6 +1,6 @@
 import {getType, match, defaults} from '../src/utilities/schema'
 import {cleanup} from '../src/utilities/data'
-import schema from './sample-schema.json'
+import schema from './input/sample-schema.json'
 
 describe('schema', () => {
   describe('getType', () => {

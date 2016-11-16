@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import {createStore} from 'redux'
 import {createProvider} from 'react-redux-custom-store'
-import deref from 'json-schema-deref-local'
 
 import NAMESPACE from './constants/namespace'
 import Root from './components/Root'
 import rootReducer from './reducers'
 import {init, sync} from './actions'
-import {importData, cleanup} from './utilities/data'
+import {cleanup} from './utilities/data'
 import './index.css'
 
 const Provider = createProvider(NAMESPACE)
@@ -26,7 +25,6 @@ class PropertyGrid extends Component {
         store.replaceReducer(nextRootReducer)
       })
     }
-    store.dispatch(init(deref(schema), importData(data)))
 
     if (onChange != null) {
       store.subscribe(() => {
@@ -37,10 +35,17 @@ class PropertyGrid extends Component {
         }
       })
     }
+
+    store.dispatch(init(schema, data))
+  }
+
+  componentWillUpdate({schema, data}) {
+    this.store.dispatch(init(schema, data))
   }
 
   render() {
     const {title = 'Properties', onChange} = this.props
+
     return (
       <Provider store={this.store}>
         <Root title={title} onChange={onChange} />

@@ -1,6 +1,8 @@
+import deref from 'json-schema-deref-local'
+
 import * as types from '../constants/actionTypes'
 import {defaults} from '../utilities/schema'
-import {setKey, setValue, addItem, removeItem} from '../utilities/data'
+import {importData, setKey, setValue, addItem, removeItem} from '../utilities/data'
 
 const data = (state, action) => {
   const {type, payload} = action
@@ -24,10 +26,10 @@ export default (state, action) => {
   const {type, payload} = action
   switch (type) {
     case types.INIT:
-      return {
-        rootSchema: payload.schema,
-        data: payload.data
-      }
+    return {
+      rootSchema: deref(payload.schema),
+      data: importData(payload.data)
+    }
     case types.SET_DEFAULTS:
       return {
         ...state,

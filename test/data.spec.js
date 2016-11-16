@@ -8,7 +8,7 @@ import {
   addItem,
   removeItem
 } from '../src/utilities/data'
-import data from './sample-data.json'
+import data from './input/sample-data.json'
 
 describe('data', () => {
   describe('inferType', () => {
