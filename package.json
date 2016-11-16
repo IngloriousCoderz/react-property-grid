@@ -1,6 +1,6 @@
 {
   "name": "react-property-grid",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A react/redux implementation of hierarchical, editable property grid, backed by JSON Schema.",
   "author": "Matteo Antony Mistretta <antony.mistretta@gmail.com> (http://www.ingloriouscoderz.it)",
   "contributors": [

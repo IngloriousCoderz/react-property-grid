@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.1.8
+
+Handle the case of an `anyOf` at root of schema
+
 ### 0.1.7
 
 - Fix interaction with parent store and provide a working use case
