@@ -9,6 +9,7 @@ import {
   removeItem
 } from '../src/utilities/data'
 import data from './input/sample-data.json'
+import schema from './input/sample-schema.json'
 
 describe('data', () => {
   describe('inferType', () => {
@@ -48,7 +49,7 @@ describe('data', () => {
 
       expect(newData.__id).toBeDefined()
       expect(newData.obj.__id).toBeDefined()
-      expect(newData.obj.key.__id).not.toBeDefined()
+      expect(newData.obj.key1.__id).not.toBeDefined()
       expect(newData.arr.__id).not.toBeDefined()
       expect(newData.arr[0].__id).toBeDefined()
       expect(newData.arr[0].item1.__id).not.toBeDefined()
@@ -60,9 +61,10 @@ describe('data', () => {
     it('should remove all internal ids from data', () => {
       expect(cleanup({
         __id: '1',
+        primitive: 42,
         obj: {
           __id: '2',
-          key: 'value'
+          key1: 'value1'
         },
         arr: [
           {
@@ -77,9 +79,10 @@ describe('data', () => {
 
   describe('setKey', () => {
     it('should change a property key', () => {
-      expect(setKey(data, '$.obj.key', 'newKey')).toEqual({
+      expect(setKey(data, '$.obj.key1', 'newKey1')).toEqual({
+        primitive: 42,
         obj: {
-          newKey: 'value'
+          newKey1: 'value1'
         },
         arr: [
           {
@@ -92,8 +95,9 @@ describe('data', () => {
 
     it('should change any key, even deeply nested ones', () => {
       expect(setKey(data, '$.arr.0.item1', 'newItem1')).toEqual({
+        primitive: 42,
         obj: {
-          key: 'value'
+          key1: 'value1'
         },
         arr: [
           {
@@ -107,9 +111,10 @@ describe('data', () => {
 
   describe('setValue', () => {
     it('should change a property value', () => {
-      expect(setValue(data, '$.obj.key', 'newValue')).toEqual({
+      expect(setValue(data, '$.obj.key1', 'newValue1')).toEqual({
+        primitive: 42,
         obj: {
-          key: 'newValue'
+          key1: 'newValue1'
         },
         arr: [
           {
@@ -122,8 +127,9 @@ describe('data', () => {
 
     it('should change any value, even deeply nested ones', () => {
       expect(setValue(data, '$.arr.0.item1', 'newValue1')).toEqual({
+        primitive: 42,
         obj: {
-          key: 'value'
+          key1: 'value1'
         },
         arr: [
           {
@@ -136,18 +142,74 @@ describe('data', () => {
   })
 
   describe('addItem', () => {
-    // TODO: too complex for now
-  })
+    // it('should add a default primitive to an object', () => {
+    //   expect(addItem(data, '$.arr', schema.properties.arr.items.anyOf[1])).toEqual({
+    //     primitive: 42,
+    //     obj: {
+    //       key1: 'value1'
+    //     },
+    //     arr: [
+    //       {
+    //         item1: 'value1'
+    //       },
+    //       42,
+    //       0
+    //     ]
+    //   })
+    // })
 
-  describe('removeItem', () => {
-    it('should remove an item from an object', () => {
-      expect(removeItem(data, '$.obj')).toEqual({
+    // it('should add a default property to an object', () => {
+    //   expect(addItem(data, '$.arr', schema.properties.arr.items.anyOf[0])).toEqual({
+    //     obj: {
+    //       key1: 'value1'
+    //     },
+    //     arr: [
+    //       {
+    //         item1: 'value1',
+    //         item2: ''
+    //       },
+    //       42
+    //     ]
+    //   })
+    // })
+
+    it('should add a default additional property', () => {
+      expect(addItem(data, '$.obj', schema.properties.obj)).toEqual({
+        primitive: 42,
+        obj: {
+          key1: 'value1',
+          key2: ''
+        },
         arr: [
           {
             item1: 'value1'
           },
           42
         ]
+      })
+    })
+  })
+
+  describe('removeItem', () => {
+    it('should remove an item from an object', () => {
+      expect(removeItem(data, '$.obj')).toEqual({
+        primitive: 42,
+        arr: [
+          {
+            item1: 'value1'
+          },
+          42
+        ]
+      })
+    })
+
+    it('should remove an item from an array', () => {
+      expect(removeItem(data, '$.arr.0')).toEqual({
+        primitive: 42,
+        obj: {
+          key1: 'value1'
+        },
+        arr: [42]
       })
     })
   })

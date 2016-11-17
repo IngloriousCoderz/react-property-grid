@@ -5,6 +5,7 @@
     },
     42
   ],
+  "primitive": 42,
   "anotherObj": {
     "key": "value"
   }

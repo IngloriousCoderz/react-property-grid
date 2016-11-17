@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux-custom-store'
 
 import {match} from '../utilities/schema'
+import {splitProperties} from '../utilities/data'
 import NAMESPACE from '../constants/namespace'
 import PropertiesEditor from './Properties'
 import AdditionalPropertiesEditor from './AdditionalProperties'
@@ -24,16 +25,27 @@ const header = {
 }
 
 const RootEditor = ({rootSchema, data, title}) => {
-  let subschema = rootSchema
-  if (subschema.anyOf != null) {
-    subschema = match(subschema.anyOf, data)
+  let schema = rootSchema
+  if (schema.anyOf != null) {
+    schema = match(schema.anyOf, data)
   }
+
+  const {properties, additionalProperties} = splitProperties(data, schema)
 
   return (
     <div style={editor}>
-      {title != null ? <div style={{...cell, ...header}}>{title}</div> : null}
-      <PropertiesEditor schema={subschema.properties} data={data} path='$' requireds={subschema.required} />
-      <AdditionalPropertiesEditor schema={subschema.additionalProperties} data={data} path='$' />
+      {title != null
+        ? <div style={{...cell, ...header}}>{title}</div>
+        : null}
+      <PropertiesEditor
+        schema={schema.properties}
+        data={properties}
+        path='$'
+        requireds={schema.required} />
+      <AdditionalPropertiesEditor
+        schema={schema.additionalProperties}
+        data={additionalProperties}
+        path='$' />
     </div>
   )
 }

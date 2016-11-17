@@ -156,3 +156,17 @@ export const removeItem = (data, path) => {
   jp.apply(newData, parentPath, prop => _removeItem(prop, key))
   return newData
 }
+
+export const splitProperties = (data, schema) => {
+  const properties = {}
+  const additionalProperties = {}
+  Object.keys(data).forEach(key => {
+    if (schema.properties != null && Object.keys(schema.properties).includes(key)) {
+      properties[key] = data[key]
+    } else {
+      additionalProperties[key] = data[key]
+    }
+  })
+
+  return {properties, additionalProperties}
+}

@@ -28,8 +28,12 @@
       "title": "anotherObj",
       "description": "An object with optional props.",
       "additionalProperties": {
+        "title": "key",
         "type": "string"
       }
     }
+  },
+  "additionalProperties": {
+    "type": "number"
   }
 }

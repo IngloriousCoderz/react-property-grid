@@ -9,6 +9,7 @@ describe('schema', () => {
       expect(getType(schema.properties.obj.additionalProperties)).toEqual('string')
       expect(getType(schema.properties.arr)).toEqual('array')
       expect(getType(schema.properties.arr.items.anyOf[0].properties.item1)).toEqual('string')
+      expect(getType(schema.additionalProperties)).toEqual('number')
     })
 
     it('should expect no type to be an object', () => {
@@ -32,15 +33,15 @@ describe('schema', () => {
 
   describe('defaults', () => {
     it('should return the default value provided by the schema', () => {
-      expect(defaults({"type": "integer", "default": 42})).toBe(42)
+      expect(defaults({type: 'integer', default: 42})).toBe(42)
     })
 
     it('should return the minimum value if no default is provided', () => {
-      expect(defaults({"type": "integer", "minimum": 42})).toBe(42)
+      expect(defaults({type: 'integer', minimum: 42})).toBe(42)
     })
 
     it('should take into account the exclusiveMinimum clause when giving minimum as default', () => {
-      expect(defaults({"type": "integer", "minimum": 42, "exclusiveMinimum": true})).toBe(43)
+      expect(defaults({type: 'integer', minimum: 42, exclusiveMinimum: true})).toBe(43)
     })
 
     it('should choose the first choice in an \'anyOf\'', () => {
