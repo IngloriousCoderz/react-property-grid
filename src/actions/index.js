@@ -8,11 +8,12 @@ export const init = (schema, data) => ({
   }
 })
 
-export const setDefaults = (path, schema) => ({
+export const setDefaults = (path, schema, choice) => ({
   type: types.SET_DEFAULTS,
   payload: {
     path,
-    schema
+    schema,
+    choice
   }
 })
 

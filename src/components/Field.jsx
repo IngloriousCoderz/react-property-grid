@@ -1,16 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
 
-import NAMESPACE from '../constants/namespace'
 import {getType} from '../utilities/schema'
 import BooleanEditor from './fields/Boolean'
 import NumberEditor from './fields/Number'
 import EnumEditor from './fields/Enum'
-import TextEditor from './fields/Text'
+import StringEditor from './fields/String'
 import withCaption from './hoc/with-caption'
-import {setValue, removeItem} from '../actions'
 
-const FieldEditor = ({schema, data, path, required, setValue, removeItem}) => {
+const FieldEditor = ({schema, data, path, required}) => {
   const type = getType(schema)
 
   let Component
@@ -26,10 +23,10 @@ const FieldEditor = ({schema, data, path, required, setValue, removeItem}) => {
       Component = EnumEditor
       break
     default:
-      Component = TextEditor
+      Component = StringEditor
   }
 
-  return <Component schema={schema} data={data} path={path} required={required} setValue={setValue} removeItem={removeItem} />
+  return <Component schema={schema} data={data} path={path} required={required} />
 }
 
-export default connect(null, {setValue, removeItem})(withCaption({field: true})(FieldEditor), NAMESPACE)
+export default withCaption({field: true})(FieldEditor)

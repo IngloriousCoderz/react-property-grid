@@ -1,4 +1,6 @@
 import {
+  INTERNAL_ID,
+  INTERNAL_ANY_OF,
   inferType,
   getDefaultForType,
   splitProperties,
@@ -71,27 +73,27 @@ describe('data', () => {
     it('should put an internal id inside each object', () => {
       const newData = importData(data)
 
-      expect(newData.__id).toBeDefined()
-      expect(newData.obj.__id).toBeDefined()
-      expect(newData.obj.key1.__id).not.toBeDefined()
-      expect(newData.arr.__id).not.toBeDefined()
-      expect(newData.arr[0].__id).toBeDefined()
-      expect(newData.arr[0].item1.__id).not.toBeDefined()
-      expect(newData.arr[1].__id).not.toBeDefined()
+      expect(newData[INTERNAL_ID]).toBeDefined()
+      expect(newData.obj[INTERNAL_ID]).toBeDefined()
+      expect(newData.obj.key1[INTERNAL_ID]).not.toBeDefined()
+      expect(newData.arr[INTERNAL_ID]).not.toBeDefined()
+      expect(newData.arr[0][INTERNAL_ID]).toBeDefined()
+      expect(newData.arr[0].item1[INTERNAL_ID]).not.toBeDefined()
+      expect(newData.arr[1][INTERNAL_ID]).not.toBeDefined()
     })
   })
 
   describe('cleanup', () => {
     it('should remove all internal ids from data', () => {
       expect(cleanup({
-        __id: '1',
+        [INTERNAL_ID]: '1',
         obj: {
-          __id: '2',
+          [INTERNAL_ID]: '2',
           key1: 'value1'
         },
         arr: [
           {
-            __id: '3',
+            [INTERNAL_ID]: '3',
             item1: 'value1'
           },
           42
@@ -196,7 +198,7 @@ describe('data', () => {
       })
     })
 
-    it('should add an item of default type to an anyOf', () => {
+    it('should add a dummy item in an anyOf to allow choice', () => {
       expect(cleanup(addItem(data, '$.arr', schema.properties.arr))).toEqual({
         obj: {
           key1: 'value1'
@@ -205,27 +207,8 @@ describe('data', () => {
           {
             item1: 'value1'
           },
-          42, {
-            'item1': ''
-          }
-        ],
-        optional: {
-          primitive: 42
-        }
-      })
-    })
-
-    it('should add an item of the given type in an anyOf', () => {
-      expect(cleanup(addItem(data, '$.arr', schema.properties.arr, 1))).toEqual({
-        obj: {
-          key1: 'value1'
-        },
-        arr: [
-          {
-            item1: 'value1'
-          },
           42,
-          0
+          INTERNAL_ANY_OF
         ],
         optional: {
           primitive: 42

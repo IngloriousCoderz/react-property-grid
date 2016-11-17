@@ -9,7 +9,7 @@ import PropertiesEditor from './Properties'
 import AdditionalPropertiesEditor from './AdditionalProperties'
 import expandable from './hoc/expandable'
 
-const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove, addItem, removeItem}) => {
+const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, canRemove}) => {
   const canAddOrRemoveProperties = schema.additionalProperties
 
   const {properties, additionalProperties} = splitProperties(data, schema)
@@ -27,9 +27,7 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
             toggleExpanded={toggleExpanded}
             canAdd={canAddOrRemoveProperties}
             canEditKey={canEditKey}
-            canRemove={canRemove}
-            addItem={addItem}
-            removeItem={removeItem} />
+            canRemove={canRemove} />
         : null}
       {expanded
         ? <div>

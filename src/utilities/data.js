@@ -5,6 +5,7 @@ import {getType, defaults} from './schema'
 import {ALL, last, parent} from './path'
 
 export const INTERNAL_ID = '__id'
+export const INTERNAL_ANY_OF = '__any_of'
 
 const clone = json => JSON.parse(JSON.stringify(json))
 
@@ -130,17 +131,17 @@ export const setValue = (data, path, value) => {
   return newData
 }
 
-export const addItem = (data, path, schema, choice = 0) => {
+export const addItem = (data, path, schema) => {
   const newData = clone(data)
   const type = getType(schema)
 
   const _addItem = (data, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
-      data.push(defaults(schema.items, choice))
+      data.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
       const {additionalProperties} = splitProperties(data, schema)
       const index = Object.keys(cleanup(additionalProperties)).length + 1
-      data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties, choice)
+      data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
     return data
   }

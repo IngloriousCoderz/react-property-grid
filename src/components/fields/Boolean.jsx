@@ -1,5 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../../constants/namespace'
+import {setValue} from '../../actions'
 import {input} from '../styles'
 
 const boolean = {
@@ -18,4 +21,4 @@ const BooleanEditor = ({schema, data, path, setValue}) => (
   </div>
 )
 
-export default BooleanEditor
+export default connect(null, {setValue})(BooleanEditor, NAMESPACE)

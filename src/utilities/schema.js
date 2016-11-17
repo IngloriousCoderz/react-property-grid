@@ -1,7 +1,7 @@
 import uuid from 'uuid'
 import tv4 from 'tv4'
 
-import {INTERNAL_ID, getDefaultForType, cleanup} from './data'
+import {INTERNAL_ID, INTERNAL_ANY_OF, getDefaultForType, cleanup} from './data'
 
 export const getType = schema => {
   if (schema.type == null) {
@@ -22,8 +22,19 @@ export const match = (schemas, data) => {
   return schemas.filter(schema => tv4.validate(cleanData, schema))[0]
 }
 
+export const needsChoice = (schema) => {
+  const type = getType(schema)
+  if (type === 'array') {
+    return schema.items.anyOf != null
+  }
+  if (type === 'object') {
+    return schema.additionalProperties && schema.additionalProperties.anyOf != null
+  }
+  return false
+}
+
 /* borrowed by https://github.com/chute/json-schema-defaults */
-export const defaults = (schema, choice = 0) => {
+export const defaults = (schema, choice) => {
   const type = getType(schema)
 
   if (schema.default != null) {
@@ -40,7 +51,7 @@ export const defaults = (schema, choice = 0) => {
   }
 
   if (schema.anyOf != null) {
-    return defaults(schema.anyOf[choice])
+    return choice != null ? defaults(schema.anyOf[choice]) : INTERNAL_ANY_OF
   }
 
   if (type === 'object') {

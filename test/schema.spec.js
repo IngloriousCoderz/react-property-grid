@@ -1,5 +1,5 @@
 import {getType, match, defaults} from '../src/utilities/schema'
-import {cleanup} from '../src/utilities/data'
+import {INTERNAL_ANY_OF, cleanup} from '../src/utilities/data'
 import schema from './input/sample-schema.json'
 
 describe('schema', () => {
@@ -44,8 +44,8 @@ describe('schema', () => {
       expect(defaults({type: 'integer', minimum: 42, exclusiveMinimum: true})).toBe(43)
     })
 
-    it('should choose the first choice in an \'anyOf\'', () => {
-      expect(cleanup(defaults(schema.properties.arr.items))).toEqual({item1: ''})
+    it('should return a dummy value in an \'anyOf\'', () => {
+      expect(cleanup(defaults(schema.properties.arr.items))).toEqual(INTERNAL_ANY_OF)
     })
 
     it('should choose the second choice if specified', () => {

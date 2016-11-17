@@ -1,6 +1,9 @@
 import React from 'react'
 import {Debounce} from 'react-throttle'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../../constants/namespace'
+import {setValue} from '../../actions'
 import {input} from '../styles'
 
 const number = {
@@ -19,4 +22,4 @@ const NumberEditor = ({schema, data, path, setValue}) => (
   </Debounce>
 )
 
-export default NumberEditor
+export default connect(null, {setValue})(NumberEditor, NAMESPACE)

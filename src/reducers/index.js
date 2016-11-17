@@ -1,14 +1,14 @@
 import deref from 'json-schema-deref-local'
 
 import * as types from '../constants/actionTypes'
-import {defaults} from '../utilities/schema'
+import {defaults, needsChoice} from '../utilities/schema'
 import {importData, setKey, setValue, addItem, removeItem} from '../utilities/data'
 
 const data = (state, action) => {
   const {type, payload} = action
   switch (type) {
     case types.SET_DEFAULTS:
-      return setValue(state, payload.path, defaults(payload.schema))
+      return setValue(state, payload.path, defaults(payload.schema, payload.choice))
     case types.SET_KEY:
       return setKey(state, payload.path, payload.key)
     case types.SET_VALUE:
@@ -33,20 +33,28 @@ export default (state, action) => {
     case types.SET_DEFAULTS:
       return {
         ...state,
+        dirty: payload.choice != null ? true : undefined,
         data: data(state.data, action)
       }
     case types.SET_KEY:
     case types.SET_VALUE:
-    case types.ADD_ITEM:
     case types.REMOVE_ITEM:
       return {
         ...state,
         dirty: true,
         data: data(state.data, action)
       }
+    case types.ADD_ITEM:
+      return {
+        ...state,
+        dirty: needsChoice(payload.schema) ? undefined : true,
+        data: data(state.data, action)
+      }
     case types.SYNC:
-      const {dirty, ...rest} = state // eslint-disable-line no-unused-vars
-      return rest
+      return {
+        ...state,
+        dirty: undefined
+      }
     default:
       return state
   }

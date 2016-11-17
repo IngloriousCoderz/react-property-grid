@@ -4,7 +4,7 @@ import {connect} from 'react-redux-custom-store'
 import NAMESPACE from '../../constants/namespace'
 import {level} from '../../utilities/path'
 import TextEditor from './../fields/Text'
-import {setKey} from '../../actions'
+import {setKey, addItem, removeItem} from '../../actions'
 import {row, ellipsis, cell, buttonGroup, button} from './../styles'
 
 const EXPANDER_WIDTH = 10
@@ -42,7 +42,7 @@ const paddedButtonGroup = {
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
 const withCaption = ({field}) => WrappedComponent => {
-  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, setValue, canAdd, addItem, canRemove, removeItem}) => {
+  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem}) => {
     const caption = {
       ...(canEditKey ? fieldCell : cell),
       paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
@@ -69,7 +69,7 @@ const withCaption = ({field}) => WrappedComponent => {
         <div style={field ? fieldCell : cell}>
           {buttons}
           <div style={ellipsis}>
-            <WrappedComponent schema={schema} data={data} title={title} path={path} setValue={setValue} canAdd={canAdd} canRemove={canRemove} addItem={addItem} removeItem={removeItem} />
+            <WrappedComponent schema={schema} data={data} title={title} path={path} canAdd={canAdd} canRemove={canRemove} />
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ const withCaption = ({field}) => WrappedComponent => {
 
   Row.displayName = `Row(${getDisplayName(WrappedComponent)})`
 
-  return connect(null, {setKey})(Row, NAMESPACE)
+  return connect(null, {setKey, addItem, removeItem})(Row, NAMESPACE)
 }
 
 export default withCaption

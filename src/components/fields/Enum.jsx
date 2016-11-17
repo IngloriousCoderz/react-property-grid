@@ -1,5 +1,8 @@
 import React from 'react'
+import {connect} from 'react-redux-custom-store'
 
+import NAMESPACE from '../../constants/namespace'
+import {setValue} from '../../actions'
 import {input} from '../styles'
 
 const EnumEditor = ({schema, data, path, setValue}) => (
@@ -8,4 +11,4 @@ const EnumEditor = ({schema, data, path, setValue}) => (
   </select>
 )
 
-export default EnumEditor
+export default connect(null, {setValue})(EnumEditor, NAMESPACE)

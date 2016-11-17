@@ -7,7 +7,7 @@ import {child, last} from '../utilities/path'
 import Summary from './Summary'
 import PropertyEditor from './Property'
 import Expandable from './hoc/expandable'
-import {setValue, addItem, removeItem} from '../actions'
+import {setValue} from '../actions'
 
 const drag = {
   width: 10,
@@ -43,7 +43,7 @@ const SortableList = SortableContainer(({schema, data, path, canAddOrRemoveItems
   </div>
 ))
 
-const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, addItem, canRemove, removeItem}) => {
+const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
   const canAddOrRemoveItems = schema.additionalItems !== false
   return (
     <div>
@@ -57,9 +57,7 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
         toggleExpanded={toggleExpanded}
         canEditKey={canEditKey}
         canAdd={canAddOrRemoveItems}
-        canRemove={canRemove}
-        addItem={addItem}
-        removeItem={removeItem} />
+        canRemove={canRemove} />
       {expanded ?
         <SortableList
           lockAxis={'y'}
@@ -75,4 +73,4 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
   )
 }
 
-export default connect(null, {setValue, addItem, removeItem})(Expandable(ArrayEditor), NAMESPACE)
+export default connect(null, {setValue})(Expandable(ArrayEditor), NAMESPACE)
