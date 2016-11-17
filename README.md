@@ -50,6 +50,9 @@ to your stylesheet.
 - [ ] Fields validation
 - [x] Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
 - [ ] `allOf` properties
+- [ ] object's `minProperties` and `maxProperties`
+- [ ] `dependencies`
+- [ ] `patternProperties`
 - [ ] Circular `$ref`s
 - [ ] More useful description on caption row
 - [ ] Custom field editors?

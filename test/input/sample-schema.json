@@ -30,7 +30,8 @@
           "title": "num",
           "description": "A numeric value."
         }]
-      }
+      },
+      "maxItems": 3
     }
   },
   "additionalProperties": {

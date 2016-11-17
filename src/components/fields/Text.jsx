@@ -6,6 +6,9 @@ import {input} from '../styles'
 const TextEditor = ({schema, data, path, setValue}) => (
   <Debounce time='500' handler='onChange'>
     <input type='text'
+      minLength={schema.minLength}
+      maxLength={schema.maxLength}
+      pattern={schema.pattern}
       defaultValue={data}
       onChange={event => setValue(path, event.target.value)}
       style={input} />

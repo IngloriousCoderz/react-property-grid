@@ -21,7 +21,7 @@ const drag = {
 
 const DragHandle = SortableHandle(() => <svg style={drag} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>)
 
-const SortableItem = SortableElement(({schema, data, title, path, index, canAddOrRemoveItems}) => (
+const SortableItem = SortableElement(({schema, data, title, path, index, canRemove}) => (
   <div style={{position: 'relative'}}>
     <DragHandle />
     <PropertyEditor
@@ -29,22 +29,23 @@ const SortableItem = SortableElement(({schema, data, title, path, index, canAddO
       data={data}
       title={`${schema.title || title}[${index}]`}
       path={path}
-      canRemove={canAddOrRemoveItems} />
+      canRemove={canRemove} />
   </div>
 ))
 
-const SortableList = SortableContainer(({schema, data, path, canAddOrRemoveItems}) => (
+const SortableList = SortableContainer(({schema, data, path, canRemove}) => (
   <div>
     {data.map((item, index) => {
       const title = last(path)
       const childPath = child(path, index)
-      return <SortableItem key={item.__id || childPath} schema={schema} data={item} title={title} path={childPath} index={index} canAddOrRemoveItems={canAddOrRemoveItems} />
+      return <SortableItem key={item.__id || childPath} schema={schema} data={item} title={title} path={childPath} index={index} canRemove={canRemove} />
     })}
   </div>
 ))
 
 const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
-  const canAddOrRemoveItems = schema.additionalItems !== false
+  const canAddItems = schema.additionalItems !== false && (schema.maxItems == null || data.length < schema.maxItems)
+  const canRemoveItems = schema.additionalItems !== false && (schema.minItems == null || data.length > schema.minItems)
   return (
     <div>
       <Summary
@@ -56,7 +57,7 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
         expanded={expanded}
         toggleExpanded={toggleExpanded}
         canEditKey={canEditKey}
-        canAdd={canAddOrRemoveItems}
+        canAdd={canAddItems}
         canRemove={canRemove} />
       {expanded ?
         <SortableList
@@ -67,7 +68,7 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
           schema={schema}
           data={data}
           path={path}
-          canAddOrRemoveItems={canAddOrRemoveItems} />
+          canRemove={canRemoveItems} />
       : null}
     </div>
   )
