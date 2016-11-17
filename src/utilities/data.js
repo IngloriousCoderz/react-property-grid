@@ -130,17 +130,17 @@ export const setValue = (data, path, value) => {
   return newData
 }
 
-export const addItem = (data, path, schema) => {
+export const addItem = (data, path, schema, choice = 0) => {
   const newData = clone(data)
   const type = getType(schema)
 
   const _addItem = (data, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
-      data.push(defaults(schema.items))
+      data.push(defaults(schema.items, choice))
     } else if (schema.additionalProperties) {
       const {additionalProperties} = splitProperties(data, schema)
       const index = Object.keys(cleanup(additionalProperties)).length + 1
-      data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
+      data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties, choice)
     }
     return data
   }

@@ -23,7 +23,7 @@ export const match = (schemas, data) => {
 }
 
 /* borrowed by https://github.com/chute/json-schema-defaults */
-export const defaults = schema => {
+export const defaults = (schema, choice = 0) => {
   const type = getType(schema)
 
   if (schema.default != null) {
@@ -40,7 +40,7 @@ export const defaults = schema => {
   }
 
   if (schema.anyOf != null) {
-    return defaults(schema.anyOf[0])
+    return defaults(schema.anyOf[choice])
   }
 
   if (type === 'object') {

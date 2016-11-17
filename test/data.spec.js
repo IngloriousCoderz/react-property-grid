@@ -214,6 +214,24 @@ describe('data', () => {
         }
       })
     })
+
+    it('should add an item of the given type in an anyOf', () => {
+      expect(cleanup(addItem(data, '$.arr', schema.properties.arr, 1))).toEqual({
+        obj: {
+          key1: 'value1'
+        },
+        arr: [
+          {
+            item1: 'value1'
+          },
+          42,
+          0
+        ],
+        optional: {
+          primitive: 42
+        }
+      })
+    })
   })
 
   describe('removeItem', () => {

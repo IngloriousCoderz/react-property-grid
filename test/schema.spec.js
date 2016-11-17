@@ -48,6 +48,10 @@ describe('schema', () => {
       expect(cleanup(defaults(schema.properties.arr.items))).toEqual({item1: ''})
     })
 
+    it('should choose the second choice if specified', () => {
+      expect(defaults(schema.properties.arr.items, 1)).toBe(0)
+    })
+
     it('should recursively generate a default value for an object', () => {
       expect(cleanup(defaults(schema))).toEqual({obj: {}, arr: []})
     })
