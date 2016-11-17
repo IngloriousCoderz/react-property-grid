@@ -9,7 +9,7 @@ import ArrayEditor from './Array'
 import FieldEditor from './Field'
 import autoPopulating from './hoc/auto-populating'
 
-const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove, setValue}) => {
+const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }

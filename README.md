@@ -47,12 +47,12 @@ to your stylesheet.
 
 ## To do
 
-- Fields validation
-- Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
-- `allOf` properties
-- Circular `$ref`s
-- More useful description on caption row
-- Custom field editors?
+- [ ] Fields validation
+- [x] Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
+- [ ] `allOf` properties
+- [ ] Circular `$ref`s
+- [ ] More useful description on caption row
+- [ ] Custom field editors?
 
 ## Contributing
 

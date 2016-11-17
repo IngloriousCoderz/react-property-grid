@@ -1,8 +1,13 @@
 ## Changelog
 
+### 0.2.0
+
+- Add a select to add an `anyOf` item
+- Start using major versions for new features
+
 ### 0.1.8
 
-Handle the case of an `anyOf` at root of schema
+- Handle the case of an `anyOf` at root of schema
 
 ### 0.1.7
 
