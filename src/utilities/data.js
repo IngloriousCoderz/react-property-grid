@@ -35,6 +35,23 @@ export const getDefaultForType = type => {
   }[type]
 }
 
+export const splitProperties = (data, schema) => {
+  const properties = {}
+  const additionalProperties = {}
+  Object.keys(data).forEach(key => {
+    if (key === INTERNAL_ID) {
+      return
+    }
+    if (schema.properties != null && Object.keys(schema.properties).includes(key)) {
+      properties[key] = data[key]
+    } else {
+      additionalProperties[key] = data[key]
+    }
+  })
+
+  return {properties, additionalProperties}
+}
+
 export const importData = data => {
   if (inferType(data) !== 'object') {
     return data
@@ -121,7 +138,8 @@ export const addItem = (data, path, schema) => {
     if (type === 'array' && schema.additionalItems !== false) {
       data.push(defaults(schema.items))
     } else if (schema.additionalProperties) {
-      const index = Object.keys(cleanup(data)).length + 1
+      const {additionalProperties} = splitProperties(data, schema)
+      const index = Object.keys(cleanup(additionalProperties)).length + 1
       data[`${schema.additionalProperties.title}${index}`] = defaults(schema.additionalProperties)
     }
     return data
@@ -155,18 +173,4 @@ export const removeItem = (data, path) => {
 
   jp.apply(newData, parentPath, prop => _removeItem(prop, key))
   return newData
-}
-
-export const splitProperties = (data, schema) => {
-  const properties = {}
-  const additionalProperties = {}
-  Object.keys(data).forEach(key => {
-    if (schema.properties != null && Object.keys(schema.properties).includes(key)) {
-      properties[key] = data[key]
-    } else {
-      additionalProperties[key] = data[key]
-    }
-  })
-
-  return {properties, additionalProperties}
 }

@@ -34,6 +34,13 @@
     }
   },
   "additionalProperties": {
-    "type": "number"
+    "type": "object",
+    "title": "optional",
+    "properties": {
+      "primitive": {
+        "type": "number",
+        "title": "primitive"
+      }
+    }
   }
 }

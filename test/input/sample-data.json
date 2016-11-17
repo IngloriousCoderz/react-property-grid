@@ -8,5 +8,7 @@
     },
     42
   ],
-  "primitive": 42
+  "optional": {
+    "primitive": 42
+  }
 }

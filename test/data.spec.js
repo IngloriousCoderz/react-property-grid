@@ -1,6 +1,7 @@
 import {
   inferType,
   getDefaultForType,
+  splitProperties,
   importData,
   cleanup,
   setKey,
@@ -43,6 +44,29 @@ describe('data', () => {
     })
   })
 
+  describe('splitProperties', () => {
+    it('should put each property in its own container', () => {
+      expect(splitProperties(data, schema)).toEqual({
+        properties: {
+          obj: {
+            key1: 'value1'
+          },
+          arr: [
+            {
+              item1: 'value1'
+            },
+            42
+          ]
+        },
+        additionalProperties: {
+          optional: {
+            primitive: 42
+          }
+        }
+      })
+    })
+  })
+
   describe('importData', () => {
     it('should put an internal id inside each object', () => {
       const newData = importData(data)
@@ -61,7 +85,6 @@ describe('data', () => {
     it('should remove all internal ids from data', () => {
       expect(cleanup({
         __id: '1',
-        primitive: 42,
         obj: {
           __id: '2',
           key1: 'value1'
@@ -72,7 +95,10 @@ describe('data', () => {
             item1: 'value1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        }
       })).toEqual(data)
     })
   })
@@ -80,7 +106,6 @@ describe('data', () => {
   describe('setKey', () => {
     it('should change a property key', () => {
       expect(setKey(data, '$.obj.key1', 'newKey1')).toEqual({
-        primitive: 42,
         obj: {
           newKey1: 'value1'
         },
@@ -89,13 +114,15 @@ describe('data', () => {
             item1: 'value1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        }
       })
     })
 
     it('should change any key, even deeply nested ones', () => {
       expect(setKey(data, '$.arr.0.item1', 'newItem1')).toEqual({
-        primitive: 42,
         obj: {
           key1: 'value1'
         },
@@ -104,7 +131,10 @@ describe('data', () => {
             newItem1: 'value1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        }
       })
     })
   })
@@ -112,7 +142,6 @@ describe('data', () => {
   describe('setValue', () => {
     it('should change a property value', () => {
       expect(setValue(data, '$.obj.key1', 'newValue1')).toEqual({
-        primitive: 42,
         obj: {
           key1: 'newValue1'
         },
@@ -121,13 +150,15 @@ describe('data', () => {
             item1: 'value1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        }
       })
     })
 
     it('should change any value, even deeply nested ones', () => {
       expect(setValue(data, '$.arr.0.item1', 'newValue1')).toEqual({
-        primitive: 42,
         obj: {
           key1: 'value1'
         },
@@ -136,64 +167,61 @@ describe('data', () => {
             item1: 'newValue1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        }
       })
     })
   })
 
   describe('addItem', () => {
-    // it('should add a default primitive to an object', () => {
-    //   expect(addItem(data, '$.arr', schema.properties.arr.items.anyOf[1])).toEqual({
-    //     primitive: 42,
-    //     obj: {
-    //       key1: 'value1'
-    //     },
-    //     arr: [
-    //       {
-    //         item1: 'value1'
-    //       },
-    //       42,
-    //       0
-    //     ]
-    //   })
-    // })
-
-    // it('should add a default property to an object', () => {
-    //   expect(addItem(data, '$.arr', schema.properties.arr.items.anyOf[0])).toEqual({
-    //     obj: {
-    //       key1: 'value1'
-    //     },
-    //     arr: [
-    //       {
-    //         item1: 'value1',
-    //         item2: ''
-    //       },
-    //       42
-    //     ]
-    //   })
-    // })
-
-    it('should add a default additional property', () => {
-      expect(addItem(data, '$.obj', schema.properties.obj)).toEqual({
-        primitive: 42,
+    it('should add a default value', () => {
+      expect(cleanup(addItem(data, '$', schema))).toEqual({
         obj: {
-          key1: 'value1',
-          key2: ''
+          key1: 'value1'
         },
         arr: [
           {
             item1: 'value1'
           },
           42
-        ]
+        ],
+        optional: {
+          primitive: 42
+        },
+        optional2: {
+          primitive: 0
+        }
+      })
+    })
+
+    it('should add an item of default type to an anyOf', () => {
+      expect(cleanup(addItem(data, '$.arr', schema.properties.arr))).toEqual({
+        obj: {
+          key1: 'value1'
+        },
+        arr: [
+          {
+            item1: 'value1'
+          },
+          42, {
+            'item1': ''
+          }
+        ],
+        optional: {
+          primitive: 42
+        }
       })
     })
   })
 
   describe('removeItem', () => {
-    it('should remove an item from an object', () => {
-      expect(removeItem(data, '$.obj')).toEqual({
-        primitive: 42,
+    it('should remove a property from root', () => {
+      expect(removeItem(data, '$.optional')).toEqual({
+        obj: {
+          key1: 'value1'
+        },
         arr: [
           {
             item1: 'value1'
@@ -203,13 +231,30 @@ describe('data', () => {
       })
     })
 
+    it('should remove an item from an object', () => {
+      expect(removeItem(data, '$.obj.key1')).toEqual({
+        obj: {},
+        arr: [
+          {
+            item1: 'value1'
+          },
+          42
+        ],
+        optional: {
+          primitive: 42
+        }
+      })
+    })
+
     it('should remove an item from an array', () => {
       expect(removeItem(data, '$.arr.0')).toEqual({
-        primitive: 42,
         obj: {
           key1: 'value1'
         },
-        arr: [42]
+        arr: [42],
+        optional: {
+          primitive: 42
+        }
       })
     })
   })

@@ -9,7 +9,7 @@ describe('schema', () => {
       expect(getType(schema.properties.obj.additionalProperties)).toEqual('string')
       expect(getType(schema.properties.arr)).toEqual('array')
       expect(getType(schema.properties.arr.items.anyOf[0].properties.item1)).toEqual('string')
-      expect(getType(schema.additionalProperties)).toEqual('number')
+      expect(getType(schema.additionalProperties.properties.primitive)).toEqual('number')
     })
 
     it('should expect no type to be an object', () => {
