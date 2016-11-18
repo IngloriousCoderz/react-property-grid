@@ -1,6 +1,7 @@
 import {getType, match, defaults} from '../src/utilities/schema'
 import {INTERNAL_ANY_OF, cleanup} from '../src/utilities/data'
 import schema from './input/sample-schema.json'
+import anotherSchema from './input/another-sample-schema.json'
 
 describe('schema', () => {
   describe('getType', () => {
@@ -16,6 +17,10 @@ describe('schema', () => {
       expect(getType(schema)).toEqual('object')
       expect(getType(schema.properties.arr.items)).toEqual('object')
       expect(getType(schema.properties.arr.items.anyOf[1])).toEqual('number')
+    })
+
+    it('should return a custom \'enum\' type to deal with choices', () => {
+      expect(getType(anotherSchema.properties.enum)).toEqual('enum')
     })
   })
 

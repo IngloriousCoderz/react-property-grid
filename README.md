@@ -51,6 +51,7 @@ to your stylesheet.
 - [x] Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
 - [ ] `allOf` properties
 - [ ] object's `minProperties` and `maxProperties`
+- [ ] array's `uniqueItems`
 - [ ] `dependencies`
 - [ ] `patternProperties`
 - [ ] Circular `$ref`s

@@ -4,17 +4,15 @@ import tv4 from 'tv4'
 import {INTERNAL_ID, INTERNAL_ANY_OF, getDefaultForType, cleanup} from './data'
 
 export const getType = schema => {
-  if (schema.type == null) {
-    return schema.enum != null ? 'enum' : 'object'
-  }
-  if (schema.type === 'object') {
-    return 'object'
-  }
-  if (schema.type === 'array') {
-    return 'array'
+  if (schema.enum != null) {
+    return 'enum'
   }
 
-  return schema.type
+  if (schema.type != null) {
+    return schema.type
+  }
+
+  return 'object'
 }
 
 export const match = (schemas, data) => {

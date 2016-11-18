@@ -1,12 +1,3 @@
 {
-  "anotherArr": [
-    {
-      "item1": "value1"
-    },
-    42
-  ],
-  "primitive": 42,
-  "anotherObj": {
-    "key": "value"
-  }
+  "enum": "choice2"
 }

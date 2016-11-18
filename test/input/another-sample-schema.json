@@ -1,46 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "properties": {
-    "anotherArr": {
-      "type": "array",
-      "title": "anotherArr",
-      "description": "An array of different items.",
-      "items": {
-        "anyOf": [{
-          "type": "object",
-          "title": "obj",
-          "description": "A nested object.",
-          "properties": {
-            "item1": {
-              "type": "string"
-            }
-          },
-          "required": ["item1"]
-        }, {
-          "type": "number",
-          "title": "num",
-          "description": "A numeric value."
-        }]
-      }
-    },
-    "anotherObj": {
-      "type": "object",
-      "title": "anotherObj",
-      "description": "An object with optional props.",
-      "additionalProperties": {
-        "title": "key",
-        "type": "string"
-      }
-    }
-  },
-  "additionalProperties": {
-    "type": "object",
-    "title": "optional",
-    "properties": {
-      "primitive": {
-        "type": "number",
-        "title": "primitive"
-      }
+    "enum": {
+      "type": "string",
+      "enum": ["choice1", "choice2", "choice3"]
     }
   }
 }
