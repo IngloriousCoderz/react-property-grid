@@ -16,10 +16,23 @@ var initialState = {
   jsondata: data
 }
 
+var firstSchema = true
+
 var reducer = (state, action) => {
-  if (action.type === 'CHANGE') return {
-    jsonschema: anotherSchema,
-    jsondata: anotherData
+  if (action.type === 'CHANGE') {
+    if (firstSchema) {
+      firstSchema = false
+      return {
+        jsonschema: anotherSchema,
+        jsondata: anotherData
+      }
+    } else {
+      firstSchema = true
+      return {
+        jsonschema: schema,
+        jsondata: data
+      }
+    }
   }
   return state
 }
@@ -41,7 +54,7 @@ function App() {
         onClick: function() {
           store.dispatch({type: 'CHANGE'})
         }
-      }, 'change')
+      }, 'change schema')
     )
   )
 }

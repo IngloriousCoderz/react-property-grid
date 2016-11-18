@@ -1,9 +1,20 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/schema#",
   "properties": {
+    "mandatory": {
+      "type": "string",
+      "title": "mandatory",
+      "description": "A required field."
+    },
     "enum": {
       "type": "string",
+      "title": "enum",
+      "description": "A choice between multiple values",
       "enum": ["choice1", "choice2", "choice3"]
     }
+  },
+  "required": ["mandatory"],
+  "dependencies": {
+    "mandatory": ["enum"]
   }
 }

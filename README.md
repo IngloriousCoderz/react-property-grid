@@ -49,10 +49,10 @@ to your stylesheet.
 
 - [ ] Fields validation
 - [x] Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
-- [ ] `allOf` properties
+- [ ] `allOf`, `oneOf` and `not` properties
 - [ ] object's `minProperties` and `maxProperties`
 - [ ] array's `uniqueItems`
-- [ ] `dependencies`
+- [ ] schema- and property-`dependencies`
 - [ ] `patternProperties`
 - [ ] Circular `$ref`s
 - [ ] More useful description on caption row

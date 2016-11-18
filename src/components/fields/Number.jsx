@@ -3,6 +3,7 @@ import {Debounce} from 'react-throttle'
 import {connect} from 'react-redux-custom-store'
 
 import NAMESPACE from '../../constants/namespace'
+import withCaption from '../hoc/with-caption'
 import {setValue} from '../../actions'
 import {input} from '../styles'
 
@@ -22,4 +23,4 @@ const NumberEditor = ({schema, data, path, setValue}) => (
   </Debounce>
 )
 
-export default connect(null, {setValue})(NumberEditor, NAMESPACE)
+export default withCaption({field: true})(connect(null, {setValue})(NumberEditor, NAMESPACE))

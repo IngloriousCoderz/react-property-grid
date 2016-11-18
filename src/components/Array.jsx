@@ -46,6 +46,7 @@ const SortableList = SortableContainer(({schema, data, path, canRemove}) => (
 const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
   const canAddItems = schema.additionalItems !== false && (schema.maxItems == null || data.length < schema.maxItems)
   const canRemoveItems = schema.additionalItems !== false && (schema.minItems == null || data.length > schema.minItems)
+
   return (
     <div>
       <Summary
@@ -59,17 +60,17 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
         canEditKey={canEditKey}
         canAdd={canAddItems}
         canRemove={canRemove} />
-      {expanded ?
-        <SortableList
-          lockAxis={'y'}
-          // pressDelay={200}
-          useDragHandle={true}
-          onSortEnd={({oldIndex, newIndex, collection}, e) => setValue(path, arrayMove(data, oldIndex, newIndex))}
-          schema={schema}
-          data={data}
-          path={path}
-          canRemove={canRemoveItems} />
-      : null}
+      {expanded
+        ? <SortableList
+            lockAxis={'y'}
+            // pressDelay={200}
+            useDragHandle={true}
+            onSortEnd={({oldIndex, newIndex, collection}, e) => setValue(path, arrayMove(data, oldIndex, newIndex))}
+            schema={schema}
+            data={data}
+            path={path}
+            canRemove={canRemoveItems} />
+        : null}
     </div>
   )
 }
