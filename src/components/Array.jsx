@@ -21,27 +21,42 @@ const drag = {
 
 const DragHandle = SortableHandle(() => <svg style={drag} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>)
 
-const SortableItem = SortableElement(({schema, data, title, path, index, canRemove}) => (
+const ListItem = ({schema, data, title, path, index, canRemove}) => (
+  <PropertyEditor
+    schema={schema.items}
+    data={data}
+    title={`${schema.title || title}[${index}]`}
+    path={path}
+    canRemove={canRemove} />
+)
+
+const SortableItem = SortableElement(props => (
   <div style={{position: 'relative'}}>
     <DragHandle />
-    <PropertyEditor
-      schema={schema.items}
-      data={data}
-      title={`${schema.title || title}[${index}]`}
-      path={path}
-      canRemove={canRemove} />
+    <ListItem {...props} />
   </div>
 ))
 
-const SortableList = SortableContainer(({schema, data, path, canRemove}) => (
+const List = ({schema, data, path, canRemove}) => (
   <div>
     {data.map((item, index) => {
       const title = last(path)
       const childPath = child(path, index)
-      return <SortableItem key={item.__id || childPath} schema={schema} data={item} title={title} path={childPath} index={index} canRemove={canRemove} />
+      return (
+        <SortableItem
+          key={item.__id || childPath}
+          schema={schema}
+          data={item}
+          title={title}
+          path={childPath}
+          index={index}
+          canRemove={canRemove} />
+      )
     })}
   </div>
-))
+)
+
+const SortableList = SortableContainer(List)
 
 const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
   const canAddItems = schema.additionalItems !== false && (schema.maxItems == null || data.length < schema.maxItems)

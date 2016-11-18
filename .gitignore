@@ -9,6 +9,10 @@ coverage
 # production
 dist
 
+# temp
+layout-schema.json
+layout.json
+
 # misc
 .DS_Store
 npm-debug.log

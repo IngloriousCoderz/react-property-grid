@@ -8,8 +8,11 @@ import {setKey, addItem, removeItem} from '../../actions'
 import {row, ellipsis, cell, buttonGroup, button} from './../styles'
 
 const EXPANDER_WIDTH = 10
-const EXPANDED_ENTITY = '&dtri;'
-const COLLAPSED_ENTITY = '&rtri;'
+const EXPANDED_ICON = '&dtri;'
+const COLLAPSED_ICON = '&rtri;'
+const REQUIRED_ICON = '*'
+const ADD_ICON = '+'
+const REMOVE_ICON = '-'
 
 const headerRow = {
   ...row,
@@ -42,34 +45,39 @@ const paddedButtonGroup = {
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
 const withCaption = ({field}) => WrappedComponent => {
-  const Row = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem}) => {
+  const Row = props => {
+    // useful for row: schema, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem
+    //useful for wrapped: schema, data, title, path, canAdd, canRemove
+    const {schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem} = props
     const caption = {
       ...(canEditKey ? fieldCell : cell),
       paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
     }
 
-    const buttons = canAdd || canRemove ?
-      <div style={field ? paddedButtonGroup : buttonGroup}>
-        {canRemove ? <div style={button} onClick={() => removeItem(path)}>-</div> : null}
-        {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>+</div> : null}
-      </div>
-    : null
-
     return (
       <div style={field ? row : headerRow}>
         <div style={caption}>
-          {expanded != null ? <div style={expander}>
-            <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ENTITY : COLLAPSED_ENTITY}} onClick={toggleExpanded} />
-          </div> : null}
-          {canEditKey ? <div style={ellipsis}>
-            <TextEditor schema={schema} data={title} path={path} setValue={setKey} /></div>
+          {expanded != null
+            ? <div style={expander}>
+                <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ICON : COLLAPSED_ICON}} onClick={toggleExpanded} />
+              </div>
+            : null}
+          {canEditKey
+            ? <div style={ellipsis}>
+                <TextEditor schema={schema} data={title} path={path} setValue={setKey} />
+              </div>
             : <span style={label}>{title}</span>}
-          {required ? <span style={redStar}>*</span> : null}
+          {required ? <span style={redStar}>{REQUIRED_ICON}</span> : null}
         </div>
         <div style={field ? fieldCell : cell}>
-          {buttons}
+          {canAdd || canRemove
+            ? <div style={field ? paddedButtonGroup : buttonGroup}>
+                {canRemove ? <div style={button} onClick={() => removeItem(path)}>{REMOVE_ICON}</div> : null}
+                {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>{ADD_ICON}</div> : null}
+              </div>
+            : null}
           <div style={ellipsis}>
-            <WrappedComponent schema={schema} data={data} title={title} path={path} canAdd={canAdd} canRemove={canRemove} />
+            <WrappedComponent schema={schema} data={data} title={title} path={path} />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import {input} from './styles'
 const AnyOfEditor = ({schema, title, path, setDefaults}) => (
   <select onChange={event => setDefaults(path, schema, parseInt(event.target.value, 10))} style={input}>
     <option>Choose a type</option>
-    {schema.anyOf.map((item, index) => <option key={index} value={index}>{item.title}</option>)}
+    {schema.anyOf.map((item, index) => <option key={index} value={index}>{item.title || item.type}</option>)}
   </select>
 )
 

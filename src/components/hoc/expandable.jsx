@@ -17,7 +17,7 @@ const expandable = WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent expanded={this.state.expanded} toggleExpanded={this.toggleExpanded} {...this.props}/>
+      return <WrappedComponent expanded={this.state.expanded} toggleExpanded={this.toggleExpanded} {...this.props} />
     }
   }
 
