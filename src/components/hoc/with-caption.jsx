@@ -5,7 +5,7 @@ import NAMESPACE from '../../constants/namespace'
 import {level} from '../../utilities/path'
 import TextEditor from './../fields/Text'
 import {setKey, addItem, removeItem} from '../../actions'
-import {row, ellipsis, cell, buttonGroup, button} from './../styles'
+import {row, ellipsis, cell, label, buttonGroup, button} from './../styles'
 
 const EXPANDER_WIDTH = 10
 const EXPANDED_ICON = '&dtri;'
@@ -26,10 +26,6 @@ const expander = {
 
 const redStar = {
   color: 'red'
-}
-
-const label = {
-  // fontWeight: 'bold'
 }
 
 const fieldCell = {

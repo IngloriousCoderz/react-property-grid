@@ -40,3 +40,7 @@ export const input = {
   padding: 2,
   ...ellipsis
 }
+
+export const label = {
+  verticalAlign: 'middle'
+}
