@@ -10,7 +10,7 @@ import {cell} from './styles'
 
 const editor = {
   fontFamily: 'sans-serif',
-  fontSize: '12px',
+  fontSize: 12,
   margin: 0,
   borderTop: '1px solid lightgrey',
   borderLeft: '1px solid lightgrey',

@@ -21,7 +21,13 @@ const headerRow = {
 
 const expander = {
   float: 'left',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  marginRight: 2
+}
+
+const fieldExpander = {
+  ...expander,
+  padding: 3
 }
 
 const redStar = {
@@ -54,7 +60,7 @@ const withCaption = ({field}) => WrappedComponent => {
       <div style={field ? row : headerRow}>
         <div style={caption}>
           {expanded != null
-            ? <div style={expander}>
+            ? <div style={canEditKey ? fieldExpander : expander}>
                 <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ICON : COLLAPSED_ICON}} onClick={toggleExpanded} />
               </div>
             : null}

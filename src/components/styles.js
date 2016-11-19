@@ -33,6 +33,7 @@ export const button = {
 }
 
 export const input = {
+  fontSize: 12,
   width: '100%',
   height: 20,
   margin: 0,
