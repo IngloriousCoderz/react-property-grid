@@ -22,37 +22,49 @@ const headerRow = {
 const expander = {
   float: 'left',
   cursor: 'pointer',
-  marginRight: 2
+  marginTop: 3,
+  marginBottom: 3
+  // marginRight: 2
 }
 
-const fieldExpander = {
-  ...expander,
-  padding: 3
-}
+// const fieldExpander = {
+//   ...expander,
+//   margin: 0,
+//   paddingTop: 3,
+//   paddingBottom: 3
+// }
 
 const redStar = {
   color: 'red'
 }
 
-const fieldCell = {
-  ...cell,
-  padding: 0
-}
+// const fieldCell = {
+//   ...cell,
+//   padding: 0
+// }
 
-const paddedButtonGroup = {
-  ...buttonGroup,
-  padding: 3
-}
+// const paddedButtonGroup = {
+//   ...buttonGroup,
+//   padding: 3
+// }
+
+const getExpandHTML = expanded => ({
+  __html: expanded ? EXPANDED_ICON : COLLAPSED_ICON
+})
 
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
 const withCaption = ({field}) => WrappedComponent => {
-  const Row = props => {
-    // useful for row: schema, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem
-    //useful for wrapped: schema, data, title, path, canAdd, canRemove
-    const {schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setKey, canAdd, addItem, canRemove, removeItem} = props
+  const Row = ({
+    schema, data, title, path, required,
+    expanded, toggleExpanded,
+    canEditKey, setKey,
+    canAdd, addItem,
+    canRemove, removeItem
+  }) => {
     const caption = {
-      ...(canEditKey ? fieldCell : cell),
+      // ...(canEditKey ? fieldCell : cell),
+      ...cell,
       paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
     }
 
@@ -60,8 +72,8 @@ const withCaption = ({field}) => WrappedComponent => {
       <div style={field ? row : headerRow}>
         <div style={caption}>
           {expanded != null
-            ? <div style={canEditKey ? fieldExpander : expander}>
-                <span dangerouslySetInnerHTML={{__html: expanded ? EXPANDED_ICON : COLLAPSED_ICON}} onClick={toggleExpanded} />
+            ? <div style={expander/*canEditKey ? fieldExpander : expander*/}>
+                <span dangerouslySetInnerHTML={getExpandHTML(expanded)} onClick={toggleExpanded} />
               </div>
             : null}
           {canEditKey
@@ -71,9 +83,9 @@ const withCaption = ({field}) => WrappedComponent => {
             : <span style={label}>{title}</span>}
           {required ? <span style={redStar}>{REQUIRED_ICON}</span> : null}
         </div>
-        <div style={field ? fieldCell : cell}>
+        <div style={cell/*field ? fieldCell : cell*/}>
           {canAdd || canRemove
-            ? <div style={field ? paddedButtonGroup : buttonGroup}>
+            ? <div style={buttonGroup/*field ? paddedButtonGroup : buttonGroup*/}>
                 {canRemove ? <div style={button} onClick={() => removeItem(path)}>{REMOVE_ICON}</div> : null}
                 {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>{ADD_ICON}</div> : null}
               </div>

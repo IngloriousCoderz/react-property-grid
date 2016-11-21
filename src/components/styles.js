@@ -17,12 +17,14 @@ export const cell = {
   height: 21,
   borderRight: '1px solid lightgrey',
   borderBottom: '1px solid lightgrey',
-  padding: 2,
+  // padding: 2,
+  padding: 0,
   ...ellipsis
 }
 
 export const buttonGroup = {
-  float: 'right'
+  float: 'right',
+  padding: 3
 }
 
 export const button = {
