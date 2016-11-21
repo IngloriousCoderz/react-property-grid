@@ -6,7 +6,7 @@ import {splitProperties} from '../utilities/data'
 import NAMESPACE from '../constants/namespace'
 import PropertiesEditor from './Properties'
 import AdditionalPropertiesEditor from './AdditionalProperties'
-import {cell} from './styles'
+import {cell, label} from './styles'
 
 const editor = {
   fontFamily: 'sans-serif',
@@ -19,6 +19,8 @@ const editor = {
 }
 
 const header = {
+  ...cell,
+  ...label,
   width: '100%',
   fontWeight: 'bold',
   textAlign: 'center'
@@ -35,7 +37,7 @@ const RootEditor = ({rootSchema, data, title}) => {
   return (
     <div style={editor}>
       {title != null
-        ? <div style={{...cell, ...header}}>{title}</div>
+        ? <div style={header}>{title}</div>
         : null}
       <PropertiesEditor
         schema={schema.properties}

@@ -9,6 +9,7 @@ export const ellipsis = {
 }
 
 export const cell = {
+  ...ellipsis,
   // display: 'table-cell',
   display: 'inline-block',
   verticalAlign: 'top',
@@ -17,9 +18,12 @@ export const cell = {
   height: 21,
   borderRight: '1px solid lightgrey',
   borderBottom: '1px solid lightgrey',
-  // padding: 2,
-  padding: 0,
-  ...ellipsis
+  padding: 0
+}
+
+export const label = {
+  ...ellipsis,
+  padding: 3
 }
 
 export const buttonGroup = {
@@ -35,15 +39,11 @@ export const button = {
 }
 
 export const input = {
+  ...ellipsis,
   fontSize: 12,
   width: '100%',
   height: 20,
   margin: 0,
   border: 0,
-  padding: 2,
-  ...ellipsis
-}
-
-export const label = {
-  verticalAlign: 'middle'
+  padding: 2
 }

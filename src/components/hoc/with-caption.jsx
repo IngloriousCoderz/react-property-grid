@@ -24,29 +24,11 @@ const expander = {
   cursor: 'pointer',
   marginTop: 3,
   marginBottom: 3
-  // marginRight: 2
 }
-
-// const fieldExpander = {
-//   ...expander,
-//   margin: 0,
-//   paddingTop: 3,
-//   paddingBottom: 3
-// }
 
 const redStar = {
   color: 'red'
 }
-
-// const fieldCell = {
-//   ...cell,
-//   padding: 0
-// }
-
-// const paddedButtonGroup = {
-//   ...buttonGroup,
-//   padding: 3
-// }
 
 const getExpandHTML = expanded => ({
   __html: expanded ? EXPANDED_ICON : COLLAPSED_ICON
@@ -63,7 +45,6 @@ const withCaption = ({field}) => WrappedComponent => {
     canRemove, removeItem
   }) => {
     const caption = {
-      // ...(canEditKey ? fieldCell : cell),
       ...cell,
       paddingLeft: cell.padding + EXPANDER_WIDTH * (level(path) + (expanded != null ? 0 : 1))
     }
@@ -72,7 +53,7 @@ const withCaption = ({field}) => WrappedComponent => {
       <div style={field ? row : headerRow}>
         <div style={caption}>
           {expanded != null
-            ? <div style={expander/*canEditKey ? fieldExpander : expander*/}>
+            ? <div style={expander}>
                 <span dangerouslySetInnerHTML={getExpandHTML(expanded)} onClick={toggleExpanded} />
               </div>
             : null}
@@ -80,12 +61,14 @@ const withCaption = ({field}) => WrappedComponent => {
             ? <div style={ellipsis}>
                 <TextEditor schema={schema} data={title} path={path} setValue={setKey} />
               </div>
-            : <span style={label}>{title}</span>}
-          {required ? <span style={redStar}>{REQUIRED_ICON}</span> : null}
+            : <div style={label}>
+                {title}
+                {required ? <span style={redStar}>{REQUIRED_ICON}</span> : null}
+              </div>}
         </div>
-        <div style={cell/*field ? fieldCell : cell*/}>
+        <div style={cell}>
           {canAdd || canRemove
-            ? <div style={buttonGroup/*field ? paddedButtonGroup : buttonGroup*/}>
+            ? <div style={buttonGroup}>
                 {canRemove ? <div style={button} onClick={() => removeItem(path)}>{REMOVE_ICON}</div> : null}
                 {canAdd ? <div style={button} onClick={() => addItem(path, schema)}>{ADD_ICON}</div> : null}
               </div>
