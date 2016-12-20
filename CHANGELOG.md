@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.2.2
+
+- Upgrade to latest versions of packages (such as React 15.4.1)
+
 ### 0.2.1
 
 - Refactor by removing duplication and useless divs
