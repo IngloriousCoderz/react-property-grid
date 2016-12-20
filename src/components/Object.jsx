@@ -30,17 +30,17 @@ const ObjectEditor = ({schema, data, title, path, required, expanded, toggleExpa
             canRemove={canRemove} />
         : null}
       {expanded
-        ? <div>
-            <PropertiesEditor
-              schema={schema.properties}
-              data={properties}
-              path={path}
-              requireds={schema.required} />
-            <AdditionalPropertiesEditor
-              schema={schema.additionalProperties}
-              data={additionalProperties}
-              path={path} />
-          </div>
+        ? <PropertiesEditor
+          schema={schema.properties}
+          data={properties}
+          path={path}
+          requireds={schema.required} />
+        : null}
+      {expanded
+        ? <AdditionalPropertiesEditor
+          schema={schema.additionalProperties}
+          data={additionalProperties}
+          path={path} />
         : null}
     </div>
   )

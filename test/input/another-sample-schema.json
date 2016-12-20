@@ -9,8 +9,32 @@
     "enum": {
       "type": "string",
       "title": "enum",
-      "description": "A choice between multiple values",
+      "description": "A choice between multiple values.",
       "enum": ["choice1", "choice2", "choice3"]
+    },
+    "anyOf": {
+      "type": "object",
+      "title": "anyOf",
+      "description": "A choice between multiple complex types.",
+      "anyOf": [{
+        "type": "object",
+        "title": "Type1",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["Type1"]
+          }
+        }
+      }, {
+        "type": "object",
+        "title": "Type2",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["Type2"]
+          }
+        }
+      }]
     }
   },
   "required": ["mandatory"],

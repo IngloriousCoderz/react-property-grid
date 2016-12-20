@@ -2,10 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux-custom-store'
 
 import {match} from '../utilities/schema'
-import {splitProperties} from '../utilities/data'
 import NAMESPACE from '../constants/namespace'
-import PropertiesEditor from './Properties'
-import AdditionalPropertiesEditor from './AdditionalProperties'
+import PropertyEditor from './Property'
 import {cell, label} from './styles'
 
 const editor = {
@@ -32,22 +30,10 @@ const RootEditor = ({rootSchema, data, title}) => {
     schema = match(schema.anyOf, data)
   }
 
-  const {properties, additionalProperties} = splitProperties(data, schema)
-
   return (
     <div style={editor}>
-      {title != null
-        ? <div style={header}>{title}</div>
-        : null}
-      <PropertiesEditor
-        schema={schema.properties}
-        data={properties}
-        path='$'
-        requireds={schema.required} />
-      <AdditionalPropertiesEditor
-        schema={schema.additionalProperties}
-        data={additionalProperties}
-        path='$' />
+      {title != null ? <div style={header}>{title}</div> : null}
+      <PropertyEditor schema={schema} data={data} path='$' expanded={true} />
     </div>
   )
 }

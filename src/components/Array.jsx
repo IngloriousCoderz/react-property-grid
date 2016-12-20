@@ -19,7 +19,11 @@ const drag = {
   cursor: 'row-resize'
 }
 
-const DragHandle = SortableHandle(() => <svg style={drag} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/></svg>)
+const DragHandle = SortableHandle(() => (
+  <svg style={drag} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+    <path d="M0 7.5v5h50v-5H0zm0 15v5h50v-5H0zm0 15v5h50v-5H0z" color="#000"/>
+  </svg>
+))
 
 const ListItem = ({schema, data, title, path, index, canRemove}) => (
   <PropertyEditor

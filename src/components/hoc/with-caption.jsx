@@ -34,9 +34,9 @@ const getExpandHTML = expanded => ({
   __html: expanded ? EXPANDED_ICON : COLLAPSED_ICON
 })
 
-const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
+const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Component'
 
-const withCaption = ({field}) => WrappedComponent => {
+const withCaption = ({field}) => Enhanced => {
   const Row = ({
     schema, data, title, path, required,
     expanded, toggleExpanded,
@@ -74,14 +74,14 @@ const withCaption = ({field}) => WrappedComponent => {
               </div>
             : null}
           <div style={ellipsis}>
-            <WrappedComponent schema={schema} data={data} title={title} path={path} />
+            <Enhanced schema={schema} data={data} title={title} path={path} />
           </div>
         </div>
       </div>
     )
   }
 
-  Row.displayName = `Row(${getDisplayName(WrappedComponent)})`
+  Row.displayName = `Row(${getDisplayName(Enhanced)})`
 
   return connect(null, {setKey, addItem, removeItem})(Row, NAMESPACE)
 }

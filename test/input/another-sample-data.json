@@ -1,3 +1,6 @@
 {
-  "enum": "choice2"
+  "enum": "choice2",
+  "anyOf": {
+    "type": "Type1"
+  }
 }

@@ -21,7 +21,7 @@ const registeredEditors = {
   enum: EnumEditor
 }
 
-const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRemove}) => {
+const PropertyEditor = ({schema, data, title, path, requireds, expanded, canEditKey, canRemove}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }
@@ -38,7 +38,17 @@ const PropertyEditor = ({schema, data, title, path, requireds, canEditKey, canRe
   const required = requireds != null && requireds.includes(last(path))
   const Component = registeredEditors[type] || StringEditor
 
-  return <Component schema={schema} data={data} title={title} path={path} required={required} canEditKey={canEditKey} canRemove={canRemove} />
+  return (
+    <Component
+      schema={schema}
+      data={data}
+      title={title}
+      path={path}
+      required={required}
+      canEditKey={canEditKey}
+      canRemove={canRemove}
+      expanded={expanded} />
+  )
 }
 
 export default autoPopulating(PropertyEditor)

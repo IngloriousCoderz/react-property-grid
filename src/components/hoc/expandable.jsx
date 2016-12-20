@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 
-const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
+const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Component'
 
-const expandable = WrappedComponent => {
+const expandable = Enhanced => {
   class Expandable extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        expanded: false
+        expanded: props.expanded || false
       }
       this.toggleExpanded = this.toggleExpanded.bind(this)
     }
@@ -17,11 +17,12 @@ const expandable = WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent expanded={this.state.expanded} toggleExpanded={this.toggleExpanded} {...this.props} />
+      const {expanded, ...rest} = this.props // eslint-disable-line no-unused-vars
+      return <Enhanced expanded={this.state.expanded} toggleExpanded={this.toggleExpanded} {...rest} />
     }
   }
 
-  Expandable.displayName = `Expandable${getDisplayName(WrappedComponent)}`
+  Expandable.displayName = `Expandable${getDisplayName(Enhanced)}`
 
   return Expandable
 }

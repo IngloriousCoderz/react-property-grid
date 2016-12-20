@@ -4,9 +4,9 @@ import {connect} from 'react-redux-custom-store'
 import NAMESPACE from '../../constants/namespace'
 import {setDefaults} from '../../actions'
 
-const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component'
+const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Component'
 
-const autoPopulating = WrappedComponent => {
+const autoPopulating = Enhanced => {
   class AutoPopulating extends Component {
     componentWillMount() {
       const {schema, data, path, setDefaults} = this.props
@@ -17,11 +17,11 @@ const autoPopulating = WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} />
+      return <Enhanced {...this.props} />
     }
   }
 
-  AutoPopulating.displayName = `AutoPopulating${getDisplayName(WrappedComponent)}`
+  AutoPopulating.displayName = `AutoPopulating${getDisplayName(Enhanced)}`
 
   return connect(null, {setDefaults})(AutoPopulating, NAMESPACE)
 }

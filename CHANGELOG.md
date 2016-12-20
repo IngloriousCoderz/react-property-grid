@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.2.1
+
+- Refactor by removing duplication and useless divs
+
 ### 0.2.0
 
 - Add a select to add an `anyOf` item
