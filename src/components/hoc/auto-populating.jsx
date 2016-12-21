@@ -21,7 +21,7 @@ const autoPopulating = Enhanced => {
     }
   }
 
-  AutoPopulating.displayName = `AutoPopulating${getDisplayName(Enhanced)}`
+  AutoPopulating.displayName = `AutoPopulating(${getDisplayName(Enhanced)})`
 
   return connect(null, {setDefaults})(AutoPopulating, NAMESPACE)
 }

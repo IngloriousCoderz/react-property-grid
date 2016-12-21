@@ -22,7 +22,7 @@ const expandable = Enhanced => {
     }
   }
 
-  Expandable.displayName = `Expandable${getDisplayName(Enhanced)}`
+  Expandable.displayName = `Expandable(${getDisplayName(Enhanced)})`
 
   return Expandable
 }

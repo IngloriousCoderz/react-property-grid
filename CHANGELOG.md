@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.2.3
+
+- Fix bug on array indexes shown as undefined
+
 ### 0.2.2
 
 - Upgrade to latest versions of packages (such as React 15.4.1)
