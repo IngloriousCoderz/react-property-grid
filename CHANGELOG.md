@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.3.1
+
+- Remove unwanted `console.log` statement
+
 ## 0.3.0
 
 - Handle `allOf` properties

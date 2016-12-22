@@ -36,7 +36,6 @@ const PropertyEditor = ({schema, data, title, path, requireds, expanded, canEdit
 
   if (schema.allOf != null) {
     schema = merge(schema.allOf)
-    console.log(schema)
   }
 
   const type = getType(schema)
