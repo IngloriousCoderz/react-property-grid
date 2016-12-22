@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.4.1
+
+- Scope all global styles into specific classes
+
 ## 0.4.0
 
 - Apply flexbox and provide dragging item styling
