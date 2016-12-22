@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {INTERNAL_ANY_OF} from '../utilities/data'
-import {match, getType} from '../utilities/schema'
+import {match, merge, getType} from '../utilities/schema'
 import {last} from '../utilities/path'
 import AnyOfEditor from './AnyOf'
 import ObjectEditor from './Object'
@@ -32,6 +32,11 @@ const PropertyEditor = ({schema, data, title, path, requireds, expanded, canEdit
 
   if (schema.anyOf != null) {
     schema = match(schema.anyOf, data)
+  }
+
+  if (schema.allOf != null) {
+    schema = merge(schema.allOf)
+    console.log(schema)
   }
 
   const type = getType(schema)

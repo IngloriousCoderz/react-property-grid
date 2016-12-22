@@ -35,6 +35,24 @@
           }
         }
       }]
+    },
+    "allOf": {
+      "type": "object",
+      "title": "allOf",
+      "description": "A merge of two or more complex types.",
+      "allOf": [{
+        "type": "object",
+        "title": "Type1",
+        "properties": {
+          "key1": { "type": "string" }
+        }
+      }, {
+        "type": "object",
+        "title": "Type2",
+        "properties": {
+          "key2": { "type": "string" }
+        }
+      }]
     }
   },
   "required": ["mandatory"],

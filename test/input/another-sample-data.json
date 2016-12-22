@@ -1,6 +1,11 @@
 {
+  "mandatory": "",
   "enum": "choice2",
   "anyOf": {
     "type": "Type1"
+  },
+  "allOf": {
+    "key1": "value1",
+    "key2": "value2"
   }
 }

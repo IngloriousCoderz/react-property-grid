@@ -1,5 +1,6 @@
 import uuid from 'uuid'
 import tv4 from 'tv4'
+import {recursive} from 'merge'
 
 import {INTERNAL_ID, INTERNAL_ANY_OF, getDefaultForType, cleanup} from './data'
 
@@ -19,6 +20,8 @@ export const match = (schemas, data) => {
   const cleanData = cleanup(data)
   return schemas.filter(schema => tv4.validate(cleanData, schema))[0]
 }
+
+export const merge = schemas => recursive(true, ...schemas)
 
 export const needsChoice = (schema) => {
   const type = getType(schema)
@@ -44,8 +47,7 @@ export const defaults = (schema, choice) => {
   }
 
   if (schema.allOf != null) {
-    // TODO: just a placeholder, it shouldn't behave like this
-    return defaults(schema.allOf)
+    return defaults(merge(schema.allOf))
   }
 
   if (schema.anyOf != null) {

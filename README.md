@@ -49,7 +49,9 @@ to your stylesheet.
 
 - [ ] Fields validation
 - [x] Selection from `anyOf` list when adding an item (now it's auto-selecting the first one)
-- [ ] `allOf`, `oneOf` and `not` properties
+- [x] `allOf` properties
+- [ ] `oneOf` properties
+- [ ] `not` properties
 - [ ] object's `minProperties` and `maxProperties`
 - [ ] array's `uniqueItems`
 - [ ] schema- and property-`dependencies`

@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.3.0
+
+- Handle `allOf` properties
+
 ## 0.2.3
 
 - Fix bug on array indexes shown as undefined
