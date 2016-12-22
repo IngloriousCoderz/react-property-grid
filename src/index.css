@@ -5,6 +5,16 @@ body {
   padding: 0;
 }
 
-* {
+.react-property-grid * {
+  box-sizing: border-box;
+}
+
+.react-property-grid-dragging-item {
+  width: 100%;
+  background-color: white;
+  opacity: 0.9;
+}
+
+.react-property-grid-dragging-item * {
   box-sizing: border-box;
 }

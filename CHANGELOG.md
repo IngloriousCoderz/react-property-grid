@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.4.0
+
+- Apply flexbox and provide dragging item styling
+
 ## 0.3.1
 
 - Remove unwanted `console.log` statement

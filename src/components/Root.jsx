@@ -31,7 +31,7 @@ const RootEditor = ({rootSchema, data, title}) => {
   }
 
   return (
-    <div style={editor}>
+    <div className='react-property-grid' style={editor}>
       {title != null ? <div style={header}>{title}</div> : null}
       <PropertyEditor schema={schema} data={data} path='$' expanded={true} />
     </div>

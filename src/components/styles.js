@@ -1,4 +1,11 @@
 export const row = {
+  /* NOTE: comment this block to disable flexbox */
+  display: 'flex',
+  flexWrap: 'nowrap',
+  justifyContent: 'space-around',
+  alignItems: 'flex-start',
+  alignContent: 'stretch'
+
   // display: 'table-row'
 }
 
@@ -9,11 +16,14 @@ export const ellipsis = {
 }
 
 export const cell = {
-  ...ellipsis,
+  /* NOTE: uncomment this block when disabling flexbox */
+  // ...ellipsis,
+  // display: 'inline-block',
+  // verticalAlign: 'top',
+  // textAlign: 'left',
+
   // display: 'table-cell',
-  display: 'inline-block',
-  verticalAlign: 'top',
-  textAlign: 'left',
+
   width: '50%',
   height: 21,
   borderRight: '1px solid lightgrey',
