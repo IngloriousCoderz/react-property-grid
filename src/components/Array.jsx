@@ -25,12 +25,12 @@ const DragHandle = SortableHandle(() => (
   </svg>
 ))
 
-const ListItem = ({schema, data, title, description, path, canRemove}) => (
+const ListItem = ({schema, data, title, path, canRemove}) => (
   <PropertyEditor
     schema={schema.items}
     data={data}
-    title={`${schema.title || title}[${last(path)}]`}
-    description={schema.description}
+    title={`${schema.items.title || schema.title || title}[${last(path)}]`}
+    description={schema.items.description || schema.description}
     path={path}
     canRemove={canRemove} />
 )

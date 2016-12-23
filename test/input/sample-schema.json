@@ -16,6 +16,8 @@
       "description": "An array of different items.",
       "type": "array",
       "items": {
+        "title": "Item",
+        "description": "An array item.",
         "anyOf": [{
           "title": "Obj",
           "description": "A nested object.",
