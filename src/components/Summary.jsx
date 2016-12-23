@@ -3,11 +3,11 @@ import React from 'react'
 import withCaption from './hoc/with-caption'
 import {label} from './styles'
 
-const description = {
+const summary = {
   ...label,
   color: 'grey'
 }
 
-const Summary = ({schema, data, title, path}) => <div style={description}>{schema.description}</div>
+const Summary = ({schema, data, title, description, path}) => <div style={summary}>{description}</div>
 
 export default withCaption({field: false})(Summary)

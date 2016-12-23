@@ -13,7 +13,17 @@ const AdditionalPropertiesEditor = ({schema, data, path}) => {
     <div>
       {Object.keys(data).filter(key => key !== INTERNAL_ID).map(key => {
         const childPath = child(path, key)
-        return <PropertyEditor key={data[key].__id || childPath} schema={schema} data={data[key]} title={key} path={childPath} canEditKey={true} canRemove={true} />
+        return (
+          <PropertyEditor
+            key={data[key].__id || childPath}
+            schema={schema}
+            data={data[key]}
+            title={key}
+            description={schema.description}
+            path={childPath}
+            canEditKey={true}
+            canRemove={true} />
+        )
       })}
     </div>
   )

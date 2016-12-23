@@ -25,11 +25,12 @@ const DragHandle = SortableHandle(() => (
   </svg>
 ))
 
-const ListItem = ({schema, data, title, path, canRemove}) => (
+const ListItem = ({schema, data, title, description, path, canRemove}) => (
   <PropertyEditor
     schema={schema.items}
     data={data}
     title={`${schema.title || title}[${last(path)}]`}
+    description={schema.description}
     path={path}
     canRemove={canRemove} />
 )
@@ -62,7 +63,7 @@ const List = ({schema, data, path, canRemove}) => (
 
 const SortableList = SortableContainer(List)
 
-const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
+const ArrayEditor = ({schema, data, title, description, path, required, expanded, toggleExpanded, canEditKey, setValue, canRemove}) => {
   const canAddItems = schema.additionalItems !== false && (schema.maxItems == null || data.length < schema.maxItems)
   const canRemoveItems = schema.additionalItems !== false && (schema.minItems == null || data.length > schema.minItems)
 
@@ -72,6 +73,7 @@ const ArrayEditor = ({schema, data, title, path, required, expanded, toggleExpan
         schema={schema}
         data={data}
         title={title}
+        description={description}
         path={path}
         required={required}
         expanded={expanded}

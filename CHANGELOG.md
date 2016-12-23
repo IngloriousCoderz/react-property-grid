@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.5.0
+
+- Tooltips on property titles
+
 ## 0.4.3
 
 - Prevent outer text-align to impact on grid

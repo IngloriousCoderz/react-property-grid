@@ -2,55 +2,68 @@
   "$schema": "http://json-schema.org/schema#",
   "properties": {
     "mandatory": {
-      "type": "string",
-      "title": "mandatory",
-      "description": "A required field."
+      "title": "Mandatory",
+      "description": "A required field.",
+      "type": "string"
     },
     "enum": {
-      "type": "string",
-      "title": "enum",
+      "title": "Enum",
       "description": "A choice between multiple values.",
       "enum": ["choice1", "choice2", "choice3"]
     },
     "anyOf": {
-      "type": "object",
-      "title": "anyOf",
+      "title": "AnyOf",
       "description": "A choice between multiple complex types.",
+      "type": "object",
       "anyOf": [{
-        "type": "object",
         "title": "Type1",
+        "description": "Object of type 1.",
+        "type": "object",
         "properties": {
           "type": {
-            "type": "string",
+            "title": "Type",
+            "description": "Object type.",
             "enum": ["Type1"]
           }
         }
       }, {
-        "type": "object",
         "title": "Type2",
+        "description": "Object of type 2.",
+        "type": "object",
         "properties": {
           "type": {
-            "type": "string",
+            "title": "Type",
+            "description": "Object type.",
             "enum": ["Type2"]
           }
         }
       }]
     },
     "allOf": {
-      "type": "object",
-      "title": "allOf",
+      "title": "AllOf",
       "description": "A merge of two or more complex types.",
+      "type": "object",
       "allOf": [{
-        "type": "object",
         "title": "Type1",
+        "description": "Object of type 1.",
+        "type": "object",
         "properties": {
-          "key1": { "type": "string" }
+          "key1": {
+            "title": "Key1",
+            "description": "Key for type 1.",
+            "type": "string"
+          }
         }
       }, {
-        "type": "object",
         "title": "Type2",
+        "description": "Object of type 2.",
+        "type": "object",
         "properties": {
-          "key2": { "type": "string" }
+          "key2": {
+            "title": "Key2",
+            "description": "Key for type 2.",
+            "type": "string"
+          }
         }
       }]
     }

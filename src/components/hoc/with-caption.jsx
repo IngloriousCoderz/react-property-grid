@@ -38,7 +38,7 @@ const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Com
 
 const withCaption = ({field}) => Enhanced => {
   const Row = ({
-    schema, data, title, path, required,
+    schema, data, title, description, path, required,
     expanded, toggleExpanded,
     canEditKey, setKey,
     canAdd, addItem,
@@ -51,7 +51,7 @@ const withCaption = ({field}) => Enhanced => {
 
     return (
       <div style={field ? row : headerRow}>
-        <div style={caption}>
+        <div style={caption} title={description}>
           {expanded != null
             ? <div style={expander}>
                 <span dangerouslySetInnerHTML={getExpandHTML(expanded)} onClick={toggleExpanded} />
@@ -74,7 +74,7 @@ const withCaption = ({field}) => Enhanced => {
               </div>
             : null}
           <div style={ellipsis}>
-            <Enhanced schema={schema} data={data} title={title} path={path} />
+            <Enhanced schema={schema} data={data} title={title} description={description} path={path} />
           </div>
         </div>
       </div>

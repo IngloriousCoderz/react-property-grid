@@ -7,7 +7,16 @@ const PropertiesEditor = ({schema = {}, data, path, requireds}) => (
   <div>
     {Object.keys(schema).map(key => {
       const childPath = child(path, key)
-      return <PropertyEditor key={key} schema={schema[key]} data={data[key]} title={schema[key].title || key} path={childPath} requireds={requireds} />
+      return (
+        <PropertyEditor
+          key={key}
+          schema={schema[key]}
+          data={data[key]}
+          title={schema[key].title || key}
+          description={schema[key].description}
+          path={childPath}
+          requireds={requireds} />
+      )
     })}
   </div>
 )

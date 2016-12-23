@@ -21,13 +21,13 @@ const registeredEditors = {
   enum: EnumEditor
 }
 
-const PropertyEditor = ({schema, data, title, path, requireds, expanded, canEditKey, canRemove}) => {
+const PropertyEditor = ({schema, data, title, description, path, requireds, expanded, canEditKey, canRemove}) => {
   if (schema['!editor-visible'] === false) {
     return null
   }
 
   if (data === INTERNAL_ANY_OF) {
-    return <AnyOfEditor schema={schema} title={title} path={path} />
+    return <AnyOfEditor schema={schema} title={title} description={description} path={path} />
   }
 
   if (schema.anyOf != null) {
@@ -47,6 +47,7 @@ const PropertyEditor = ({schema, data, title, path, requireds, expanded, canEdit
       schema={schema}
       data={data}
       title={title}
+      description={description}
       path={path}
       required={required}
       canEditKey={canEditKey}

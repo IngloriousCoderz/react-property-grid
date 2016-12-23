@@ -2,45 +2,50 @@
   "$schema": "http://json-schema.org/schema#",
   "properties": {
     "obj": {
-      "type": "object",
-      "title": "obj",
+      "title": "Obj",
       "description": "An object with optional props.",
+      "type": "object",
       "additionalProperties": {
-        "title": "key",
+        "title": "Key",
+        "description": "An optional value.",
         "type": "string"
       }
     },
     "arr": {
-      "type": "array",
-      "title": "arr",
+      "title": "Arr",
       "description": "An array of different items.",
+      "type": "array",
       "items": {
         "anyOf": [{
-          "type": "object",
-          "title": "obj",
+          "title": "Obj",
           "description": "A nested object.",
+          "type": "object",
           "properties": {
             "item1": {
+              "title": "Item1",
+              "description": "A required property.",
               "type": "string"
             }
           },
           "required": ["item1"]
         }, {
-          "type": "number",
-          "title": "num",
-          "description": "A numeric value."
+          "title": "Num",
+          "description": "A numeric value.",
+          "type": "number"
         }]
       },
       "maxItems": 3
     }
   },
   "additionalProperties": {
+    "title": "Optional",
+    "description": "An additional property.",
     "type": "object",
-    "title": "optional",
     "properties": {
       "primitive": {
-        "type": "number",
-        "title": "primitive"
+        "title": "Primitive",
+        "description": "A primitive value.",
+        "type": "number"
       }
     }
   }
