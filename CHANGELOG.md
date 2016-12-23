@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.4.2
+
+- Fix CSS not being included in production bundle
+
 ## 0.4.1
 
 - Scope all global styles into specific classes
