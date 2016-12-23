@@ -1,6 +1,7 @@
 .react-property-grid, .react-property-grid-dragging-item {
   font-family: sans-serif;
   font-size: 12px;
+  text-align: left;
   margin: 0;
   padding: 0;
 }

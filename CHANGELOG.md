@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.4.3
+
+- Prevent outer text-align to impact on grid
+
 ## 0.4.2
 
 - Fix CSS not being included in production bundle
