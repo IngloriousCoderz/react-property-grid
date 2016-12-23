@@ -1,8 +1,8 @@
 # react-property-grid
 
-A react/redux implementation of hierarchical, editable property grid, backed by JSON Schema.
+React/redux implementation of a hierarchical, editable property grid, backed by JSON Schema.
 
-Heavily inspired by [Treema](http://codecombat.github.io/treema/), this React component takes a [JSON Schema](https://spacetelescope.github.io/understanding-json-schema/) and optional default JSON data to provide a powerful and performant hierarchical grid dynamically.
+Heavily inspired by [Treema](http://codecombat.github.io/treema/), this React component takes a [JSON Schema](https://spacetelescope.github.io/understanding-json-schema/) and optional default JSON data to dynamically build a powerful and performant hierarchical grid with editable values.
 
 This project is a WIP: some important features are not there yet, but hopefully they will soon!
 
@@ -19,22 +19,13 @@ npm install --save react-property-grid
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropertyGrid from 'react-property-grid'
 
 ReactDOM.render(
   <PropertyGrid schema={schema} />,
   document.getElementById('property-grid')
 )
 ```
-
-For best results, it is better to add a
-
-```css
-* {
-  box-sizing: border-box;
-}
-```
-
-to your stylesheet.
 
 ### Options
 
