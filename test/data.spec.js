@@ -6,6 +6,7 @@ import {
   splitProperties,
   importData,
   cleanup,
+  get,
   setKey,
   setValue,
   addItem,
@@ -102,6 +103,31 @@ describe('data', () => {
           primitive: 42
         }
       })).toEqual(data)
+    })
+  })
+
+  describe('get', () => {
+    it('should retrieve the root when path is $', () => {
+      expect(get(data, '$')).toEqual({
+        obj: {
+          key1: 'value1'
+        },
+        arr: [
+          {
+            item1: 'value1'
+          },
+          42
+        ],
+        optional: {
+          primitive: 42
+        }
+      })
+    })
+
+    it('should retrieve the property given its path', () => {
+      expect(get(data, '$.obj')).toEqual({
+        key1: 'value1'
+      })
     })
   })
 

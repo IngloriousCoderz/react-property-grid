@@ -73,7 +73,7 @@ export const importData = data => {
 }
 
 export const cleanup = data => {
-  if (inferType(data) !== 'object') {
+  if (!['object', 'array'].includes(inferType(data))) {
     return data
   }
 
@@ -81,8 +81,24 @@ export const cleanup = data => {
 
   const _cleanup = data => {
     if (inferType(data) === 'object') {
-      delete data[INTERNAL_ID]
+      return Object.keys(data).reduce((cleanData, key) => {
+        if (key === INTERNAL_ID) {
+          return cleanData
+        }
+
+        if (data[key] === INTERNAL_ANY_OF) {
+          return cleanData
+        }
+
+        cleanData[key] = data[key]
+        return cleanData
+      }, {})
     }
+
+    if (inferType(data) === 'array') {
+      return data.filter(item => item !== INTERNAL_ANY_OF)
+    }
+
     return data
   }
 
@@ -90,6 +106,8 @@ export const cleanup = data => {
   jp.apply(newData, ALL, value => _cleanup(value))
   return newData
 }
+
+export const get = (data, path) => jp.value(data, path)
 
 export const setKey = (data, path, newKey) => {
   const newData = clone(data)

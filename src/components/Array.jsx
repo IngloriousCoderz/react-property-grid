@@ -48,7 +48,7 @@ const List = ({schema, data, path, canRemove}) => (
       const childPath = child(path, index)
       return (
         <SortableItem
-          key={item.__id || childPath}
+          key={(item && item.__id) || childPath}
           schema={schema}
           data={item}
           title={title}

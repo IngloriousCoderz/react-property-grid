@@ -25,11 +25,11 @@ export const merge = schemas => recursive(true, ...schemas)
 
 export const needsChoice = (schema) => {
   const type = getType(schema)
-  if (type === 'array') {
-    return schema.items.anyOf != null
-  }
   if (type === 'object') {
     return schema.additionalProperties && schema.additionalProperties.anyOf != null
+  }
+  if (type === 'array') {
+    return schema.items.anyOf != null
   }
   return false
 }
@@ -52,6 +52,10 @@ export const defaults = (schema, choice) => {
 
   if (schema.anyOf != null) {
     return choice != null ? defaults(schema.anyOf[choice]) : INTERNAL_ANY_OF
+  }
+
+  if (schema.enum != null) {
+    return schema.enum[0]
   }
 
   if (type === 'object') {

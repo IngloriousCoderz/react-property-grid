@@ -2,7 +2,13 @@ import deref from 'json-schema-deref-local'
 
 import * as types from '../constants/actionTypes'
 import {defaults, needsChoice} from '../utilities/schema'
-import {importData, setKey, setValue, addItem, removeItem} from '../utilities/data'
+import {importData, get, setKey, setValue, addItem, removeItem} from '../utilities/data'
+
+export const getSchema = (state, path) => {
+
+}
+
+export const getData = (state, path) => get(state.data, path)
 
 const data = (state, action) => {
   const {type, payload} = action

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0
+
+- Use jsonpath-based selector for data retrieval
+- Allow null values
+
 ## 0.5.0
 
 - Tooltips on property titles

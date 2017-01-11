@@ -1,14 +1,18 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import {INTERNAL_ANY_OF} from '../utilities/data'
 import {match, merge, getType} from '../utilities/schema'
 import {last} from '../utilities/path'
+import {getData} from '../reducers'
+
 import AnyOfEditor from './AnyOf'
 import ObjectEditor from './Object'
 import ArrayEditor from './Array'
 import BooleanEditor from './fields/Boolean'
 import NumberEditor from './fields/Number'
 import EnumEditor from './fields/Enum'
+import NullEditor from './fields/Null'
 import StringEditor from './fields/String'
 import autoPopulating from './hoc/auto-populating'
 
@@ -26,8 +30,25 @@ const PropertyEditor = ({schema, data, title, description, path, requireds, expa
     return null
   }
 
+  if (data == null) {
+    return (
+      <NullEditor
+        schema={schema}
+        title={title}
+        description={description}
+        path={path}
+        canRemove={canRemove} />
+    )
+  }
+
   if (data === INTERNAL_ANY_OF) {
-    return <AnyOfEditor schema={schema} title={title} description={description} path={path} />
+    return (
+      <AnyOfEditor
+        schema={schema}
+        title={title}
+        description={description}
+        path={path} />
+    )
   }
 
   if (schema.anyOf != null) {
@@ -56,4 +77,8 @@ const PropertyEditor = ({schema, data, title, description, path, requireds, expa
   )
 }
 
-export default autoPopulating(PropertyEditor)
+export default connect(
+  (state, {path}) => ({
+    data: getData(state, path)
+  })
+)(autoPopulating(PropertyEditor))

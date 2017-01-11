@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {match} from '../utilities/schema'
 import PropertyEditor from './Property'
 import {cell, label} from './styles'
 
@@ -23,18 +22,11 @@ const header = {
   textAlign: 'center'
 }
 
-const RootEditor = ({rootSchema, data, title}) => {
-  let schema = rootSchema
-  if (schema.anyOf != null) {
-    schema = match(schema.anyOf, data)
-  }
+const RootEditor = ({rootSchema, data, title}) => (
+  <div className='react-property-grid' style={editor}>
+    {title != null ? <div style={header}>{title}</div> : null}
+    <PropertyEditor schema={rootSchema} path='$' expanded={true} />
+  </div>
+)
 
-  return (
-    <div className='react-property-grid' style={editor}>
-      {title != null ? <div style={header}>{title}</div> : null}
-      <PropertyEditor schema={schema} data={data} path='$' expanded={true} />
-    </div>
-  )
-}
-
-export default connect(({rootSchema, data}) => ({rootSchema, data}))(RootEditor)
+export default connect(({rootSchema}) => ({rootSchema}))(RootEditor)

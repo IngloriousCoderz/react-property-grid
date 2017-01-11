@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
+import {match} from '../../utilities/schema'
 import {setDefaults} from '../../actions'
 
 const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Component'
@@ -10,7 +11,7 @@ const autoPopulating = Enhanced => {
     componentWillMount() {
       const {schema, data, path, setDefaults} = this.props
 
-      if (data == null) {
+      if (data == null && (schema.anyOf == null || !match(schema.anyOf, data))) {
         setDefaults(path, schema)
       }
     }
