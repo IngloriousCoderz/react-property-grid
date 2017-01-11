@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
-import NAMESPACE from '../../constants/namespace'
 import {setDefaults} from '../../actions'
 
 const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Component'
@@ -23,7 +22,7 @@ const autoPopulating = Enhanced => {
 
   AutoPopulating.displayName = `AutoPopulating(${getDisplayName(Enhanced)})`
 
-  return connect(null, {setDefaults})(AutoPopulating, NAMESPACE)
+  return connect(null, {setDefaults})(AutoPopulating)
 }
 
 export default autoPopulating

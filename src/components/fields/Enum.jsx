@@ -1,7 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
-import NAMESPACE from '../../constants/namespace'
 import withCaption from '../hoc/with-caption'
 import {setValue} from '../../actions'
 import {input, label} from '../styles'
@@ -16,4 +15,4 @@ const EnumEditor = ({schema, data, path, setValue}) => (
       </div>
 )
 
-export default withCaption({field: true})(connect(null, {setValue})(EnumEditor, NAMESPACE))
+export default withCaption({field: true})(connect(null, {setValue})(EnumEditor))

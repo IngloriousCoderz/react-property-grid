@@ -8,6 +8,10 @@
 
 - Title and description on array items
 
+### 0.5.2
+
+- Remove `react-redux-custom-store` as a dependency
+
 ## 0.4.0
 
 - Apply flexbox and provide dragging item styling

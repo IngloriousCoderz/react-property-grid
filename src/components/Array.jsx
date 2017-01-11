@@ -1,8 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc'
 
-import NAMESPACE from '../constants/namespace'
 import {child, last} from '../utilities/path'
 import Summary from './Summary'
 import PropertyEditor from './Property'
@@ -97,4 +96,4 @@ const ArrayEditor = ({schema, data, title, description, path, required, expanded
   )
 }
 
-export default connect(null, {setValue})(Expandable(ArrayEditor), NAMESPACE)
+export default connect(null, {setValue})(Expandable(ArrayEditor))

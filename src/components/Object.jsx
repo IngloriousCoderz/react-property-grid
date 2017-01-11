@@ -1,8 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
 import {splitProperties} from '../utilities/data'
-import NAMESPACE from '../constants/namespace'
 import {addItem, removeItem} from '../actions'
 import Summary from './Summary'
 import PropertiesEditor from './Properties'
@@ -47,4 +46,4 @@ const ObjectEditor = ({schema, data, title, description, path, required, expande
   )
 }
 
-export default connect(null, {addItem, removeItem})(expandable(ObjectEditor), NAMESPACE)
+export default connect(null, {addItem, removeItem})(expandable(ObjectEditor))

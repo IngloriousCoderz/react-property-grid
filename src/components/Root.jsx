@@ -1,8 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
 import {match} from '../utilities/schema'
-import NAMESPACE from '../constants/namespace'
 import PropertyEditor from './Property'
 import {cell, label} from './styles'
 
@@ -38,4 +37,4 @@ const RootEditor = ({rootSchema, data, title}) => {
   )
 }
 
-export default connect(({rootSchema, data}) => ({rootSchema, data}))(RootEditor, NAMESPACE)
+export default connect(({rootSchema, data}) => ({rootSchema, data}))(RootEditor)

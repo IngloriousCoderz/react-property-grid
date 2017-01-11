@@ -1,7 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
-import NAMESPACE from '../../constants/namespace'
 import withCaption from '../hoc/with-caption'
 import TextEditor from './Text'
 import {setValue} from '../../actions'
@@ -10,4 +9,4 @@ const StringEditor = ({schema, data, path, setValue}) => (
   <TextEditor schema={schema} data={data} path={path} setValue={setValue} />
 )
 
-export default withCaption({field: true})(connect(null, {setValue})(StringEditor, NAMESPACE))
+export default withCaption({field: true})(connect(null, {setValue})(StringEditor))

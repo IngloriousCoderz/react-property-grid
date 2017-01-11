@@ -1,7 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
-import NAMESPACE from '../../constants/namespace'
 import {level} from '../../utilities/path'
 import TextEditor from './../fields/Text'
 import {setKey, addItem, removeItem} from '../../actions'
@@ -83,7 +82,7 @@ const withCaption = ({field}) => Enhanced => {
 
   Row.displayName = `Row(${getDisplayName(Enhanced)})`
 
-  return connect(null, {setKey, addItem, removeItem})(Row, NAMESPACE)
+  return connect(null, {setKey, addItem, removeItem})(Row)
 }
 
 export default withCaption

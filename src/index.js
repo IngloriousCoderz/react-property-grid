@@ -1,15 +1,12 @@
 import React, {Component} from 'react'
 import {createStore} from 'redux'
-import {createProvider} from 'react-redux-custom-store'
+import {Provider} from 'react-redux'
 
-import NAMESPACE from './constants/namespace'
 import Root from './components/Root'
 import rootReducer from './reducers'
 import {init, sync} from './actions'
 import {cleanup} from './utilities/data'
 import './index.css'
-
-const Provider = createProvider(NAMESPACE)
 
 class PropertyGrid extends Component {
   constructor(props) {

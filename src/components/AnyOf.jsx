@@ -1,7 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux-custom-store'
+import {connect} from 'react-redux'
 
-import NAMESPACE from '../constants/namespace'
 import withCaption from './hoc/with-caption'
 import {setDefaults} from '../actions'
 import {input} from './styles'
@@ -13,4 +12,4 @@ const AnyOfEditor = ({schema, title, path, setDefaults}) => (
   </select>
 )
 
-export default withCaption({field: true})(connect(null, {setDefaults})(AnyOfEditor, NAMESPACE))
+export default withCaption({field: true})(connect(null, {setDefaults})(AnyOfEditor))
