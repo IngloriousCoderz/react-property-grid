@@ -5,8 +5,6 @@ export const row = {
   justifyContent: 'space-around',
   alignItems: 'flex-start',
   alignContent: 'stretch'
-
-  // display: 'table-row'
 }
 
 export const ellipsis = {
@@ -21,8 +19,6 @@ export const cell = {
   // display: 'inline-block',
   // verticalAlign: 'top',
   // textAlign: 'left',
-
-  // display: 'table-cell',
 
   width: '50%',
   height: 21,
@@ -45,7 +41,8 @@ export const button = {
   display: 'inline-block',
   width: 14,
   borderLeft: '1px solid lightgrey',
-  textAlign: 'center'
+  textAlign: 'center',
+  cursor: 'pointer'
 }
 
 export const input = {

@@ -192,7 +192,7 @@ describe('data', () => {
         optional: {
           primitive: 42
         },
-        optional2: {
+        Optional2: {
           primitive: 0
         }
       })
