@@ -233,8 +233,7 @@ describe('data', () => {
           {
             item1: 'value1'
           },
-          42,
-          INTERNAL_ANY_OF
+          42
         ],
         optional: {
           primitive: 42
