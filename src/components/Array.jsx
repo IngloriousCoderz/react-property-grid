@@ -5,7 +5,7 @@ import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'rea
 import {child, last} from '../utilities/path'
 import Summary from './Summary'
 import PropertyEditor from './Property'
-import Expandable from './hoc/expandable'
+import expandable from './hoc/expandable'
 import {setValue} from '../actions'
 
 const drag = {
@@ -96,4 +96,4 @@ const ArrayEditor = ({schema, data, title, description, path, required, expanded
   )
 }
 
-export default connect(null, {setValue})(Expandable(ArrayEditor))
+export default connect(null, {setValue})(expandable(ArrayEditor))

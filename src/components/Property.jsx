@@ -26,7 +26,7 @@ const registeredEditors = {
 }
 
 const PropertyEditor = ({schema, data, title, description, path, requireds, expanded, canEditKey, canRemove}) => {
-  if (schema['!editor-visible'] === false) {
+  if (schema['x-editor-visible'] === false) {
     return null
   }
 
@@ -54,6 +54,8 @@ const PropertyEditor = ({schema, data, title, description, path, requireds, expa
   if (schema.anyOf != null) {
     schema = match(schema.anyOf, data)
   }
+
+  // TODO: handle non-matching data gracefully
 
   if (schema.allOf != null) {
     schema = merge(schema.allOf)

@@ -4,15 +4,11 @@ const getDisplayName = Enhanced => Enhanced.displayName || Enhanced.name || 'Com
 
 const expandable = Enhanced => {
   class Expandable extends Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        expanded: props.expanded || false
-      }
-      this.toggleExpanded = this.toggleExpanded.bind(this)
+    state = {
+      expanded: this.props.expanded || false
     }
 
-    toggleExpanded() {
+    toggleExpanded = () => {
       this.setState({expanded: !this.state.expanded})
     }
 

@@ -10,30 +10,32 @@ export const INTERNAL_ANY_OF = '__any_of'
 const clone = json => JSON.parse(JSON.stringify(json))
 
 /* http://arcturo.github.io/library/coffeescript/07_the_bad_parts.html */
-const classToType = {}
-'Boolean Number String Function Array Date RegExp Undefined Null'.split(' ').forEach(name => {
-  classToType[`[object ${name}]`] = name.toLowerCase()
-})
+const classToType = 'Boolean Number String Function Array Date RegExp Undefined Null'.split(' ').reduce((types, name) => {
+  types[`[object ${name}]`] = name.toLowerCase()
+  return types
+}, {})
 
 export const inferType = data => {
   const strType = Object.prototype.toString.call(data)
   return classToType[strType] || 'object'
 }
 
+const typeToDefault = {
+  boolean: false,
+  integer: 0,
+  number: 0,
+  string: '',
+  function: function() {},
+  object: {},
+  array: [],
+  date: new Date(),
+  regexp: /.*/,
+  undefined: undefined,
+  null: null
+}
+
 export const getDefaultForType = type => {
-  return {
-    boolean: false,
-    integer: 0,
-    number: 0,
-    string: '',
-    function: function() {},
-    object: {},
-    array: [],
-    date: new Date(),
-    regexp: /.*/,
-    undefined: undefined,
-    null: null
-  }[type]
+  return typeToDefault[type]
 }
 
 export const splitProperties = (data, schema) => {

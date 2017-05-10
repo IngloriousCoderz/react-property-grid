@@ -18,7 +18,7 @@ export const getType = schema => {
 
 export const match = (schemas, data) => {
   const cleanData = cleanup(data)
-  return schemas.filter(schema => tv4.validate(cleanData, schema))[0]
+  return schemas.find(schema => tv4.validate(cleanData, schema))
 }
 
 export const merge = schemas => recursive(true, ...schemas)
@@ -85,9 +85,7 @@ export const defaults = (schema, choice) => {
 
     // tuple-typed arrays
     if (Array.isArray(schema.items)) {
-      const values = schema.items.map(function(item) {
-        return defaults(item)
-      })
+      const values = schema.items.map(defaults)
 
       // remove undefined items at the end (unless required by minItems)
       for (let i = values.length - 1; i >= 0; i--) {

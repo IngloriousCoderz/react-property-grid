@@ -22,7 +22,7 @@ const header = {
   textAlign: 'center'
 }
 
-const RootEditor = ({rootSchema, data, title}) => (
+const RootEditor = ({title, rootSchema}) => (
   <div className='react-property-grid' style={editor}>
     {title != null ? <div style={header}>{title}</div> : null}
     <PropertyEditor schema={rootSchema} path='$' expanded={true} />

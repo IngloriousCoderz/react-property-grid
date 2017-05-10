@@ -8,6 +8,10 @@ coverage
 
 # production
 
+# temp
+layout-schema.json
+layout-data.json
+
 # misc
 .DS_Store
 npm-debug.log
