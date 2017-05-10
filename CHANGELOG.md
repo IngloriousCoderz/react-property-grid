@@ -5,6 +5,11 @@
 - Use jsonpath-based selector for data retrieval
 - Allow null values
 
+### 0.6.1
+
+- Update dependencies
+- Fix event bubbling on nested sortable items
+
 ## 0.5.0
 
 - Tooltips on property titles
