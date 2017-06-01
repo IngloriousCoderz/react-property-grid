@@ -10,6 +10,10 @@
 - Update dependencies
 - Fix event bubbling on nested sortable items
 
+### 0.6.2
+
+- Update dependencies that trigger deprecation warnings
+
 ## 0.5.0
 
 - Tooltips on property titles
